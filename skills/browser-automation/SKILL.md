@@ -1,4 +1,11 @@
-# Skill: OpenClaw 浏览器自动化
+---
+name: browser-automation
+description: "OpenClaw 浏览器自动化操作。使用场景：(1) 自动抓取网页内容，(2) 截图保存页面，(3) 模拟点击和输入操作，(4) 自动化网页测试。支持 openclaw 独立浏览器和 Chrome 扩展两种模式。"
+---
+
+# OpenClaw 浏览器自动化
+
+使用 OpenClaw 浏览器工具实现网页自动化操作。
 
 ## 前置条件
 

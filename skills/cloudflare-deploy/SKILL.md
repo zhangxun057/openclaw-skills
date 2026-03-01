@@ -1,18 +1,19 @@
-# Cloudflare Pages 自动部署技能文档
-
-> 将 GitHub 仓库自动部署到 Cloudflare Pages 的完整配置指南
-
+---
+name: cloudflare-deploy
+description: "Cloudflare Pages 自动部署配置。使用场景：(1) 将 GitHub 前端项目自动部署到 Cloudflare Pages，(2) 配置 CI/CD 自动发布流程，(3) 设置 API Token 和 GitHub Actions。支持 React/Vue/Next.js 等主流框架。"
 ---
 
-## 一、前置条件
+# Cloudflare Pages 自动部署
+
+将 GitHub 仓库自动部署到 Cloudflare Pages 的完整配置指南。
+
+## 前置条件
 
 - GitHub 账号
 - Cloudflare 账号
 - 已推送到 GitHub 的前端项目
 
----
-
-## 二、创建 Cloudflare API Token
+## 创建 Cloudflare API Token
 
 ### 步骤
 
@@ -37,11 +38,7 @@
 
 **创建后立即复制 Token，只显示一次！**
 
-格式：`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
-
----
-
-## 三、获取 Cloudflare 配置信息
+## 获取 Cloudflare 配置信息
 
 ### Account ID
 
@@ -53,11 +50,9 @@
 
 1. 进入 **Pages** 页面
 2. 创建或选择已有项目
-3. 项目名称为创建时填写的 `Project name`（如：`my-app`）
+3. 项目名称为创建时填写的 `Project name`
 
----
-
-## 四、在 GitHub 配置 Secrets
+## 在 GitHub 配置 Secrets
 
 进入你的 GitHub 仓库：
 
@@ -72,9 +67,7 @@ Settings → Secrets and variables → Actions → New repository secret
 | `CLOUDFLARE_API_TOKEN` | 刚才创建的 API Token |
 | `CLOUDFLARE_ACCOUNT_ID` | 你的 Account ID |
 
----
-
-## 五、创建 GitHub Actions 工作流
+## 创建 GitHub Actions 工作流
 
 ### 1. 创建工作流文件
 
@@ -91,8 +84,6 @@ name: Deploy to Cloudflare Pages
 on:
   push:
     branches: [main, master]
-  pull_request:
-    branches: [main, master]
 
 jobs:
   deploy:
@@ -105,14 +96,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 如果不需要构建步骤，直接部署
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: your-project-name
-          directory: ./dist  # 或 ./build, ./public
+          directory: ./dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -136,22 +126,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 设置 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 安装依赖
       - name: Install dependencies
         run: npm ci
 
-      # 构建项目
       - name: Build
         run: npm run build
 
-      # 部署
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
@@ -174,9 +160,7 @@ jobs:
 | Hugo | `./public` |
 | 纯 HTML | `./` 或 `./public` |
 
----
-
-## 六、直接连接（无需 GitHub Actions）
+## 直接连接（无需 GitHub Actions）
 
 如果不需要自定义构建流程，可直接在 Cloudflare 连接 GitHub：
 
@@ -184,34 +168,23 @@ jobs:
 2. 选择 **Connect to Git**
 3. 授权 Cloudflare 访问你的 GitHub 账号
 4. 选择仓库
-5. 配置构建设置：
-   - **Framework preset**: 选择对应框架
-   - **Build command**: `npm run build`
-   - **Build output directory**: `./dist`
+5. 配置构建设置
 
 **优点**：更简单，自动监听 push
 **缺点**：无法自定义复杂流程
 
----
-
-## 七、完整配置清单
+## 完整配置清单
 
 部署前确认以下信息：
 
-```markdown
 - [ ] Cloudflare API Token 已创建
 - [ ] Account ID 已记录
 - [ ] Project Name 已确认
-- [ ] GitHub Secrets 已配置：
-  - [ ] CLOUDFLARE_API_TOKEN
-  - [ ] CLOUDFLARE_ACCOUNT_ID
-- [ ] 工作流文件已提交到 .github/workflows/
+- [ ] GitHub Secrets 已配置
+- [ ] 工作流文件已提交到 `.github/workflows/`
 - [ ] directory 路径与构建输出一致
-```
 
----
-
-## 八、常见问题
+## 常见问题
 
 ### 1. 部署失败 "Failed to publish"
 
@@ -240,9 +213,7 @@ jobs:
 
 在 Cloudflare Pages 项目设置 → **Custom domains** 中配置
 
----
-
-## 九、使用 Wrangler CLI（可选）
+## 使用 Wrangler CLI（可选）
 
 本地测试部署：
 
@@ -261,9 +232,4 @@ wrangler pages deploy ./dist --project-name=your-project
 ```
 
 ---
-
-## 参考链接
-
-- [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
-- [cloudflare/pages-action](https://github.com/cloudflare/pages-action)
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/)
+_Updated: 2026-02-28_

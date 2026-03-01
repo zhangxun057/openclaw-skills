@@ -1,4 +1,11 @@
-# Skill: OpenClaw Gateway 重启
+---
+name: gateway-restart
+description: "OpenClaw Gateway 服务重启。使用场景：(1) 修改 openclaw.json 配置后需要生效，(2) Gateway 无响应或浏览器服务报错，(3) 工具提示 Can't reach the OpenClaw gateway control service。使用方式：执行 openclaw gateway restart 命令重启服务。"
+---
+
+# OpenClaw Gateway 重启
+
+重启 OpenClaw Gateway 服务以应用配置变更或恢复服务。
 
 ## 何时使用
 
