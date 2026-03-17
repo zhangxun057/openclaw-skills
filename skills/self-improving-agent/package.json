@@ -1,0 +1,24 @@
+{
+  "name": "self-improving-agent",
+  "version": "1.0.0",
+  "description": "Captures learnings, errors, and corrections to enable continuous improvement",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test tests/unit/**/*.test.js",
+    "test:services": "node --test tests/unit/services/*.test.js",
+    "test:utils": "node --test tests/unit/utils/*.test.js",
+    "test:integration": "node --test tests/integration/*.test.js"
+  },
+  "keywords": [
+    "self-improvement",
+    "learning",
+    "error-tracking",
+    "skill-extraction",
+    "openclaw"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

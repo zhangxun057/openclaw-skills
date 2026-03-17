@@ -1,0 +1,9 @@
+{
+  "name": "feishu-common",
+  "version": "1.0.0",
+  "description": "Feishu common utilities for authentication and API calls",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

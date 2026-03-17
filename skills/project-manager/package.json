@@ -1,0 +1,14 @@
+{
+  "name": "project-manager",
+  "version": "1.0.0",
+  "description": "规范化项目开发流程的 OpenClaw Skill",
+  "main": "scripts/init-project.js",
+  "scripts": {
+    "init": "node scripts/init-project.js",
+    "iteration": "node scripts/create-iteration.js",
+    "adr": "node scripts/create-adr.js"
+  },
+  "keywords": ["openclaw", "project-management", "spec-driven"],
+  "author": "张洵",
+  "license": "MIT"
+}
