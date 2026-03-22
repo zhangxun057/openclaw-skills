@@ -1,0 +1,488 @@
+{
+  "feishu-auto-reply": {
+    "name": "feishu-auto-reply",
+    "icon": "📋",
+    "source": "原创",
+    "category": "飞书生态",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "feishu-bitable": {
+    "name": "feishu-bitable",
+    "icon": "📊",
+    "source": "飞书官方",
+    "category": "飞书生态",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "飞书"
+  },
+  "feishu-bitable-upload": {
+    "name": "feishu-bitable-upload",
+    "icon": "📤",
+    "source": "原创",
+    "category": "飞书生态",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "feishu-calendar": {
+    "name": "feishu-calendar",
+    "icon": "📅",
+    "source": "飞书官方",
+    "category": "飞书生态",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "飞书"
+  },
+  "feishu-card": {
+    "name": "feishu-card",
+    "icon": "🎴",
+    "source": "clawhub",
+    "category": "飞书生态",
+    "rating": 4,
+    "version": "1.4.11",
+    "author": "社区"
+  },
+  "feishu-common": {
+    "name": "feishu-common",
+    "icon": "🔧",
+    "source": "社区",
+    "category": "飞书生态",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "feishu-create-doc": {
+    "name": "feishu-create-doc",
+    "icon": "📝",
+    "source": "飞书官方",
+    "category": "飞书生态",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "飞书"
+  },
+  "feishu-im-read": {
+    "name": "feishu-im-read",
+    "icon": "💬",
+    "source": "飞书官方",
+    "category": "飞书生态",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "飞书"
+  },
+  "feishu-interactive-card": {
+    "name": "feishu-interactive-card",
+    "icon": "🎯",
+    "source": "社区",
+    "category": "飞书生态",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "feishu-task": {
+    "name": "feishu-task",
+    "icon": "✅",
+    "source": "飞书官方",
+    "category": "飞书生态",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "飞书"
+  },
+  "wechat-analyzer": {
+    "name": "wechat-analyzer",
+    "icon": "📊",
+    "source": "原创",
+    "category": "微信生态",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "weflow": {
+    "name": "weflow",
+    "icon": "💬",
+    "source": "原创",
+    "category": "微信生态",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "wechat-send-message": {
+    "name": "wechat-send-message",
+    "icon": "📤",
+    "source": "原创",
+    "category": "微信生态",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "wechat-mp-cn": {
+    "name": "wechat-mp-cn",
+    "icon": "🛰️",
+    "source": "社区",
+    "category": "微信生态",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "baoyu-post-to-wechat": {
+    "name": "baoyu-post-to-wechat",
+    "icon": "📢",
+    "source": "社区",
+    "category": "微信生态",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "browser-automation": {
+    "name": "browser-automation",
+    "icon": "🌐",
+    "source": "官方",
+    "category": "项目开发",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "OpenClaw"
+  },
+  "cloudflare-deploy": {
+    "name": "cloudflare-deploy",
+    "icon": "☁️",
+    "source": "原创",
+    "category": "项目开发",
+    "rating": 5,
+    "version": "1.2.0",
+    "author": "张洵"
+  },
+  "skill-creator": {
+    "name": "skill-creator",
+    "icon": "🛠️",
+    "source": "官方",
+    "category": "技能管理",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "OpenClaw"
+  },
+  "gateway-restart": {
+    "name": "gateway-restart",
+    "icon": "🔄",
+    "source": "官方",
+    "category": "系统工具",
+    "rating": 4,
+    "version": "1.1.0",
+    "author": "OpenClaw"
+  },
+  "vercel-composition-patterns": {
+    "name": "vercel-composition-patterns",
+    "icon": "⚛️",
+    "source": "skills.sh",
+    "category": "项目开发",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "Vercel"
+  },
+  "vercel-react-best-practices": {
+    "name": "vercel-react-best-practices",
+    "icon": "⚛️",
+    "source": "skills.sh",
+    "category": "项目开发",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "Vercel"
+  },
+  "capability-evolver": {
+    "name": "capability-evolver",
+    "icon": "🧬",
+    "source": "原创",
+    "category": "龙虾进化",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "task-monitor": {
+    "name": "task-monitor",
+    "icon": "📈",
+    "source": "社区",
+    "category": "系统工具",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "cron-generator": {
+    "name": "cron-generator",
+    "icon": "⏰",
+    "source": "社区",
+    "category": "系统工具",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "self-improving-agent": {
+    "name": "self-improving-agent",
+    "icon": "🧠",
+    "source": "社区",
+    "category": "龙虾进化",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "todolist-manager": {
+    "name": "todolist-manager",
+    "icon": "✅",
+    "source": "原创",
+    "category": "目标管理",
+    "rating": 4,
+    "version": "1.1.0",
+    "author": "张洵"
+  },
+  "diary-assistant": {
+    "name": "diary-assistant",
+    "icon": "📔",
+    "source": "原创",
+    "category": "效率工具",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "brainstorming": {
+    "name": "brainstorming",
+    "icon": "💡",
+    "source": "虾评Skill",
+    "category": "效率工具",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "虾评"
+  },
+  "interview-tracker": {
+    "name": "interview-tracker",
+    "icon": "📞",
+    "source": "社区",
+    "category": "业务运营",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "skill-radar": {
+    "name": "skill-radar",
+    "icon": "📡",
+    "source": "原创",
+    "category": "技能管理",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "skill-auditor": {
+    "name": "skill-auditor",
+    "icon": "🔎",
+    "source": "原创",
+    "category": "技能管理",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "swap": {
+    "name": "swap",
+    "icon": "🔀",
+    "source": "原创",
+    "category": "技能管理",
+    "rating": 5,
+    "version": "2.1.0",
+    "author": "张洵"
+  },
+  "find-skills": {
+    "name": "find-skills",
+    "icon": "🔍",
+    "source": "clawhub",
+    "category": "技能管理",
+    "rating": 4,
+    "version": "0.1.0",
+    "author": "ClawHub"
+  },
+  "search-layer": {
+    "name": "search-layer",
+    "icon": "🔍",
+    "source": "社区",
+    "category": "系统工具",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "content-extract": {
+    "name": "content-extract",
+    "icon": "📥",
+    "source": "社区",
+    "category": "系统工具",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "ddg-web-search": {
+    "name": "ddg-web-search",
+    "icon": "🔍",
+    "source": "社区",
+    "category": "系统工具",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "edge-tts": {
+    "name": "edge-tts",
+    "icon": "🔊",
+    "source": "社区",
+    "category": "内容生成",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "pdf-generator": {
+    "name": "pdf-generator",
+    "icon": "📄",
+    "source": "社区",
+    "category": "内容生成",
+    "rating": 4,
+    "version": "1.0.1",
+    "author": "社区"
+  },
+  "mineru-extract": {
+    "name": "mineru-extract",
+    "icon": "📑",
+    "source": "社区",
+    "category": "内容生成",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "project-manager": {
+    "name": "project-manager",
+    "icon": "📁",
+    "source": "原创",
+    "category": "目标管理",
+    "rating": 2,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "web-design-guidelines": {
+    "name": "web-design-guidelines",
+    "icon": "🎨",
+    "source": "skills.sh",
+    "category": "项目开发",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "Vercel"
+  },
+  "infographic-designer": {
+    "name": "infographic-designer",
+    "icon": "📊",
+    "source": "虾评Skill",
+    "category": "内容生成",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "虾评"
+  },
+  "jimeng-digital-human": {
+    "name": "jimeng-digital-human",
+    "icon": "👤",
+    "source": "社区",
+    "category": "视频 & 数字人",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "agent-tools": {
+    "name": "agent-tools",
+    "icon": "🤖",
+    "source": "社区",
+    "category": "AI & 图像",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "ai-image-generation": {
+    "name": "ai-image-generation",
+    "icon": "🎨",
+    "source": "社区",
+    "category": "AI & 图像",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "flux-image": {
+    "name": "flux-image",
+    "icon": "✨",
+    "source": "社区",
+    "category": "AI & 图像",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "ai-product-photography": {
+    "name": "ai-product-photography",
+    "icon": "📸",
+    "source": "社区",
+    "category": "AI & 图像",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "ai-marketing-videos": {
+    "name": "ai-marketing-videos",
+    "icon": "🎬",
+    "source": "社区",
+    "category": "视频 & 数字人",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "ai-video-generation": {
+    "name": "ai-video-generation",
+    "icon": "🎥",
+    "source": "社区",
+    "category": "视频 & 数字人",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "remotion-render": {
+    "name": "remotion-render",
+    "icon": "🎞️",
+    "source": "社区",
+    "category": "视频 & 数字人",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "jimeng-4-image-generation": {
+    "name": "jimeng-4-image-generation",
+    "icon": "🖼️",
+    "source": "社区",
+    "category": "AI & 图像",
+    "rating": 3,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "seedream-image-generation": {
+    "name": "seedream-image-generation",
+    "icon": "🏞️",
+    "source": "原创",
+    "category": "AI & 图像",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵"
+  },
+  "vision-analyzer": {
+    "name": "vision-analyzer",
+    "icon": "👁️",
+    "source": "社区",
+    "category": "AI & 图像",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  },
+  "news-aggregator": {
+    "name": "news-aggregator",
+    "icon": "📰",
+    "source": "社区",
+    "category": "效率工具",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "社区"
+  }
+}
