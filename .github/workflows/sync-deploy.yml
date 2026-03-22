@@ -1,0 +1,18 @@
+name: Trigger Skills Hub Deployment
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'skilllist.json'
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger openclaw-skills-hub deployment
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          repository: zhangxun057/openclaw-skills-hub
+          event-type: skilllist-update
+          token: ${{ secrets.GITHUB_TOKEN }}
