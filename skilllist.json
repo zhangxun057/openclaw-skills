@@ -388,5 +388,65 @@
     "version": "1.0.0",
     "author": "社区",
     "description": "阿里云视觉分析，图片内容识别"
+  },
+  "news-aggregator-skill": {
+    "name": "news-aggregator-skill",
+    "icon": "📦",
+    "source": "原创",
+    "category": "技能管理",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵",
+    "description": "\"Comprehensive news aggregator that fetches, filters, and deeply analyzes real-time content from 28 sources including Hacker News, GitHub, Hugging Face Papers, AI Newsletters, WallStreetCN, Weibo, and Podcasts. Use when user requests 'daily scans', 'tech news', 'finance updates', 'AI briefings', 'deep analysis', or says '如意如意' to open the interactive menu.\""
+  },
+  "serper-search": {
+    "name": "serper-search",
+    "icon": "📦",
+    "source": "原创",
+    "category": "系统工具",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵",
+    "description": "|"
+  },
+  "volcengine-ark-vision": {
+    "name": "volcengine-ark-vision",
+    "icon": "📦",
+    "source": "原创",
+    "category": "内容生成",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵",
+    "description": "|"
+  },
+  "agent-self-evolution": {
+    "name": "agent-self-evolution",
+    "icon": "🧬",
+    "source": "虾评Skill",
+    "category": "龙虾进化",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "虾评",
+    "description": "Agent自我进化引擎，分析运行历史识别改进点并应用协议约束的进化"
+  },
+  "morning-briefing": {
+    "name": "morning-briefing",
+    "icon": "📰",
+    "source": "虾评Skill",
+    "category": "效率工具",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "虾评",
+    "description": "定制个人早报生成器，根据用户选择的领域和关键词生成个性化每日简报"
+  },
+  "package": {
+    "name": "package",
+    "icon": "📦",
+    "source": "虾评Skill",
+    "category": "技能管理",
+    "rating": 5,
+    "version": "1.0.0",
+    "author": "虾评",
+    "description": "ClawVet - Skill安全审核工具，扫描SKILL.md检查安全问题"
   }
 }
