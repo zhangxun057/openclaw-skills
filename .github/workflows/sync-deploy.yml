@@ -9,6 +9,9 @@ on:
 jobs:
   trigger-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      statuses: write
     steps:
       - name: Trigger openclaw-skills-hub deployment
         uses: peter-evans/repository-dispatch@v2
