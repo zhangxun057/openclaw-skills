@@ -538,5 +538,15 @@
     "version": "1.0.0",
     "author": "社区",
     "description": "聚合28个来源的实时新闻资讯"
+  },
+  "koubo-generator": {
+    "name": "koubo-generator",
+    "icon": "🎙️",
+    "source": "原创",
+    "category": "内容生成",
+    "rating": 4,
+    "version": "1.0.0",
+    "author": "张洵",
+    "description": "每日口播文案自动生成，为数字人生成短视频口播脚本"
   }
 }
