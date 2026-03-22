@@ -448,15 +448,5 @@
     "version": "1.0.0",
     "author": "虾评",
     "description": "ClawVet - Skill安全审核工具，扫描SKILL.md检查安全问题"
-  },
-  "test-skill": {
-    "name": "test-skill",
-    "icon": "🧪",
-    "source": "测试",
-    "category": "测试",
-    "rating": 5,
-    "version": "1.0.0",
-    "author": "测试",
-    "description": "测试自动触发"
   }
 }
