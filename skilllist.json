@@ -9,16 +9,6 @@
     "author": "张洵",
     "description": "自动识别飞书对话截图并代为回复"
   },
-  "feishu-bitable": {
-    "name": "feishu-bitable",
-    "icon": "📊",
-    "source": "飞书官方",
-    "category": "飞书生态",
-    "rating": 5,
-    "version": "1.0.0",
-    "author": "飞书",
-    "description": "飞书多维表格的创建、查询、编辑和管理"
-  },
   "feishu-bitable-upload": {
     "name": "feishu-bitable-upload",
     "icon": "📤",
@@ -28,16 +18,6 @@
     "version": "1.0.0",
     "author": "张洵",
     "description": "飞书多维表格附件上传功能"
-  },
-  "feishu-calendar": {
-    "name": "feishu-calendar",
-    "icon": "📅",
-    "source": "飞书官方",
-    "category": "飞书生态",
-    "rating": 5,
-    "version": "1.0.0",
-    "author": "飞书",
-    "description": "飞书日历与日程管理工具集"
   },
   "feishu-card": {
     "name": "feishu-card",
@@ -69,16 +49,6 @@
     "author": "飞书",
     "description": "从Markdown创建飞书云文档"
   },
-  "feishu-im-read": {
-    "name": "feishu-im-read",
-    "icon": "💬",
-    "source": "飞书官方",
-    "category": "飞书生态",
-    "rating": 5,
-    "version": "1.0.0",
-    "author": "飞书",
-    "description": "读取飞书聊天记录和话题消息"
-  },
   "feishu-interactive-card": {
     "name": "feishu-interactive-card",
     "icon": "🎯",
@@ -88,16 +58,6 @@
     "version": "1.0.0",
     "author": "社区",
     "description": "创建交互式飞书卡片，按钮表单都能有"
-  },
-  "feishu-task": {
-    "name": "feishu-task",
-    "icon": "✅",
-    "source": "飞书官方",
-    "category": "飞书生态",
-    "rating": 5,
-    "version": "1.0.0",
-    "author": "飞书",
-    "description": "飞书任务创建、查询、更新和清单管理"
   },
   "wechat-analyzer": {
     "name": "wechat-analyzer",
@@ -329,16 +289,6 @@
     "author": "ClawHub",
     "description": "发现和安装Agent技能"
   },
-  "search-layer": {
-    "name": "search-layer",
-    "icon": "🔍",
-    "source": "社区",
-    "category": "系统工具",
-    "rating": 5,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "多源搜索聚合与去重"
-  },
   "content-extract": {
     "name": "content-extract",
     "icon": "📥",
@@ -348,16 +298,6 @@
     "version": "1.0.0",
     "author": "社区",
     "description": "网页URL提取为Markdown格式"
-  },
-  "ddg-web-search": {
-    "name": "ddg-web-search",
-    "icon": "🔍",
-    "source": "社区",
-    "category": "系统工具",
-    "rating": 4,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "DuckDuckGo网页搜索，无需API Key"
   },
   "edge-tts": {
     "name": "edge-tts",
@@ -429,86 +369,6 @@
     "author": "社区",
     "description": "即梦数字人，图片+音频生成口播视频"
   },
-  "agent-tools": {
-    "name": "agent-tools",
-    "icon": "🤖",
-    "source": "社区",
-    "category": "AI & 图像",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "运行150+ AI应用的CLI工具"
-  },
-  "ai-image-generation": {
-    "name": "ai-image-generation",
-    "icon": "🎨",
-    "source": "社区",
-    "category": "AI & 图像",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "AI图像生成工具集成"
-  },
-  "flux-image": {
-    "name": "flux-image",
-    "icon": "✨",
-    "source": "社区",
-    "category": "AI & 图像",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "Flux图像生成模型"
-  },
-  "ai-product-photography": {
-    "name": "ai-product-photography",
-    "icon": "📸",
-    "source": "社区",
-    "category": "AI & 图像",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "AI产品摄影，一键生成模特图"
-  },
-  "ai-marketing-videos": {
-    "name": "ai-marketing-videos",
-    "icon": "🎬",
-    "source": "社区",
-    "category": "视频 & 数字人",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "AI营销视频生成"
-  },
-  "ai-video-generation": {
-    "name": "ai-video-generation",
-    "icon": "🎥",
-    "source": "社区",
-    "category": "视频 & 数字人",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "AI视频生成工具"
-  },
-  "remotion-render": {
-    "name": "remotion-render",
-    "icon": "🎞️",
-    "source": "社区",
-    "category": "视频 & 数字人",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "Remotion视频代码渲染"
-  },
-  "jimeng-4-image-generation": {
-    "name": "jimeng-4-image-generation",
-    "icon": "🖼️",
-    "source": "社区",
-    "category": "AI & 图像",
-    "rating": 3,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "即梦4.0图片生成"
-  },
   "seedream-image-generation": {
     "name": "seedream-image-generation",
     "icon": "🏞️",
@@ -528,25 +388,5 @@
     "version": "1.0.0",
     "author": "社区",
     "description": "阿里云视觉分析，图片内容识别"
-  },
-  "news-aggregator": {
-    "name": "news-aggregator",
-    "icon": "📰",
-    "source": "社区",
-    "category": "效率工具",
-    "rating": 4,
-    "version": "1.0.0",
-    "author": "社区",
-    "description": "聚合28个来源的实时新闻资讯"
-  },
-  "koubo-generator": {
-    "name": "koubo-generator",
-    "icon": "🎙️",
-    "source": "原创",
-    "category": "内容生成",
-    "rating": 4,
-    "version": "1.0.0",
-    "author": "张洵",
-    "description": "每日口播文案自动生成，为数字人生成短视频口播脚本"
   }
 }
