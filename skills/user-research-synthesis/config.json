@@ -1,0 +1,10 @@
+{
+  "id": "user-research-synthesis",
+  "name": "用户研究综合",
+  "version": "1.0.0",
+  "author": "Anthropic",
+  "description": "Synthesize qualitative and quantitative user research into structured insights and opportunity areas.",
+  "category": ["产品管理"],
+  "tags": ["用户研究", "定性分析", "用户画像", "机会识别"],
+  "entry": "SKILL.md"
+}

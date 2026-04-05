@@ -1,0 +1,168 @@
+---
+name: skill-polisher
+description: |
+  技能优化专家。当已有技能需要迭代优化时触发。
+  用于：(1) 诊断技能问题，(2) 提出修改方案（不超过 3 条），(3) 精确增删改查，(4) 测试验证。
+  不用于：从零创建新技能（用 skill-creator）、技能打包分发、技能故障排查。
+  触发场景：用户说"优化 xxx 技能"、"改进 xxx"、"xxx 技能有问题"、"迭代 xxx skill"。
+version: 1.0.0
+---
+
+# Skill Polisher - 技能优化专家
+
+## 核心原则（全局适用）
+
+| 原则 | 检查时机 | 说明 |
+|------|---------|------|
+| **奥卡姆剃刀** | Step 3/5 | 必要最小化，每次修改≤3 处/50 行 |
+| **避免过拟合** | Step 2/6 | 泛化为"[企业名称]"仍成立，不硬编码个例 |
+| **目标一致性** | Step 2 | 服务于技能初始目标，不偏离核心用途 |
+
+---
+
+## 6 步迭代流程
+
+### Step 1: 问题诊断
+
+**目标：** 理解是个例问题还是共性缺陷
+
+**动作：**
+1. 读取用户反馈的具体案例
+2. 询问：这个问题出现几次？在什么场景下？
+3. 判断：是个例（特定数据/配置）还是共性（技能设计缺陷）
+
+**输出：** 问题描述 + 发生场景
+
+**示例：**
+```
+问题：customer-research 搜索到多个同名公司时没有确认话术
+场景：搜索"清格科技"返回北京/上海/深圳 3 家公司
+类型：共性缺陷（缺少多公司确认机制）
+```
+
+---
+
+### Step 2: 原则检查
+
+**目标：** 用三原则分析问题根因
+
+**动作：** 读取 `references/iteration-principles.md`，对照检查
+
+**检查清单：**
+- [ ] 是否违反奥卡姆剃刀？（过度复杂/冗余）
+- [ ] 是否过拟合个例？（硬编码特定数据）
+- [ ] 是否偏离目标？（添加了非核心功能）
+
+**输出：** 问题分析报告
+
+---
+
+### Step 3: 提出修改方案
+
+**目标：** 精确修改方案（≤3 条）
+
+**动作：**
+1. 设计修改方案，每条明确：位置 + 原内容 + 新内容
+2. 使用 3 种格式之一呈现（见 `references/diff-format-guide.md`）
+3. **等待用户确认**后再执行
+
+**修改格式决策树：**
+```
+修改<10 行？ → 并排对照格式
+修改 10-50 行？ → 精确 diff 格式
+修改>50 行？ → 拆分多次，每次≤3 处
+```
+
+**输出：** 修改方案（等待确认）
+
+---
+
+### Step 4: 备份
+
+**目标：** 确保可回滚
+
+**动作：** 执行 `scripts/backup_skill.py <skill-path>`
+
+**输出：** 备份文件名（如 `SKILL.md.backup.20260403-234500`）
+
+---
+
+### Step 5: 执行修改
+
+**目标：** 精确增删改查
+
+**动作：**
+1. 使用 `edit` 工具进行精确替换
+2. 每次修改后验证文件完整性
+3. 更新 `version`（major.minor.patch）
+
+**版本规范：**
+- **Major** (X.0.0): 突破性改动/重构
+- **Minor** (x.X.0): 新功能/大优化
+- **Patch** (x.x.X): Bug 修复/小调整
+
+**输出：** 修改完成 + 新版本号
+
+---
+
+### Step 6: 测试验证
+
+**目标：** 验证修改有效性
+
+**动作：**
+1. 执行 `scripts/test_skill.py <skill-path>`
+2. 或手动运行测试案例（见 `references/test-case-patterns.md`）
+3. 记录测试结果
+
+**输出：** 测试报告（通过/失败 + 原因）
+
+---
+
+## Bundled Resources
+
+| 资源 | 用途 | 何时使用 |
+|------|------|---------|
+| `scripts/backup_skill.py` | 自动备份 SKILL.md | Step 4 |
+| `scripts/test_skill.py` | 运行技能测试 | Step 6 |
+| `references/iteration-principles.md` | 迭代原则详解 | Step 2 |
+| `references/test-case-patterns.md` | 测试案例类型库 | Step 6 |
+| `references/diff-format-guide.md` | 修改对照格式指南 | Step 3 |
+
+---
+
+## 与 skill-creator 的分工
+
+| 场景 | 使用技能 |
+|------|---------|
+| 从零创建新技能 | `skill-creator` |
+| 已有技能迭代优化 | `skill-polisher`（本技能） |
+| 技能打包分发 | `skill-creator`（package 命令） |
+| 技能故障排查 | 手动调试（非本技能范围） |
+
+---
+
+## Usage Logging (Auto-injected)
+
+Every time this skill is triggered, append a usage record to `~/.openclaw/skill-logs/skill-polisher/log.md`.
+
+**Log format:**
+
+```markdown
+## [YYYY-MM-DD HH:mm:ss]
+- **User Request**: <what user asked>
+- **Action**: diagnose | propose | modify | test
+- **Target Skill**: <skill name>
+- **Result**: <outcome>
+```
+
+**Implementation:**
+
+```bash
+mkdir -p ~/.openclaw/skill-logs/skill-polisher
+echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+echo "- **User Request**: <user's request>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+echo "- **Action**: <action>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+echo "- **Target Skill**: <skill name>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+echo "- **Result**: <result>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+echo "" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+```

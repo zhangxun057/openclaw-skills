@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 3 月 25 日精选资讯日报 - 赛博朋克风</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0D001A 0%, #1A0033 50%, #000000 100%);
+            color: #FFFFFF;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(26, 0, 51, 0.8);
+            border: 2px solid #FF00FF;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 
+                        0 0 60px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #FF00FF, #00FFFF);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.3) 2px,
+                rgba(0, 0, 0, 0.3) 4px
+            );
+            animation: scan 3s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            color: #000000;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .date {
+            font-size: 16px;
+            color: #000000;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .module {
+            margin: 20px;
+            padding: 25px;
+            border: 1px solid;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .module-a {
+            border-color: #FF00FF;
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+        
+        .module-b {
+            border-color: #00FFFF;
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .module-c {
+            border-color: #FFFF00;
+            background: rgba(255, 255, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+        }
+        
+        .module-d {
+            border-color: #FF6600;
+            background: rgba(255, 102, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+        }
+        
+        .module-e {
+            border-color: #FF0066;
+            background: rgba(255, 0, 102, 0.1);
+            box-shadow: 0 0 15px rgba(255, 0, 102, 0.3);
+        }
+        
+        .module-f {
+            border-color: #00FF66;
+            background: rgba(0, 255, 102, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+        }
+        
+        .module-g {
+            border-color: #9900FF;
+            background: rgba(153, 0, 255, 0.1);
+            box-shadow: 0 0 15px rgba(153, 0, 255, 0.3);
+        }
+        
+        .module-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .module-id {
+            background: #000000;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .content {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        
+        .content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .content li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .content li:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight {
+            color: #FFFF00;
+            font-weight: bold;
+        }
+        
+        .warning {
+            color: #FF0066;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: #00FF66;
+            font-weight: bold;
+        }
+        
+        .info {
+            color: #00FFFF;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #FF00FF;
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 12px;
+            color: #888888;
+        }
+        
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .glitch {
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-2px, -2px); }
+            98% { transform: translate(2px, 2px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="glitch">📰 精选资讯日报</h1>
+            <div class="date">2026 年 3 月 25 日 | 赛博朋克风格</div>
+        </div>
+        
+        <!-- 模块 A-01: 白酒行情 -->
+        <div class="module module-a">
+            <div class="module-title">
+                <span class="module-id">A-01</span>
+                🍶 白酒行情
+            </div>
+            <div class="content">
+                <ul>
+                    <li>飞天茅台批价：<span class="highlight">2400-2500 元</span></li>
+                    <li>五粮液普五批价：<span class="highlight">950-980 元</span></li>
+                    <li>市场状态：<span class="info">稳定</span></li>
+                    <li>行业趋势：<span class="success">强者恒强</span></li>
+                    <li>投资建议：<span class="info">关注高端酒企</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 模块 B-05: AI 前沿 -->
+        <div class="module module-b">
+            <div class="module-title">
+                <span class="module-id">B-05</span>
+                🤖 AI 前沿
+            </div>
+            <div class="content">
+                <ul>
+                    <li>字节豆包大模型升级：<span class="highlight">多模态突破</span></li>
+                    <li>Manus 通用 AI Agent：<span class="success">全球首款</span></li>
+                    <li>AI 人才争夺：<span class="info">月薪 3 万抢文科生</span></li>
+                    <li>技术方向：<span class="highlight">从对话到行动</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 模块 C-12: 股市动态 -->
+        <div class="module module-c">
+            <div class="module-title">
+                <span class="module-id">C-12</span>
+                📈 股市动态
+            </div>
+            <div class="content">
+                <ul>
+                    <li>泡泡玛特：<span class="warning">跌 20%</span> 但预计 2026 年增长 <span class="success">+20%</span></li>
+                    <li>美团：<span class="success">涨 10%</span> 本地生活强势</li>
+                    <li>MOVA 机器人：<span class="info">2026 年销量 100 万台</span></li>
+                    <li>飞猪：<span class="highlight">发布 AI 旅行 skill</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 模块 D-03: 核心观察 -->
+        <div class="module module-d">
+            <div class="module-title">
+                <span class="module-id">D-03</span>
+                💡 核心观察
+            </div>
+            <div class="content">
+                <ul>
+                    <li>白酒行业：<span class="info">集中度提升 头部优势明显</span></li>
+                    <li>AI 领域：<span class="highlight">应用落地成焦点 Agent 是热点</span></li>
+                    <li>资本市场：<span class="warning">港股波动大 关注龙头企业</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 模块 E-07: 投资提示 -->
+        <div class="module module-e">
+            <div class="module-title">
+                <span class="module-id">E-07</span>
+                ⚠️ 投资提示
+            </div>
+            <div class="content">
+                <ul>
+                    <li class="warning">风险提示：港股波动剧烈需谨慎</li>
+                    <li class="warning">行业风险：AI 泡沫论再起</li>
+                    <li class="highlight">避坑指南：关注基本面 远离纯概念炒作</li>
+                    <li class="warning">市场有风险 投资需谨慎</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 模块 F-10: 数据汇总 -->
+        <div class="module module-f">
+            <div class="module-title">
+                <span class="module-id">F-10</span>
+                📊 数据汇总
+            </div>
+            <div class="content">
+                <ul>
+                    <li>资讯来源：<span class="info">36Kr 证券时报 新浪财经</span></li>
+                    <li>整理时间：<span class="highlight">2026-03-25 14:45</span></li>
+                    <li>资讯类别：白酒 4 条 | AI 3 条 | 财经 3 条</li>
+                    <li>总计：<span class="success">10 条精选</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 模块 G-02: 元数据 -->
+        <div class="module module-g">
+            <div class="module-title">
+                <span class="module-id">G-02</span>
+                🔧 元数据
+            </div>
+            <div class="content">
+                <ul>
+                    <li>模板：<span class="info">by WaytoAGI AJ</span></li>
+                    <li>风格：<span class="highlight">赛博朋克</span></li>
+                    <li>配色：霓虹粉 #FF00FF | 青色 #00FFFF | 暗紫 #1A0033</li>
+                    <li>生成系统：<span class="info">info-designer</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            生成时间：2026-03-25 16:19 | info-designer Skill | 赛博朋克风格信息图
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,605 @@
+---
+name: todolist-manager
+description: |
+  张洵的个人todolist（多维表格）。用于捕捉想法、愿望清单、学习计划、记录进展、每日复盘、每日工作简报、断线头检测。
+  **Use this skill when:**
+  (1) User explicitly mentions "todolist" or "todo list" (用户明确提到 todolist)
+  (2) User mentions wish list, learning plan, improvement goals (愿望清单、学习计划、改进目标)
+  (3) User says "I want to do/learn..." without formal task assignment (想做、想学，不需要正式分配)
+  (4) Discussing progress of items in the todolist (讨论 todolist 中的进展)
+  (5) Performing daily review/retrospective (执行每日复盘)
+  (6) Triggered by cron job for daily work brief (定时任务触发每日工作简报)
+  (7) User requests "执行每日工作简报" or "帮我写今天的日记" (用户要求生成工作简报)
+  (8) User mentions "断线头", "捡起机制", "中断的任务", "没做完的事" (检测被中断的工作)
+  
+  **Keywords:** todolist, todo list, 愿望清单, 学习计划, 计划清单, 想做, 想学, 目标, 每日工作简报, 每日复盘, 断线头, 捡起机制
+---
+
+# Todolist Manager
+
+Manage tasks in Feishu Bitable. Automatically capture ideas, log progress, and perform daily reviews.
+
+## Critical Rules
+
+- Never delete task records - Only create and update
+- Status control - AI can only set "待启动(AI提交)" and "待验收(AI提交)"
+- Append logs - Never overwrite existing logs
+- Log as cache - Task logs serve as temporary cache for daily review
+
+---
+
+## Dynamic Todolist Discovery
+
+规范：所有todolist 多维表的描述必须包含 "todolist" 关键词。
+
+技能启动时自动扫描所有符合规范的多维表，根据描述内容智能路由到正确的表。
+
+### Standard Field Reference
+
+| Logical Name | Common Names | Type | AI Permission | Notes |
+|--------------|--------------|------|---------------|-------|
+| title | 任务名称, 工作目标, 事项名称 | Text(1) | Create | Required |
+| description | 任务描述, 目标说明, 描述 | Text(1) | Create | Can include sub-items |
+| status | 任务状态, 完成状态, 状态 | SingleSelect(3) | Limited | Only AI-specific statuses |
+| log | 任务日志, 进展记录, 日志 | Text(1) | Append | Progress cache, append only |
+| log_date | 日志最后更新日期 | DateTime(5) | Update | Millisecond timestamp |
+| dispatch_date | 派发日期 | DateTime(5) | Create | Millisecond timestamp |
+| deadline | 截止日期 | DateTime(5) | User only | - |
+| owner | 任务执行者 | User(11) | User only | Format: `[{id:"ou_xxx"}]` |
+| priority | 任务优先级, 优先级 | SingleSelect(3) | Create only | 1/2/3/9/0/其他 |
+| module | 所属模块, 分类 | SingleSelect(3) | Create only | Optional |
+| risk | 风险总结 | Text(1) | Update | Risk description |
+
+**AI-Settable Statuses:**
+- `待启动(AI提交)` - AI-captured idea, awaiting user review
+- `待验收(AI提交)` - AI judges complete, awaiting user verification
+
+---
+
+## Core Functions
+
+### Load All Todolists
+
+```javascript
+async function loadAllTodolists() {
+  const apps = await feishu_bitable_app({ action: "list", page_size: 100 })
+  
+  return apps.items
+    .filter(app => app.description && app.description.includes('todolist'))
+    .map(app => ({
+      app_token: app.app_token,
+      name: app.name,
+      description: app.description
+    }))
+}
+```
+
+### Route to Target List
+
+```javascript
+async function routeToList(userInput, todolists) {
+  if (todolists.length === 1) return todolists[0]
+  
+  // LLM 判断
+  const prompt = `用户说：${userInput}
+
+现有 todolist:\n${todolists.map((l, i) => `${i+1}. ${l.name}: ${l.description}`).join('\n')}
+
+返回最合适的序号(1-${todolists.length})，不确定时返回1。只返回数字。`
+  
+  // 推理得到选择
+  const choice = 1  // 默认第一个
+  return todolists[choice - 1]
+}
+```
+
+### Resolve Field Name
+
+```javascript
+const FIELD_CANDIDATES = {
+  title: ["任务名称", "工作目标", "事项名称", "标题"],
+  description: ["任务描述", "目标说明", "描述", "详情"],
+  status: ["任务状态", "完成状态", "状态"],
+  log: ["任务日志", "进展记录", "日志", "备注"],
+  log_date: ["日志最后更新日期"],
+  dispatch_date: ["派发日期"],
+  priority: ["任务优先级", "优先级"],
+  module: ["所属模块", "分类", "模块"]
+}
+
+function resolveFieldName(tableFields, logicalName) {
+  const candidates = FIELD_CANDIDATES[logicalName]
+  for (const name of candidates) {
+    if (tableFields.some(f => f.field_name === name)) return name
+  }
+  return null
+}
+```
+
+---
+
+## Usage Scenarios
+
+### Scenario 1: Capture New Ideas
+
+**When:** User mentions wanting to do something, learning goals, or improvement ideas.
+
+**Triggers:**
+- Keywords: 想做, 想学, 想试试, 目标, 计划, 打算, 需要实现, 要完善
+- Lobster capability improvements
+- Does NOT require explicit "add to todolist"
+
+**Implementation:**
+
+```javascript
+// 1. Load all todolists
+const todolists = await loadAllTodolists()
+
+// 2. Route to target list
+const targetList = await routeToList(userInput, todolists)
+
+// 3. Get table structure
+const tables = await feishu_bitable_app_table({
+  action: "list",
+  app_token: targetList.app_token
+})
+const table = tables.items[0]
+
+// 4. Get field list for mapping
+const fields = await feishu_bitable_app_table_field({
+  action: "list",
+  app_token: targetList.app_token,
+  table_id: table.table_id
+})
+
+// 5. Resolve field names
+const titleField = resolveFieldName(fields.items, "title")
+const descField = resolveFieldName(fields.items, "description")
+const statusField = resolveFieldName(fields.items, "status")
+const logField = resolveFieldName(fields.items, "log")
+const dispatchField = resolveFieldName(fields.items, "dispatch_date")
+const moduleField = resolveFieldName(fields.items, "module")
+
+// 6. Create task
+const taskFields = {}
+if (titleField) taskFields[titleField] = "任务标题"
+if (descField) taskFields[descField] = "用户提到：..."
+if (statusField) taskFields[statusField] = "待启动(AI提交)"
+if (dispatchField) taskFields[dispatchField] = Date.now()
+if (logField) taskFields[logField] = `【日期】创建原因：...`
+if (moduleField) taskFields[moduleField] = "分类"
+
+await feishu_bitable_app_table_record({
+  action: "create",
+  app_token: targetList.app_token,
+  table_id: table.table_id,
+  fields: taskFields
+})
+```
+
+---
+
+### Scenario 2: Log Task Progress
+
+**When:** Conversation discusses specific task progress, issues, or milestones.
+
+**Log format:**
+```
+【YYYY/MM/DD】
+工作进展：xxx
+风险描述：xxx (omit if none)
+```
+
+**Implementation:**
+
+```javascript
+// 1. Load all todolists
+const todolists = await loadAllTodolists()
+
+// 2. Route to target list
+const targetList = await routeToList(userInput, todolists)
+
+// 3. Get table structure
+const tables = await feishu_bitable_app_table({ action: "list", app_token: targetList.app_token })
+const table = tables.items[0]
+
+// 4. Get field list
+const fields = await feishu_bitable_app_table_field({ action: "list", app_token: targetList.app_token, table_id: table.table_id })
+
+// 5. Resolve field names
+const titleField = resolveFieldName(fields.items, "title")
+const logField = resolveFieldName(fields.items, "log")
+const logDateField = resolveFieldName(fields.items, "log_date")
+
+// 6. Find matching task
+const tasks = await feishu_bitable_app_table_record({
+  action: "list",
+  app_token: targetList.app_token,
+  table_id: table.table_id,
+  filter: {
+    conjunction: "and",
+    conditions: [{
+      field_name: titleField,
+      operator: "contains",
+      value: ["关键词"]
+    }]
+  }
+})
+
+// 7. Append log (never overwrite)
+const task = tasks.records[0]
+const existingLog = task.fields[logField] || ""
+const newLog = existingLog + `\n\n【日期】\n工作进展：xxx\n风险描述：无`
+
+const updateFields = {}
+if (logField) updateFields[logField] = newLog
+if (logDateField) updateFields[logDateField] = Date.now()
+
+await feishu_bitable_app_table_record({
+  action: "update",
+  app_token: targetList.app_token,
+  table_id: table.table_id,
+  record_id: task.record_id,
+  fields: updateFields
+})
+```
+
+---
+
+### Scenario 3: Daily Review (每日复盘)
+
+**When:** Triggered by HEARTBEAT.md or user request.
+
+**Purpose:** 
+1. Review task progress and update status
+2. Detect interrupted threads (断线头) from conversation history
+
+---
+
+**Part 1: Task Status Review**
+
+```javascript
+// 1. Load all todolists
+const todolists = await loadAllTodolists()
+
+// 2. Review each todolist
+for (const list of todolists) {
+  const tables = await feishu_bitable_app_table({ action: "list", app_token: list.app_token })
+  const table = tables.items[0]
+  
+  const fields = await feishu_bitable_app_table_field({ action: "list", app_token: list.app_token, table_id: table.table_id })
+  
+  const titleField = resolveFieldName(fields.items, "title")
+  const descField = resolveFieldName(fields.items, "description")
+  const statusField = resolveFieldName(fields.items, "status")
+  const logField = resolveFieldName(fields.items, "log")
+  const deadlineField = resolveFieldName(fields.items, "deadline")
+  const riskField = resolveFieldName(fields.items, "risk")
+  
+  const tasks = await feishu_bitable_app_table_record({ action: "list", app_token: list.app_token, table_id: table.table_id, page_size: 50 })
+  
+  for (const task of tasks.records) {
+    const log = task.fields[logField] || ""
+    const status = task.fields[statusField]
+    const deadline = task.fields[deadlineField]
+    
+    // Check if complete
+    let isCompleted = /已完成|完成了|做完了|已实现|已上线|已部署|验证通过|测试通过/.test(log)
+    
+    if (isCompleted && status !== "已完成" && status !== "待验收(AI提交)") {
+      await feishu_bitable_app_table_record({
+        action: "update",
+        app_token: list.app_token,
+        table_id: table.table_id,
+        record_id: task.record_id,
+        fields: { [statusField]: "待验收(AI提交)" }
+      })
+    }
+    
+    // Check overdue
+    if (deadline && Date.now() > deadline && (status === "进行中" || status === "未启动")) {
+      await feishu_bitable_app_table_record({
+        action: "update",
+        app_token: list.app_token,
+        table_id: table.table_id,
+        record_id: task.record_id,
+        fields: { [riskField]: "任务已逾期" }
+      })
+    }
+  }
+}
+```
+
+---
+
+**Part 2: 断线头检测**
+
+**What is "断线头":**
+- 用户开始一项任务/话题
+- 因救火（报错/缺Key/临时问题）被中断
+- 原任务没完成，也没记录
+- 对话切走，目标丢失
+
+**Reading Conversations from chat-logs:**
+
+定时任务使用 `isolated session`，无法通过 `sessions_list` API 读取其他虾的会话。必须使用 Exec 命令直接读取本地 chat-logs 文件。
+
+**Step 1: Execute PowerShell Script**
+
+```bash
+exec: powershell -ExecutionPolicy Bypass -File "C:\Users\44452\.openclaw\skills\todolist-manager\scripts\read-chatlogs.ps1" -Date "YYYY-MM-DD"
+```
+
+**Expected Output:**
+```
+=== Reading Date: 2026-03-21 ===
+[INFO] Found 20 session files
+=== Agent: guaiguaixia | File: 2026-03-21_xxx.jsonl ===
+[09:31:00] user: 我们昨天一直在研究定时任务...
+[09:31:05] assistant: 张总早！我是乖乖虾...
+=== Reading Complete ===
+```
+
+**Step 2: Analyze Conversations**
+
+从 Exec 输出中提取对话内容，识别断线头模式。
+
+**Detection Logic (JavaScript):**
+
+```javascript
+function analyzeConversationFromExec(execOutput) {
+  const threads = []
+  let currentTask = null
+  
+  // Parse conversation lines: [HH:mm:ss] role: text
+  const lines = execOutput.split('\n')
+  
+  for (const line of lines) {
+    const match = line.match(/\[(\d{2}:\d{2}:\d{2})\]\s+(user|assistant):\s*(.+)/)
+    if (!match) continue
+    
+    const [, time, role, content] = match
+    
+    // Pattern 1: Task assignment (user)
+    const taskMatch = extractTaskIntent(content)
+    if (taskMatch && role === 'user') {
+      if (currentTask && !currentTask.completed) {
+        threads.push({ type: 'abandoned', task: currentTask })
+      }
+      currentTask = {
+        title: taskMatch.title,
+        startTime: time,
+        description: taskMatch.description,
+        completed: false
+      }
+    }
+    
+    // Pattern 2: Completion marker (user)
+    if (currentTask && role === 'user' && isCompletionSignal(content)) {
+      currentTask.completed = true
+      currentTask = null
+    }
+    
+    // Pattern 3: Interruption signal
+    const interruption = detectInterruptionSignal(content)
+    if (interruption && currentTask && !currentTask.completed) {
+      currentTask.interruptReason = interruption.reason
+      threads.push({ type: 'interrupted', task: currentTask, reason: interruption.reason })
+      currentTask = null
+    }
+  }
+  
+  // Any remaining incomplete task
+  if (currentTask && !currentTask.completed) {
+    threads.push({ type: 'incomplete', task: currentTask })
+  }
+  
+  return { threads }
+}
+```
+
+**Helper Functions:**
+
+```javascript
+function extractTaskIntent(content) {
+  const patterns = [
+    /帮?我?(?:让龙虾|让\S+虾|你)(.+?)[，。！]/,
+    /(?:给我|帮我)(.+?)[，。！]/,
+    /(?:做|写|搞|整|实现|迭代)(?:一个?|下)?(.+?)[，。！]/
+  ]
+  for (const regex of patterns) {
+    const match = content.match(regex)
+    if (match && match[1].length >= 4) {
+      return { title: match[1].trim().substring(0, 50), description: content }
+    }
+  }
+  return null
+}
+
+function isCompletionSignal(content) {
+  return /完成[了了]?|搞定[了了]?|做好[了了]?|已实现|已上线|验收/.test(content)
+}
+
+function detectInterruptionSignal(content) {
+  const signals = [
+    { regex: /(?:但是|不过)[^。.！]*?(?:需要|缺少|没有)/, reason: '缺依赖' },
+    { regex: /报错[了了]?|出错|异常/, reason: '报错' },
+    { regex: /(?:有个|遇到)问题/, reason: '有问题' },
+    { regex: /(?:缺少|没有)(?:密钥|Key|Token|权限)/i, reason: '缺密钥' }
+  ]
+  for (const s of signals) {
+    if (s.regex.test(content)) return { reason: s.reason }
+  }
+  return null
+}
+```
+
+---
+
+**Daily Review Report Format:**
+
+```
+每日复盘 - YYYY年MM月DD日
+
+【一、任务状态更新】
+标记为待验收：X项
+发现逾期任务：Y项
+
+【二、断线头检测】
+从昨日对话中发现 N 个未完成事项：
+
+1. 【中断】实现飞书自动回复功能（原因：缺密钥）
+2. 【未完成】迭代Todolist Manager
+3. 【中断】部署新网站（原因：报错）
+
+如需处理以上事项，请直接告诉我该怎么办。
+如不回复，视为放弃，明日不再提醒。
+
+【三、今日待办】
+（来自 todolist 中状态为"进行中"的任务）
+```
+
+---
+
+**User Response Handling:**
+
+```javascript
+// 用户可能说：
+// - "继续第1个" / "把第2个捡起来" / "恢复第3个" -> 添加到待办（进行中）
+// - "第1个不要了" / "放弃2" -> 添加到待办（已取消）
+// - "第1个已经完成了" -> 添加到待办（已完成）
+// - 不回复 -> 什么都不做，明日不再提醒
+
+// 当用户后续提起时处理
+async function handleUserFollowUp(userInput, interruptedThreads) {
+  // 解析用户意图
+  const intent = parseUserIntent(userInput)  // resume/abandon/complete
+  
+  if (intent.action === 'resume') {
+    await createTaskFromThread(interruptedThreads[intent.index], '进行中')
+  } else if (intent.action === 'abandon') {
+    await createTaskFromThread(interruptedThreads[intent.index], '已取消')
+  } else if (intent.action === 'complete') {
+    await createTaskFromThread(interruptedThreads[intent.index], '已完成')
+  }
+}
+
+async function createTaskFromThread(thread, status) {
+  // Add to todolist with status
+  // ... implementation ...
+}
+```
+
+---
+
+### Scenario 4: Create New Todolist
+
+**Trigger:** User explicitly says "创建/新建 todolist"
+
+**Process:**
+
+```javascript
+// 1. Create App
+const app = await feishu_bitable_app({ action: "create", name: listName })
+
+// 2. Update description (must include "todolist")
+await feishu_bitable_app({
+  action: "patch",
+  app_token: app.app_token,
+  name: listName,
+  description: `todolist: ${purpose}`
+})
+
+// 3. Create table with standard fields
+const STANDARD_FIELDS = [
+  { field_name: "任务名称", type: 1 },
+  { field_name: "任务描述", type: 1 },
+  { field_name: "任务状态", type: 3, property: {
+    options: [
+      { name: "待启动(AI提交)" },
+      { name: "未启动" },
+      { name: "进行中" },
+      { name: "待验收(AI提交)" },
+      { name: "已完成" },
+      { name: "取消" }
+    ]
+  }},
+  { field_name: "任务日志", type: 1 },
+  { field_name: "日志最后更新日期", type: 5 },
+  { field_name: "派发日期", type: 5 },
+  { field_name: "截止日期", type: 5 },
+  { field_name: "任务优先级", type: 3, property: { options: [{ name: "1" }, { name: "2" }, { name: "3" }] }},
+  { field_name: "风险总结", type: 1 }
+]
+
+await feishu_bitable_app_table({
+  action: "create",
+  app_token: app.app_token,
+  table: { name: "待办事项", fields: STANDARD_FIELDS }
+})
+```
+
+---
+
+## Common Questions
+
+**Q: How to identify which task is being discussed?**
+A: Match task name keywords, understand from context, or ask user.
+
+**Q: How to avoid overwriting logs?**
+A: Always read existing log first, then append with `\n\n`.
+
+**Q: Why can't AI delete tasks?**
+A: Deletion causes information loss. Instead, set status to "取消" and log reason.
+
+**Q: Which fields can AI modify?**
+- Can modify: 任务日志, 日志最后更新日期, 风险总结
+- Conditional: 任务状态 (only to AI-specific statuses)
+- Cannot modify: 任务执行者, 截止日期, 任务优先级
+
+---
+
+## Integration Notes
+
+### Daily Review Trigger
+
+Configure in `~/.openclaw/workspace/HEARTBEAT.md`:
+```markdown
+## Todolist Daily Review
+Check once daily (evening recommended):
+Invoke todolist-manager skill Scenario 3
+```
+
+Or use cron:
+```bash
+openclaw cron add \
+  --name "Todolist review" \
+  --cron "0 22 * * *" \
+  --session isolated \
+  --message "Execute todolist daily review"
+```
+
+### Field Type Reference
+
+| type | ui_type | Format |
+|------|---------|--------|
+| 1 | Text | String |
+| 3 | SingleSelect | String (option name) |
+| 5 | DateTime | Millisecond timestamp |
+| 11 | User | `[{id:"ou_xxx"}]` |
+
+---
+_Created: 2026-03-08_
+_Version: 4.1 (新增断线头检测机制 - "捡起机制")_
+_Last Updated: 2026-03-21_
+
+## Usage Logging (Auto-injected)
+
+Every time this skill is triggered, append a record to `log.md`:
+
+```bash
+echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/todolist-manager/log.md
+echo "- **User Request**: <what user asked>" >> ~/.openclaw/skill-logs/todolist-manager/log.md
+echo "- **Action**: <what this skill did>" >> ~/.openclaw/skill-logs/todolist-manager/log.md
+echo "" >> ~/.openclaw/skill-logs/todolist-manager/log.md
+```

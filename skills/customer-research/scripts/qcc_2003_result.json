@@ -1,0 +1,591 @@
+{
+  "company_name": "北京清格科技有限公司",
+  "depth": "deep",
+  "interfaces_used": [
+    "886",
+    "2003"
+  ],
+  "total_cost": 3.1,
+  "data": {
+    "basic": {
+      "KeyNo": "c9rivyamj9papv5jpsha3j9hia5liekppl",
+      "Name": "北京清格科技有限公司",
+      "CreditCode": "91110102MA01LP561W",
+      "StartDate": "2019-07-29",
+      "OperName": "谷晓宇",
+      "Status": "存续",
+      "No": "",
+      "Address": "北京市西城区阜成门外大街31号4层406C"
+    },
+    "detail": {
+      "KeyNo": "c9rivyamj9papv5jpsha3j9hia5liekppl",
+      "Name": "北京清格科技有限公司",
+      "CreditCode": "91110102MA01LP561W",
+      "OperName": "谷晓宇",
+      "DesignatedRepresentativeList": [],
+      "Status": "存续（在营、开业、在册）",
+      "StartDate": "2019-07-29",
+      "RegistCapi": "1111.1111万元",
+      "RegisteredCapital": "1111.1111",
+      "RegisteredCapitalUnit": "万",
+      "RegisteredCapitalCCY": "CNY",
+      "RealCapi": "711.1111万元",
+      "PaidUpCapital": "711.1111",
+      "PaidUpCapitalUnit": "万",
+      "PaidUpCapitalCCY": "CNY",
+      "OrgNo": "MA01LP56-1",
+      "No": "",
+      "TaxNo": "91110102MA01LP561W",
+      "EconKind": "其他有限责任公司",
+      "TermStart": "2019-07-29",
+      "TermEnd": "",
+      "TaxpayerType": "一般纳税人",
+      "PersonScope": "少于50人",
+      "InsuredCount": "0",
+      "CheckDate": "2025-12-26",
+      "AreaCode": "110102",
+      "Area": {
+        "Province": "北京市",
+        "City": "北京市",
+        "County": "西城区"
+      },
+      "BelongOrg": "北京市西城区市场监督管理局",
+      "ImExCode": "",
+      "Industry": {
+        "IndustryCode": "M",
+        "Industry": "科学研究和技术服务业",
+        "SubIndustryCode": "75",
+        "SubIndustry": "科技推广和应用服务业",
+        "MiddleCategoryCode": "759",
+        "MiddleCategory": "其他科技推广服务业",
+        "SmallCategoryCode": "7590",
+        "SmallCategory": "其他科技推广服务业"
+      },
+      "EnglishName": "Beijing Qingge Technology Co., Ltd.",
+      "Address": "北京市西城区阜成门外大街31号4层406C",
+      "AddressPostalCode": "100000",
+      "AnnualAddress": "北京市西城区什刹海街道西什库大街31号5号楼4层",
+      "AnnualAddressPostalCode": "100034",
+      "Scope": "技术开发、技术转让、技术推广、技术服务、技术咨询；软件开发；应用软件服务；基础软件服务；计算机系统服务；销售计算机、软件及辅助设备（市场主体依法自主选择经营项目，开展经营活动；以及依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）",
+      "EntType": "0",
+      "OrgCodeList": [
+        {
+          "PrimaryCode": "100200",
+          "SecondaryCode": ""
+        }
+      ],
+      "ImageUrl": "https://image.qcc.com/logo/c8b554592e3f06103e50c0fb136579fd.jpg",
+      "RevokeInfo": null,
+      "OriginalName": null,
+      "StockInfo": null,
+      "ContactInfo": {
+        "WebSiteList": [
+          "https://tsingge.com"
+        ],
+        "Email": "139132670@qq.com",
+        "MoreEmailList": [
+          {
+            "Email": "762179893@qq.com",
+            "Source": "2023年报"
+          },
+          {
+            "Email": "wangchuan1268@dingtalk.com",
+            "Source": "2021年报"
+          },
+          {
+            "Email": "651734392@qq.com",
+            "Source": "2019年报"
+          }
+        ],
+        "Tel": "010-66024668",
+        "MoreTelList": [
+          {
+            "Tel": "010-66024668",
+            "Source": "企业官网"
+          },
+          {
+            "Tel": "010-66500840",
+            "Source": "2019年报"
+          }
+        ]
+      },
+      "LongLat": {
+        "Longitude": "116.348952",
+        "Latitude": "39.929437"
+      },
+      "BankInfo": {
+        "Bank": "中信银行北京高碑店支行",
+        "BankAccount": "8110701013901702328",
+        "Name": "北京清格科技有限公司",
+        "CreditCode": "91110102MA01LP561W",
+        "Address": "北京市西城区阜成门外大街31号4层406C",
+        "Tel": "010-66500840"
+      },
+      "IsSmall": "1",
+      "Scale": "S",
+      "QccIndustry": {
+        "AName": "信息技术",
+        "BName": "计算机",
+        "CName": "IT服务",
+        "DName": "IT技术服务"
+      },
+      "IsOfficialEnglish": "0",
+      "CompanyType": "5",
+      "FinancialInstitutionType": "",
+      "MainProductList": [
+        "智慧政务",
+        "软件开发",
+        "应用软件",
+        "基础软件",
+        "计算机设备销售",
+        "计算机、软件及辅助设备销售"
+      ],
+      "PartnerList": [
+        {
+          "KeyNo": "prlmkyr09akpkmejjiea95rvs3pe3hmv53",
+          "StockName": "熊韬",
+          "StockType": "自然人股东",
+          "StockPercent": "",
+          "ShouldCapi": "400",
+          "SubscribedCapital": "400",
+          "SubscribedCapitalUnit": "万",
+          "SubscribedCapitalCCY": "CNY",
+          "ShoudDate": "",
+          "StakeDate": "2019-07-29",
+          "CreditCode": "",
+          "Area": "",
+          "SubscribedList": []
+        },
+        {
+          "KeyNo": "f3im3yklk5spjemjspmmepphbsm9p9m39l",
+          "StockName": "证联支付有限责任公司",
+          "StockType": "企业法人",
+          "StockPercent": "",
+          "ShouldCapi": "",
+          "SubscribedCapital": "",
+          "SubscribedCapitalUnit": "",
+          "SubscribedCapitalCCY": "",
+          "ShoudDate": "",
+          "StakeDate": "2020-06-01",
+          "CreditCode": "91440400569203451A",
+          "Area": "",
+          "SubscribedList": []
+        },
+        {
+          "KeyNo": "5parpymveiha5r5jlsala3eb5lllbaksv9",
+          "StockName": "北京正格众诚企业管理中心（有限合伙）",
+          "StockType": "合伙企业",
+          "StockPercent": "",
+          "ShouldCapi": "",
+          "SubscribedCapital": "",
+          "SubscribedCapitalUnit": "",
+          "SubscribedCapitalCCY": "",
+          "ShoudDate": "",
+          "StakeDate": "2021-01-06",
+          "CreditCode": "91110102MA01QY8Y18",
+          "Area": "",
+          "SubscribedList": []
+        },
+        {
+          "KeyNo": "3rkmmyikjhl59pbj9555mplrr53vejkljk",
+          "StockName": "西藏国丰创业投资管理有限公司",
+          "StockType": "企业法人",
+          "StockPercent": "",
+          "ShouldCapi": "",
+          "SubscribedCapital": "",
+          "SubscribedCapitalUnit": "",
+          "SubscribedCapitalCCY": "",
+          "ShoudDate": "",
+          "StakeDate": "2021-10-21",
+          "CreditCode": "91540091MA6T19YD71",
+          "Area": "",
+          "SubscribedList": []
+        }
+      ],
+      "PubPartnerList": null,
+      "EmployeeList": [
+        {
+          "KeyNo": "p9si5yl03em3lshj55hmssevb95jrvpbe5",
+          "Name": "谷晓宇",
+          "Job": "执行董事,经理"
+        },
+        {
+          "KeyNo": "prab3yv0abps3b3jbjslvlevrlhim5lbkm",
+          "Name": "武鹏艳",
+          "Job": "监事"
+        },
+        {
+          "KeyNo": "piihlyr0epm5m39jhlp9il9jilkpasbasj",
+          "Name": "王川",
+          "Job": "财务负责人"
+        }
+      ],
+      "PubEmployeeList": null,
+      "BranchList": null,
+      "ChangeList": [
+        {
+          "ProjectName": "投资人变更（包括出资额、出资方式、出资日期、投资人名称等）",
+          "ChangeDate": "2025-12-26",
+          "BeforeList": [
+            "熊韬,出资额:400万元,出资比例:36%",
+            "北京正格众诚企业管理中心（有限合伙）,出资额:300万元,出资比例:27%",
+            "西藏国丰创业投资管理有限公司,出资额:111.1111万元,出资比例:10%",
+            "北京融汇金信信息技术有限公司,出资额:300万元,出资比例:27%【退出】"
+          ],
+          "AfterList": [
+            "熊韬,出资额:400万元",
+            "北京正格众诚企业管理中心（有限合伙）",
+            "西藏国丰创业投资管理有限公司",
+            "证联支付有限责任公司【新进】"
+          ],
+          "ChangeSubject": "股东、发起人变更"
+        },
+        {
+          "ProjectName": "投资人变更（包括出资额、出资方式、出资日期、投资人名称等）",
+          "ChangeDate": "2023-04-24",
+          "BeforeList": [
+            "北京正格众诚企业管理中心（有限合伙）",
+            "北京融汇金信信息技术有限公司",
+            "西藏国丰创业投资管理有限公司",
+            "张洵【退出】（持股-36%）"
+          ],
+          "AfterList": [
+            "北京正格众诚企业管理中心（有限合伙）",
+            "北京融汇金信信息技术有限公司",
+            "西藏国丰创业投资管理有限公司",
+            "熊韬【新进】（持股+36%）"
+          ],
+          "ChangeSubject": "股东、发起人变更"
+        },
+        {
+          "ProjectName": "负责人变更（法定代表人、负责人、首席代表、合伙事务执行人等变更）",
+          "ChangeDate": "2023-03-10",
+          "BeforeList": [
+            "张洵"
+          ],
+          "AfterList": [
+            "谷晓宇*"
+          ],
+          "ChangeSubject": "法定代表人、负责人变更"
+        },
+        {
+          "ProjectName": "董事（理事）、经理、监事",
+          "ChangeDate": "2023-03-10",
+          "BeforeList": [
+            "刘青松【退出】",
+            "张洵【退出】"
+          ],
+          "AfterList": [
+            "武鹏艳【新进】",
+            "王川【新进】",
+            "谷晓宇*【新进】"
+          ],
+          "ChangeSubject": "董事、监事、高级管理人员备案"
+        },
+        {
+          "ProjectName": "注册资本变更（注册资金、资金数额等变更）",
+          "ChangeDate": "2021-10-21",
+          "BeforeList": [
+            "1000万元"
+          ],
+          "AfterList": [
+            "1111.1111万元（+111.1111万元）"
+          ],
+          "ChangeSubject": "注册资本、出资额变更"
+        },
+        {
+          "ProjectName": "投资人变更（包括出资额、出资方式、出资日期、投资人名称等）",
+          "ChangeDate": "2021-10-21",
+          "BeforeList": [
+            "张洵",
+            "北京正格众诚企业管理中心（有限合伙）",
+            "北京融汇金信信息技术有限公司"
+          ],
+          "AfterList": [
+            "张洵（持股-4%）",
+            "北京正格众诚企业管理中心（有限合伙）（持股-3%）",
+            "北京融汇金信信息技术有限公司（持股-3%）",
+            "西藏国丰创业投资管理有限公司【新进】（持股+10%）"
+          ],
+          "ChangeSubject": "股东、发起人变更"
+        },
+        {
+          "ProjectName": "经营范围变更（含业务范围变更）",
+          "ChangeDate": "2021-08-23",
+          "BeforeList": [
+            "技术开发、技术转让、技术推广、技术服务、技术咨询",
+            "软件开发",
+            "应用软件服务",
+            "基础软件服务",
+            "计算机系统服务。（市场主体依法自主选择经营项目,开展经营活动",
+            "依法须经批准的项目,经相关部门批准后依批准的内容开展经营活动",
+            "不得从事国家和本市产业政策禁止和限制类项目的经营活动。）"
+          ],
+          "AfterList": [
+            "技术开发、技术转让、技术推广、技术服务、技术咨询",
+            "软件开发",
+            "应用软件服务",
+            "基础软件服务",
+            "计算机系统服务",
+            "销售计算机、软件及辅助设备（市场主体依法自主选择经营项目,开展经营活动",
+            "以及依法须经批准的项目,经相关部门批准后依批准的内容开展经营活动",
+            "不得从事国家和本市产业政策禁止和限制类项目的经营活动。）"
+          ],
+          "ChangeSubject": "经营范围变更"
+        },
+        {
+          "ProjectName": "董事（理事）、经理、监事",
+          "ChangeDate": "2021-08-23",
+          "BeforeList": [
+            "张洵",
+            "唐斯婧【退出】"
+          ],
+          "AfterList": [
+            "张洵",
+            "刘青松【新进】"
+          ],
+          "ChangeSubject": "董事、监事、高级管理人员备案"
+        },
+        {
+          "ProjectName": "投资人变更（包括出资额、出资方式、出资日期、投资人名称等）",
+          "ChangeDate": "2021-03-23",
+          "BeforeList": [
+            "张洵",
+            "北京正格众诚企业管理中心（有限合伙）",
+            "证联支付有限责任公司【退出】（持股-30%）"
+          ],
+          "AfterList": [
+            "张洵",
+            "北京正格众诚企业管理中心（有限合伙）",
+            "北京融汇金信信息技术有限公司【新进】（持股+30%）"
+          ],
+          "ChangeSubject": "股东、发起人变更"
+        },
+        {
+          "ProjectName": "投资人变更（包括出资额、出资方式、出资日期、投资人名称等）",
+          "ChangeDate": "2021-01-06",
+          "BeforeList": [
+            "证联支付有限责任公司",
+            "张洵",
+            "北京融汇金信信息技术有限公司【退出】（持股-20%）"
+          ],
+          "AfterList": [
+            "证联支付有限责任公司",
+            "张洵（持股-10%）",
+            "北京正格众诚企业管理中心（有限合伙）【新进】（持股+30%）"
+          ],
+          "ChangeSubject": "股东、发起人变更"
+        },
+        {
+          "ProjectName": "董事（理事）、经理、监事",
+          "ChangeDate": "2021-01-06",
+          "BeforeList": [
+            "张洵",
+            "王慧君【退出】"
+          ],
+          "AfterList": [
+            "张洵",
+            "唐斯婧【新进】"
+          ],
+          "ChangeSubject": "董事、监事、高级管理人员备案"
+        },
+        {
+          "ProjectName": "股东改变姓名或名称，投资人",
+          "ChangeDate": "2020-06-01",
+          "BeforeList": [
+            "张洵,自然人股东",
+            "北京融汇金信信息技术有限公司,法人股东",
+            "北京香侬慧语科技有限责任公司,法人股东【退出】（-20%）",
+            "熊韬,自然人股东【退出】（-10%）"
+          ],
+          "AfterList": [
+            "张洵,自然人股东",
+            "北京融汇金信信息技术有限公司,法人股东",
+            "证联支付有限责任公司,企业法人【新进】（+30%）"
+          ],
+          "ChangeSubject": "股东、发起人变更"
+        },
+        {
+          "ProjectName": "董事（理事）、经理、监事",
+          "ChangeDate": "2020-06-01",
+          "BeforeList": [
+            "王慧君",
+            "张洵",
+            "何豪杰【退出】"
+          ],
+          "AfterList": [
+            "王慧君",
+            "张洵"
+          ],
+          "ChangeSubject": "董事、监事、高级管理人员备案"
+        }
+      ],
+      "TagList": [
+        {
+          "Type": "505",
+          "Name": "小微企业"
+        },
+        {
+          "Type": "108",
+          "Name": "高新技术企业"
+        },
+        {
+          "Type": "91",
+          "Name": "科技型中小企业"
+        },
+        {
+          "Type": "106",
+          "Name": "专精特新中小企业"
+        }
+      ],
+      "Parent": null,
+      "BeneficiaryList": [
+        {
+          "KeyNo": "p9si5yl03em3lshj55hmssevb95jrvpbe5",
+          "Name": "谷晓宇",
+          "FinalBenefitPercent": "",
+          "Reason": "未能穿透识别出拥有或超过25%公司股权或者表决权的自然人，将法定代表人/负责人，关键管理人员视同为受益所有人"
+        }
+      ],
+      "ActualControllerList": null,
+      "EmergingIndustyList": [],
+      "GroupInfo": {
+        "GroupId": "m9rivyamj9papv5jpsha3j9hia5liekppl",
+        "Name": "清格科技",
+        "Logo": "https://image.qcc.com/group_logo/m8b554592e3f06103e50c0fb136579fd.jpg"
+      },
+      "InvestmentList": [
+        {
+          "KeyNo": "7kjv9yi9l35lalljasrrvsjp3eprkvrrhr",
+          "Name": "云码通数据运营股份有限公司",
+          "StartDate": "2018-08-01",
+          "Status": "存续",
+          "FundedRatio": "18%",
+          "ShouldCapi": "2700万元",
+          "SubscribedCapital": "2700",
+          "SubscribedCapitalUnit": "万",
+          "SubscribedCapitalCCY": "CNY",
+          "Industry": {
+            "IndustryCode": "I",
+            "Industry": "信息传输、软件和信息技术服务业",
+            "SubIndustryCode": "64",
+            "SubIndustry": "互联网和相关服务",
+            "MiddleCategoryCode": "645",
+            "MiddleCategory": "互联网数据服务",
+            "SmallCategoryCode": "6450",
+            "SmallCategory": "互联网数据服务"
+          },
+          "Area": {
+            "Province": "贵州省",
+            "City": "贵阳市",
+            "County": "观山湖区"
+          }
+        },
+        {
+          "KeyNo": "dkbe5ymll9hbjiajphrlaaispaev5ja959",
+          "Name": "贵州清格智能科技有限公司",
+          "StartDate": "2021-12-22",
+          "Status": "存续",
+          "FundedRatio": "100%",
+          "ShouldCapi": "1111.1111万元",
+          "SubscribedCapital": "1111.1111",
+          "SubscribedCapitalUnit": "万",
+          "SubscribedCapitalCCY": "CNY",
+          "Industry": {
+            "IndustryCode": "M",
+            "Industry": "科学研究和技术服务业",
+            "SubIndustryCode": "75",
+            "SubIndustry": "科技推广和应用服务业",
+            "MiddleCategoryCode": "759",
+            "MiddleCategory": "其他科技推广服务业",
+            "SmallCategoryCode": "7590",
+            "SmallCategory": "其他科技推广服务业"
+          },
+          "Area": {
+            "Province": "贵州省",
+            "City": "贵阳市",
+            "County": "南明区"
+          }
+        },
+        {
+          "KeyNo": "9rmpjybb3blrplij99rilmh55jjpvvika3",
+          "Name": "北京元橼科技有限公司",
+          "StartDate": "2025-09-09",
+          "Status": "存续",
+          "FundedRatio": "15%",
+          "ShouldCapi": "15万元",
+          "SubscribedCapital": "15",
+          "SubscribedCapitalUnit": "万",
+          "SubscribedCapitalCCY": "CNY",
+          "Industry": {
+            "IndustryCode": "M",
+            "Industry": "科学研究和技术服务业",
+            "SubIndustryCode": "75",
+            "SubIndustry": "科技推广和应用服务业",
+            "MiddleCategoryCode": "751",
+            "MiddleCategory": "技术推广服务",
+            "SmallCategoryCode": "7512",
+            "SmallCategory": "生物技术推广服务"
+          },
+          "Area": {
+            "Province": "北京市",
+            "City": "北京市",
+            "County": "海淀区"
+          }
+        }
+      ],
+      "ProductList": [
+        {
+          "Name": "清格科技",
+          "StartDate": "2019-07-29",
+          "RoundDesc": "未融资",
+          "Location": "北京市",
+          "Description": "清格科技是一家拥有顶尖的自然语言处理技术、国内最早专注于政务智能领域的科创企业。公司研发的一整套完备的AI研发及技术平台，为客户提供包括先进算法、各类软件、内嵌人工智能服务等在内的全栈式解决方案。清格科技拥有的深度学习算法平台，已研制出包括政务信息搜索平台、公文内容智能审核系统、办公智能辅助系统、公文识别、文书生成等在内的一系列政务尖端AI产品，并仍在不断突破及创新。"
+        }
+      ],
+      "AdminLicenseList": [
+        {
+          "LicensDocNo": "91110102MA01LP561W",
+          "LicensDocName": "营业执照",
+          "ValidityFrom": "2019-07-29",
+          "ValidityTo": "2099-12-31",
+          "LicensOffice": "北京市西城区市场监督管理局",
+          "LicensContent": "北京清格科技有限公司",
+          "Source": "北京市市场监督管理局"
+        }
+      ],
+      "ApproveSiteList": [
+        {
+          "Name": "清格科技",
+          "WebAddress": "www.tsingge.com",
+          "DomainName": "tsingge.com",
+          "LesenceNo": "京ICP备19049638号-1",
+          "AuditDate": "2019-10-21"
+        }
+      ],
+      "SpotCheckList": null,
+      "TaxCreditList": null,
+      "FinancialInformation": null,
+      "IndustryChainList": [
+        {
+          "IndustryChainName": "数据要素",
+          "NodeList": [
+            {
+              "NodeName": "智慧政务",
+              "RelevanceLevel": "弱"
+            }
+          ]
+        },
+        {
+          "IndustryChainName": "物联网",
+          "NodeList": [
+            {
+              "NodeName": "应用软件",
+              "RelevanceLevel": "弱"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

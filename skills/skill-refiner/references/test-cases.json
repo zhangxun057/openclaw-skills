@@ -1,0 +1,42 @@
+[
+  {
+    "name": "技能迭代测试",
+    "type": "功能测试",
+    "input": "用户要求优化某个技能，提出具体改进需求",
+    "expected": "AI 按 6 步流程执行：确认场景→分析原因→提供方案→用户确认→备份→修改→测试→版本编号",
+    "actual": "",
+    "result": ""
+  },
+  {
+    "name": "备份功能测试",
+    "type": "功能测试",
+    "input": "执行 python scripts/backup_skill.py <skill-path>",
+    "expected": "创建 SKILL.md.backup.YYYYMMDD-HHMMSS 文件",
+    "actual": "",
+    "result": ""
+  },
+  {
+    "name": "修改方案格式测试",
+    "type": "功能测试",
+    "input": "AI 提供修改方案",
+    "expected": "包含：目录结构、修改位置、修改内容、修改理由",
+    "actual": "",
+    "result": ""
+  },
+  {
+    "name": "版本编号测试",
+    "type": "功能测试",
+    "input": "修改完成后",
+    "expected": "版本号正确递增（1.0.0 → 1.1.0），修改记录已添加",
+    "actual": "",
+    "result": ""
+  },
+  {
+    "name": "测试用例执行（回归）",
+    "type": "回归测试",
+    "input": "执行 python scripts/test_skill.py <skill-path>",
+    "expected": "测试框架正常运行，生成测试日志",
+    "actual": "",
+    "result": ""
+  }
+]

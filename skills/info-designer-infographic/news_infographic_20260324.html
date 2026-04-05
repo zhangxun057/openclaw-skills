@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票军事新闻简报 2026-03-24</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background: #1a1a2e;
+            padding: 20px;
+        }
+        
+        .infographic {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #F2F2F2 0%, #E8E8E8 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        /* 网格背景 */
+        .infographic::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(184, 216, 190, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(184, 216, 190, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+        
+        /* 头部 */
+        .header {
+            background: linear-gradient(135deg, #B8D8BE 0%, #9CC9A8 100%);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #2D2926;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #2D2926;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .header .date {
+            font-size: 14px;
+            color: #2D2926;
+            background: rgba(255,255,255,0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        /* 模块通用样式 */
+        .module {
+            padding: 25px;
+            border-bottom: 1px solid rgba(45, 41, 38, 0.1);
+            position: relative;
+        }
+        
+        .module:last-child {
+            border-bottom: none;
+        }
+        
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .module-id {
+            background: #2D2926;
+            color: #FFF200;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+        
+        .module-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #2D2926;
+        }
+        
+        .module-content {
+            background: rgba(184, 216, 190, 0.15);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #B8D8BE;
+        }
+        
+        .news-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 6px;
+            transition: transform 0.2s;
+        }
+        
+        .news-item:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .news-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .news-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            min-width: 24px;
+        }
+        
+        .news-text {
+            font-size: 14px;
+            color: #2D2926;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: #FFF200;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+        
+        .highlight-pink {
+            background: #E91E63;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+        
+        /* A 股市场模块 */
+        .module-stock .module-header {
+            border-left: 4px solid #B8D8BE;
+            padding-left: 15px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #B8D8BE 0%, #9CC9A8 100%);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #2D2926;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: #2D2926;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #2D2926;
+            margin-top: 5px;
+        }
+        
+        /* 军事模块 */
+        .module-military .module-header {
+            border-left: 4px solid #E91E63;
+            padding-left: 15px;
+        }
+        
+        .module-military .module-content {
+            border-left-color: #E91E63;
+            background: rgba(233, 30, 99, 0.08);
+        }
+        
+        .module-military .news-item {
+            border-left: 3px solid #E91E63;
+        }
+        
+        /* 科技模块 */
+        .module-tech .module-header {
+            border-left: 4px solid #FFF200;
+            padding-left: 15px;
+        }
+        
+        .module-tech .module-content {
+            border-left-color: #FFF200;
+            background: rgba(255, 242, 0, 0.08);
+        }
+        
+        .module-tech .news-item {
+            border-left: 3px solid #FFF200;
+        }
+        
+        /* 能源模块 */
+        .module-energy .module-header {
+            border-left: 4px solid #FF6B6B;
+            padding-left: 15px;
+        }
+        
+        .module-energy .module-content {
+            border-left-color: #FF6B6B;
+            background: rgba(255, 107, 107, 0.08);
+        }
+        
+        .module-energy .news-item {
+            border-left: 3px solid #FF6B6B;
+        }
+        
+        .warning-badge {
+            display: inline-block;
+            background: #E91E63;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #2D2926;
+            color: #B8D8BE;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .footer-info {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-icon {
+            font-size: 16px;
+        }
+        
+        .watermark {
+            color: #666;
+            font-size: 11px;
+        }
+        
+        /* 装饰元素 */
+        .deco-line {
+            height: 2px;
+            background: linear-gradient(90deg, #B8D8BE, #E91E63, #FFF200);
+            margin: 20px 0;
+        }
+        
+        .emoji-badge {
+            display: inline-block;
+            background: rgba(184, 216, 190, 0.3);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>📊 股票·军事 新闻简报</h1>
+            <div class="date">📅 2026 年 3 月 24 日 15:30</div>
+        </div>
+        
+        <!-- A 股市场 -->
+        <div class="module module-stock">
+            <div class="module-header">
+                <span class="module-id">A-01</span>
+                <span class="module-title">📈 A 股市场动态</span>
+            </div>
+            <div class="module-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">2 万亿</div>
+                        <div class="stat-label">两市成交额</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">5100+</div>
+                        <div class="stat-label">上涨个股</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">+1%</div>
+                        <div class="stat-label">沪指涨幅</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">182 亿</div>
+                        <div class="stat-label">ETF 分红</div>
+                    </div>
+                </div>
+                
+                <div class="deco-line"></div>
+                
+                <div class="news-item">
+                    <span class="news-icon">📊</span>
+                    <span class="news-text">三大指数集体收涨，全市场上涨个股超<span class="highlight">5100 只</span></span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">📈</span>
+                    <span class="news-text">沪指午后涨超<span class="highlight">1%</span>，微盘股大涨超<span class="highlight">4%</span></span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">⚡</span>
+                    <span class="news-text">电力、医药板块反弹，恒指涨超<span class="highlight">2%</span></span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🏆</span>
+                    <span class="news-text">老铺黄金涨逾<span class="highlight-pink">10%</span>，年内沪市 34 只 ETF 分红超 182 亿元</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 国际军事 -->
+        <div class="module module-military">
+            <div class="module-header">
+                <span class="module-id">B-05</span>
+                <span class="module-title">⚔️ 国际军事冲突</span>
+            </div>
+            <div class="module-content">
+                <div class="news-item">
+                    <span class="news-icon">🕊️</span>
+                    <span class="news-text"><span class="emoji-badge">和谈信号</span>美伊和谈信号出现，巴基斯坦斡旋停火，伊朗埃及外长通话</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">📰</span>
+                    <span class="news-text">特朗普称与伊朗已形成协议要点，<span class="highlight-pink">伊朗议长否认</span></span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🤝</span>
+                    <span class="news-text">伊朗和美国本周将在巴基斯坦举行会谈</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">⚠️</span>
+                    <span class="news-text">伊朗警告：若海岸遭攻击将在波斯湾布设水雷 <span class="warning-badge">高风险</span></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 国防科技 -->
+        <div class="module module-tech">
+            <div class="module-header">
+                <span class="module-id">C-12</span>
+                <span class="module-title">🛡️ 国防科技</span>
+            </div>
+            <div class="module-content">
+                <div class="news-item">
+                    <span class="news-icon">🚀</span>
+                    <span class="news-text"><span class="highlight-pink">阿里玄铁 C950 处理器</span>发布，刷新全球纪录</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🤖</span>
+                    <span class="news-text">为 AI Agent 时代定制，采用<span class="highlight">RISC-V 架构</span></span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🔗</span>
+                    <span class="news-text">千问加入玄铁 RISC-V 无剑联盟</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🇨🇳</span>
+                    <span class="news-text"><span class="highlight-pink">国产芯片重大突破</span>，AI+ 芯片协同发展</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 能源市场 -->
+        <div class="module module-energy">
+            <div class="module-header">
+                <span class="module-id">D-03</span>
+                <span class="module-title">🛢️ 能源市场</span>
+            </div>
+            <div class="module-content">
+                <div class="news-item">
+                    <span class="news-icon">🇯🇵</span>
+                    <span class="news-text"><span class="highlight-pink">日本释放史上最大规模石油储备</span>，首艘绕行油轮即将抵日</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">📉</span>
+                    <span class="news-text">摩根大通：全球石油供应缺口或持续<span class="highlight">千万桶/日</span></span>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🚨</span>
+                    <span class="news-text">霍尔木兹海峡受阻风险，油价可能大幅波动 <span class="warning-badge">关注</span></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部 -->
+        <div class="footer">
+            <div class="footer-info">
+                <div class="footer-item">
+                    <span class="footer-icon">🦞</span>
+                    <span>Claw 数字幽灵</span>
+                </div>
+                <div class="footer-item">
+                    <span class="footer-icon">⏰</span>
+                    <span>15:30 GMT+8</span>
+                </div>
+            </div>
+            <div class="watermark">模板 by WaytoAGI AJ</div>
+        </div>
+    </div>
+</body>
+</html>

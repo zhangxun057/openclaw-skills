@@ -1,0 +1,49 @@
+{
+  "title": "2026 年 3 月 25 日精选资讯日报",
+  "style": "cyberpunk-neon",
+  "theme": "赛博朋克霓虹风",
+  "modules": [
+    {
+      "id": "A-01",
+      "name": "白酒行情",
+      "type": "specs-scale",
+      "prompt": "Cyberpunk infographic module with neon aesthetic. A vertical price scale showing 酱香白酒 prices. Background: dark purple (#1A0033) with neon grid lines. Price markers in neon pink (#FF00FF) and cyan (#00FFFF). Text: 飞天茅台 2400-2500 元 (neon pink highlight), 五粮液普五 950-980 元 (cyan highlight). Include glowing effects, digital readout style numbers, coordinate label A-01 in corner. Futuristic data visualization with holographic feel. 800x600 pixels."
+    },
+    {
+      "id": "B-05",
+      "name": "AI 前沿",
+      "type": "deep-dive",
+      "prompt": "Cyberpunk tech diagram module. Central AI brain/chip illustration with neon circuit patterns. Four callout circles with glowing borders showing: 字节豆包大模型 (neon pink), Manus 通用 AI (cyan), AI 人才争夺 (yellow), 技术方向 (purple). Background: dark cyberpunk cityscape silhouette. Holographic annotations in Chinese. Coordinate B-05. Glowing data streams connecting elements. 800x600 pixels, high contrast neon on dark."
+    },
+    {
+      "id": "C-12",
+      "name": "股市动态",
+      "type": "scenario-grid",
+      "prompt": "Cyberpunk comparison grid with 4 cards. Each card has neon border and dark background. Card 1: 泡泡玛特 -20% (red neon) but +20% growth (green neon). Card 2: 美团 +10% (bright green neon). Card 3: MOVA 100 万台 (cyan). Card 4: 飞猪 AI skill (purple). Background: dark with subtle circuit pattern. Coordinate C-12. Each card like a futuristic HUD display. 800x600 pixels."
+    },
+    {
+      "id": "D-03",
+      "name": "核心观察",
+      "type": "brand-array",
+      "prompt": "Cyberpunk 3x3 matrix grid. Three sectors: 白酒行业 (neon pink), AI 领域 (cyan), 资本市场 (purple). Each sector box with glowing border and key insights in Chinese. Background: dark gradient with neon grid. Highlight key phrases with yellow neon. Coordinate D-03 in corner. Futuristic dashboard aesthetic with data glow effects. 800x600 pixels."
+    },
+    {
+      "id": "E-07",
+      "name": "投资提示",
+      "type": "warning-zone",
+      "prompt": "Cyberpunk warning zone module. High contrast with red neon warning triangles. Dark background (#0D001A) with alert boxes. Four warning messages in glowing red/orange text: 港股波动剧烈，AI 泡沫论，关注基本面，市场有风险. Coordinate E-07. Include cyberpunk warning icons and hazard symbols. Glitch effect on text. Urgent futuristic alert aesthetic. 800x600 pixels."
+    },
+    {
+      "id": "F-10",
+      "name": "数据汇总",
+      "type": "quick-check",
+      "prompt": "Cyberpunk data table module. Dark background with neon grid lines. Table rows alternating dark purple and dark cyan. Headers in bright neon pink. Data values in cyan and yellow. Show: 资讯来源，整理时间 2026-03-25, 资讯类别 counts, 总计 10 条。Coordinate F-10. Digital readout style numbers. Holographic table aesthetic with scan lines. 800x600 pixels."
+    },
+    {
+      "id": "G-02",
+      "name": "元数据",
+      "type": "status-bar",
+      "prompt": "Cyberpunk status bar module. Dark background with neon info blocks. Show: 模板 by WaytoAGI AJ (cyan), 风格 赛博朋克 (pink), 分辨率 800x600 (yellow), 配色霓虹粉青色 (gradient), 生成系统 info-designer (purple). Include barcode pattern, timestamp, and tech specs. Coordinate G-02. Futuristic UI element with glow effects. 800x600 pixels."
+    }
+  ]
+}

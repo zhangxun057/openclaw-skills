@@ -1,0 +1,37 @@
+[
+  {
+    "id": "A-01",
+    "name": "市场概览",
+    "prompt": "A technical specifications scale infographic module for information design.\n\nStyle: Laboratory manual aesthetic with precise technical design.\n\nContent: Technical ruler or gauge showing parameter scale. Include numerical increments, markers, and comparison points (Standard vs Premium).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Scale: Muted sage green for main scale\n- Markers: Vibrant fluorescent pink for critical points\n- Highlights: Lemon yellow for key measurements\n- Text: Dark charcoal for labels\n\nLayout: Horizontal or vertical ruler with precise measurements. Include coordinate-style label (e.g., B-05).\n\nTypography: Large highlighted numbers in yellow/blue, clean body text for descriptions.\n\nImage size: 800x600 pixels\n\nSpecific Content for 市场概览:\nA 股三大指数：沪指 -0.17%、深成指 -0.32%、创业板 -0.54%；恒生指数 -0.27%、恒生科技 -1%；央行净投放 2110 亿元，逆回购利率 1.40%"
+  },
+  {
+    "id": "B-05",
+    "name": "热点板块",
+    "prompt": "A professional brand comparison infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean technical design.\n\nContent: Brand matrix grid (3x3 or 4x4) showing multiple brand options. Highlight the best choice with vibrant fluorescent pink (#E91E63).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Grid lines: Ultra-fine dark charcoal\n- Highlight: Vibrant fluorescent pink for the winner\n- Text: Dark charcoal for labels\n\nLayout: Grid layout with brand names and key specs. Minimal margins with technical annotations.\n\nTypography: Bold headers for brand names, clean body text for specifications.\n\nImage size: 800x600 pixels\n\nSpecific Content for 热点板块:\n化工板块 (+2.5%) 渤海化学 2 连板；算力租赁 (+3.2%) 奥瑞德 7 天 5 板；商业航天 (+1.8%) 再升科技 2 连板；电力板块 华电辽能 8 板；半导体领跌 瑞斯康达 -5%"
+  },
+  {
+    "id": "C-12",
+    "name": "港股焦点",
+    "prompt": "A technical deep dive infographic module for information design.\n\nStyle: Laboratory manual aesthetic with exploded view.\n\nContent: Technical sketch or exploded view of the subject. Include zoom-in callout circles showing internal components and details.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Drawing: Ultra-fine dark charcoal for technical lines\n- Highlights: Vibrant fluorescent pink for callout circles\n- Annotations: Lemon yellow for key labels\n- Text: Dark charcoal for specifications\n\nLayout: Central technical drawing with circular callouts pointing to specific features. Include anchor points and directional arrows.\n\nTypography: Technical annotations in small crisp font, bold labels for major components.\n\nImage size: 800x600 pixels\n\nSpecific Content for 港股焦点:\n恒生科技指数跌幅扩大至 1%；快手跌超 9% 领跌；B 站、携程、泡泡玛特跌超 1%；医药生物走强 乐普生物 +6%；三一国际 +2%、中石化油服 +1%"
+  },
+  {
+    "id": "D-03",
+    "name": "国际局势",
+    "prompt": "A scenario comparison grid infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean data comparison.\n\nContent: Comparison cards showing different scenarios or use cases. Separated by fine hair-lines (0.5pt).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Cards: Muted sage green for card backgrounds\n- Highlights: Vibrant fluorescent pink for recommended scenarios\n- Dividers: Ultra-fine dark charcoal lines\n- Text: Dark charcoal for content\n\nLayout: Grid of comparison cards. Each card shows scenario name, key parameters, and pros/cons.\n\nTypography: Bold headers for scenario names, clean body text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 国际局势:\n伊朗拟对霍尔木兹海峡征收通行费；贝莱德 CEO：油价 40 或 150 美元两结局；SpaceX 估值 1.75 万亿美元拟募资 750 亿；中东局势推升油价预期"
+  },
+  {
+    "id": "E-07",
+    "name": "风险警示",
+    "prompt": "A warning and pitfalls infographic module for information design.\n\nStyle: High-contrast warning zone with laboratory manual aesthetic.\n\nContent: Critical warnings, pitfalls to avoid, and common mistakes. Use high-contrast design to grab attention.\n\nColor Palette:\n- Background: Vibrant fluorescent pink (#E91E63) for high alert\n- Text: Black for maximum contrast\n- Warnings: Black panels with white text for specific warnings\n- Icons: Black warning symbols\n\nLayout: High-contrast layout with warning icons, bullet points of pitfalls, and clear alert boxes. Include coordinate-style label (e.g., E-07).\n\nTypography: Bold brutalist Chinese characters for warnings, clean text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 风险警示:\n半导体板块低开承压；CPO 概念回调风险；对冲基金 Caxton 单月巨亏 13 亿美元；金价波动剧烈；部分品种可能再也回不去"
+  },
+  {
+    "id": "F-10",
+    "name": "投资参考",
+    "prompt": "A quick reference summary table infographic module for information design.\n\nStyle: Laboratory manual aesthetic resembling a lab data sheet.\n\nContent: Dense summary table with key parameters, ratings, and quick reference data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Table: Muted sage green for alternate rows\n- Highlights: Lemon yellow for critical values\n- Text: Dark charcoal for content\n\nLayout: Dense table with columns for parameter, value, rating, and notes. Include row headers and summary statistics.\n\nTypography: Clean tabular font, large highlighted numbers for key metrics.\n\nImage size: 800x600 pixels\n\nSpecific Content for 投资参考:\n关注：化工链、算力租赁、商业航天、医疗器械；警惕：半导体回调、港股科技股；CRO 板块拐点来临；新能源出口 +110%；贵金属受局势支撑"
+  },
+  {
+    "id": "G-02",
+    "name": "数据源",
+    "prompt": "A status bar and metadata infographic module for information design.\n\nStyle: Laboratory manual aesthetic with information block stack.\n\nContent: Status information, metadata, timestamps, technical parameters, and supplementary data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Blocks: Muted sage green for information blocks\n- Highlights: Lemon yellow for critical metadata\n- Text: Dark charcoal for labels and values\n\nLayout: Vertical or horizontal stack of information blocks. Include bar code patterns, timestamps, and technical parameters.\n\nTypography: Small crisp font for metadata, bold headers for section titles.\n\nImage size: 800x600 pixels\n\nSpecific Content for 数据源:\n数据来源：财联社、36 氪、华尔街见闻；更新时间：2026-03-26 09:41；模板 by WaytoAGI AJ；市场状态：早盘低开；情绪：偏谨慎"
+  }
+]

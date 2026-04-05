@@ -1,0 +1,32 @@
+[
+  {
+    "id": "A-01",
+    "name": "股市概览",
+    "prompt": "A technical specifications scale infographic module for information design.\n\nStyle: Laboratory manual aesthetic with precise technical design.\n\nContent: Technical ruler or gauge showing parameter scale. Include numerical increments, markers, and comparison points (Standard vs Premium).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Scale: Muted sage green for main scale\n- Markers: Vibrant fluorescent pink for critical points\n- Highlights: Lemon yellow for key measurements\n- Text: Dark charcoal for labels\n\nLayout: Horizontal or vertical ruler with precise measurements. Include coordinate-style label (e.g., B-05).\n\nTypography: Large highlighted numbers in yellow/blue, clean body text for descriptions.\n\nImage size: 800x600 pixels\n\nSpecific Content for 股市概览:\nA 股市场动态：成交额突破 2 万亿 | 三大指数集体收涨 | 超 5100 只个股上涨 | 沪指午后涨超 1% | 微盘股大涨超 4% | 电力医药板块反弹 | 恒指涨超 2% | 老铺黄金涨逾 10%"
+  },
+  {
+    "id": "B-05",
+    "name": "中东局势",
+    "prompt": "A scenario comparison grid infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean data comparison.\n\nContent: Comparison cards showing different scenarios or use cases. Separated by fine hair-lines (0.5pt).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Cards: Muted sage green for card backgrounds\n- Highlights: Vibrant fluorescent pink for recommended scenarios\n- Dividers: Ultra-fine dark charcoal lines\n- Text: Dark charcoal for content\n\nLayout: Grid of comparison cards. Each card shows scenario name, key parameters, and pros/cons.\n\nTypography: Bold headers for scenario names, clean body text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 中东局势:\n美伊和谈信号出现 | 巴基斯坦斡旋停火 | 伊朗埃及外长通话 | 特朗普称协议已形成 | 伊朗议长否认 | 本周将在巴基斯坦会谈 | 伊朗警告若遭攻击将在波斯湾布设水雷"
+  },
+  {
+    "id": "C-12",
+    "name": "国防科技",
+    "prompt": "A technical deep dive infographic module for information design.\n\nStyle: Laboratory manual aesthetic with exploded view.\n\nContent: Technical sketch or exploded view of the subject. Include zoom-in callout circles showing internal components and details.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Drawing: Ultra-fine dark charcoal for technical lines\n- Highlights: Vibrant fluorescent pink for callout circles\n- Annotations: Lemon yellow for key labels\n- Text: Dark charcoal for specifications\n\nLayout: Central technical drawing with circular callouts pointing to specific features. Include anchor points and directional arrows.\n\nTypography: Technical annotations in small crisp font, bold labels for major components.\n\nImage size: 800x600 pixels\n\nSpecific Content for 国防科技:\n阿里玄铁 C950 处理器发布 | 刷新全球纪录 | 为 AI Agent 时代定制 | RISC-V 架构 | 千问加入无剑联盟 | 国产芯片重大突破 | AI+ 芯片协同发展"
+  },
+  {
+    "id": "D-03",
+    "name": "能源市场",
+    "prompt": "A warning and pitfalls infographic module for information design.\n\nStyle: High-contrast warning zone with laboratory manual aesthetic.\n\nContent: Critical warnings, pitfalls to avoid, and common mistakes. Use high-contrast design to grab attention.\n\nColor Palette:\n- Background: Vibrant fluorescent pink (#E91E63) for high alert\n- Text: Black for maximum contrast\n- Warnings: Black panels with white text for specific warnings\n- Icons: Black warning symbols\n\nLayout: High-contrast layout with warning icons, bullet points of pitfalls, and clear alert boxes. Include coordinate-style label (e.g., E-07).\n\nTypography: Bold brutalist Chinese characters for warnings, clean text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 能源市场:\n日本释放史上最大规模石油储备 | 首艘绕行油轮即将抵日 | 摩根大通：全球石油供应缺口或持续千万桶/日 | 霍尔木兹海峡受阻风险 | 油价可能大幅波动 | 多国启动战略储备"
+  },
+  {
+    "id": "E-07",
+    "name": "ETF 分红",
+    "prompt": "A quick reference summary table infographic module for information design.\n\nStyle: Laboratory manual aesthetic resembling a lab data sheet.\n\nContent: Dense summary table with key parameters, ratings, and quick reference data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Table: Muted sage green for alternate rows\n- Highlights: Lemon yellow for critical values\n- Text: Dark charcoal for content\n\nLayout: Dense table with columns for parameter, value, rating, and notes. Include row headers and summary statistics.\n\nTypography: Clean tabular font, large highlighted numbers for key metrics.\n\nImage size: 800x600 pixels\n\nSpecific Content for ETF 分红:\n年内沪市 34 只 ETF 实施分红 | 分红规模超 182 亿元 | ETF 分红密集 | 投资者收益增加"
+  },
+  {
+    "id": "F-10",
+    "name": "关键观察",
+    "prompt": "A status bar and metadata infographic module for information design.\n\nStyle: Laboratory manual aesthetic with information block stack.\n\nContent: Status information, metadata, timestamps, technical parameters, and supplementary data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Blocks: Muted sage green for information blocks\n- Highlights: Lemon yellow for critical metadata\n- Text: Dark charcoal for labels and values\n\nLayout: Vertical or horizontal stack of information blocks. Include bar code patterns, timestamps, and technical parameters.\n\nTypography: Small crisp font for metadata, bold headers for section titles.\n\nImage size: 800x600 pixels\n\nSpecific Content for 关键观察:\nA 股市场活跃情绪积极 | 中东局势出现和谈信号但双方表态不一 | 国产芯片重大突破 | 能源市场受地缘政治影响 | 模板 by WaytoAGI AJ"
+  }
+]

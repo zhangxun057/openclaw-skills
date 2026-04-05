@@ -1,0 +1,37 @@
+[
+  {
+    "id": "A-01",
+    "name": "A 股概览",
+    "prompt": "A technical specifications scale infographic module for information design.\n\nStyle: Laboratory manual aesthetic with precise technical design.\n\nContent: Technical ruler or gauge showing parameter scale. Include numerical increments, markers, and comparison points (Standard vs Premium).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Scale: Muted sage green for main scale\n- Markers: Vibrant fluorescent pink for critical points\n- Highlights: Lemon yellow for key measurements\n- Text: Dark charcoal for labels\n\nLayout: Horizontal or vertical ruler with precise measurements. Include coordinate-style label (e.g., B-05).\n\nTypography: Large highlighted numbers in yellow/blue, clean body text for descriptions.\n\nImage size: 800x600 pixels\n\nSpecific Content for A 股概览:\n上证指数：3920.51 点 (+1.01%) | 创业板：+2% | 恒指：+1% | 成交量：放大 | 市场情绪：强势上涨 | 资金流向：北向净流入"
+  },
+  {
+    "id": "B-05",
+    "name": "军工板块",
+    "prompt": "A professional brand comparison infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean technical design.\n\nContent: Brand matrix grid (3x3 or 4x4) showing multiple brand options. Highlight the best choice with vibrant fluorescent pink (#E91E63).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Grid lines: Ultra-fine dark charcoal\n- Highlight: Vibrant fluorescent pink for the winner\n- Text: Dark charcoal for labels\n\nLayout: Grid layout with brand names and key specs. Minimal margins with technical annotations.\n\nTypography: Bold headers for brand names, clean body text for specifications.\n\nImage size: 800x600 pixels\n\nSpecific Content for 军工板块:\n【军工股】集体反弹 | 【国防科技】政策利好 | 【航空装备】订单饱满 | 【船舶制造】景气度上升 | 【航天电子】技术突破"
+  },
+  {
+    "id": "C-12",
+    "name": "财经焦点",
+    "prompt": "A quick reference summary table infographic module for information design.\n\nStyle: Laboratory manual aesthetic resembling a lab data sheet.\n\nContent: Dense summary table with key parameters, ratings, and quick reference data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Table: Muted sage green for alternate rows\n- Highlights: Lemon yellow for critical values\n- Text: Dark charcoal for content\n\nLayout: Dense table with columns for parameter, value, rating, and notes. Include row headers and summary statistics.\n\nTypography: Clean tabular font, large highlighted numbers for key metrics.\n\nImage size: 800x600 pixels\n\nSpecific Content for 财经焦点:\n高盛：私募信贷或引发新金融危机 | 商务部：墨西哥涉华限制构成投资壁垒 | 市监总局：外卖大战该结束了 | 平安好医生：不再单飞后变强"
+  },
+  {
+    "id": "D-03",
+    "name": "国际军事",
+    "prompt": "A technical deep dive infographic module for information design.\n\nStyle: Laboratory manual aesthetic with exploded view.\n\nContent: Technical sketch or exploded view of the subject. Include zoom-in callout circles showing internal components and details.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Drawing: Ultra-fine dark charcoal for technical lines\n- Highlights: Vibrant fluorescent pink for callout circles\n- Annotations: Lemon yellow for key labels\n- Text: Dark charcoal for specifications\n\nLayout: Central technical drawing with circular callouts pointing to specific features. Include anchor points and directional arrows.\n\nTypography: Technical annotations in small crisp font, bold labels for major components.\n\nImage size: 800x600 pixels\n\nSpecific Content for 国际军事:\n【伊朗局势】美国提停火方案同时增兵，伊朗怀疑和平谈判是幌子 | 【中东局势】调解方斡旋中 | 【军事动态】全球关注"
+  },
+  {
+    "id": "E-07",
+    "name": "国防科技",
+    "prompt": "A scenario comparison grid infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean data comparison.\n\nContent: Comparison cards showing different scenarios or use cases. Separated by fine hair-lines (0.5pt).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Cards: Muted sage green for card backgrounds\n- Highlights: Vibrant fluorescent pink for recommended scenarios\n- Dividers: Ultra-fine dark charcoal lines\n- Text: Dark charcoal for content\n\nLayout: Grid of comparison cards. Each card shows scenario name, key parameters, and pros/cons.\n\nTypography: Bold headers for scenario names, clean body text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 国防科技:\n【航空工业】新一代战机研发进展 | 【船舶工业】超大型油船交付 | 【电子科技】军用芯片自主化 | 【导弹防御】技术升级"
+  },
+  {
+    "id": "F-10",
+    "name": "热点题材",
+    "prompt": "A professional brand comparison infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean technical design.\n\nContent: Brand matrix grid (3x3 or 4x4) showing multiple brand options. Highlight the best choice with vibrant fluorescent pink (#E91E63).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Grid lines: Ultra-fine dark charcoal\n- Highlight: Vibrant fluorescent pink for the winner\n- Text: Dark charcoal for labels\n\nLayout: Grid layout with brand names and key specs. Minimal margins with technical annotations.\n\nTypography: Bold headers for brand names, clean body text for specifications.\n\nImage size: 800x600 pixels\n\nSpecific Content for 热点题材:\n【算力硬件】爆发式增长 | 【半导体】国产替代加速 | 【存储芯片】Q2 价格涨幅超预期 | 【有色金属】反弹行情 | 【AI 芯片】阿里布局"
+  },
+  {
+    "id": "G-02",
+    "name": "数据源",
+    "prompt": "A status bar and metadata infographic module for information design.\n\nStyle: Laboratory manual aesthetic with information block stack.\n\nContent: Status information, metadata, timestamps, technical parameters, and supplementary data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Blocks: Muted sage green for information blocks\n- Highlights: Lemon yellow for critical metadata\n- Text: Dark charcoal for labels and values\n\nLayout: Vertical or horizontal stack of information blocks. Include bar code patterns, timestamps, and technical parameters.\n\nTypography: Small crisp font for metadata, bold headers for section titles.\n\nImage size: 800x600 pixels\n\nSpecific Content for 数据源:\n数据来源：华尔街见闻 | 36 氪 | 东方财富 | 同花顺 | 新浪财经 | 澎湃新闻 | 更新时间：2026-03-25 15:30 Asia/Shanghai | 模板 by WaytoAGI AJ"
+  }
+]

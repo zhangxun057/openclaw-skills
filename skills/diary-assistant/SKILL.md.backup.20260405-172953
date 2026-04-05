@@ -1,0 +1,364 @@
+---
+name: diary-assistant
+description: 日记助手。当用户要求"写日记"、"记录今天"、"总结对话写日记"、"发布日记到云文档"时使用。自动分析对话历史，提取关键事件和方法论，发布到飞书云文档"龙虾日记本"。
+**支持自动模式**：定时任务触发时跳过交互，直接读取本地会话文件并自动发布。
+
+**Use this skill when:**
+(1) User requests "写日记" / "记录今天" / "总结对话写日记" / "发布日记到云文档"
+(2) User mentions "日记" / "日记本" / "写日记" / "记录今天" / "总结对话" / "复盘" / "反思" / "心得" / "方法论" / "经验教训"
+(3) 定时任务触发：按照 <diary-assistant>技能，执行日记撰写
+(4) User wants to analyze conversations and write diary
+
+**Keywords:** 日记，日记本，写日记，记录今天，总结对话，复盘，反思，心得，方法论，经验教训，洞察，发布到云文档
+---
+
+# 日记助手 - 完整流程
+
+## 核心流程
+
+### 1. 读取对话历史
+
+从当前会话或 chat-logs 读取关键信息：
+- 时间线：事件发生的时间顺序
+- 关键事件：做了什么、解决了什么
+- 遇到的问题：遇到了哪些困难
+- 解决方案：如何解决
+- 反思与洞察：用户的感想和思考
+
+**注意**：
+- 优先从本地的对话记录读取
+- 关注细节：数据、结论、重要信息
+- 捕捉用户的洞察和反思
+
+### 2. 撰写日记摘要
+
+提取关键信息后，整理成摘要（自动模式下跳过此步）：
+- 今天发生了什么重要的事
+- 解决了什么问题/有什么突破
+- 有什么洞察或反思
+- 有什么值得记录的对话或数据
+
+### 3. 与用户确认（非自动模式）
+
+展示摘要给用户：
+- "这是我整理的日记摘要，看看有没有遗漏或需要补充的？"
+- 等待用户确认或修改
+- 确认第一人称视角（默认）
+
+### 4. 撰写完整日记
+
+**日记风格指导**（重要）：
+
+日记应该是**有温度、可分享、有启发**的个人记录，而不是冷冰冰的工作日志。
+
+**推荐结构**（灵活使用，不必拘泥）：
+```markdown
+## 📅 2026-03-24 星期一
+
+**今天的主题/关键词**（可选）
+
+### 今天做了什么
+用自然的语言描述今天的主要活动，像讲故事一样，不要列清单。
+
+### 遇到的挑战
+遇到了什么问题，当时怎么想的，最后怎么解决的。
+
+### 今天的洞察
+- 有什么新的认识或想法
+- 有什么可以复用的经验
+- 有什么想提醒自己的
+
+### 随手记
+- 有趣的对话片段
+- 突然冒出来的想法
+- 明天要继续的事
+```
+
+**写作原则**：
+- ✅ **第一人称**：用"我"来写，像跟自己对话
+- ✅ **自然流畅**：像写博客一样，不要机械罗列
+- ✅ **有细节**：保留关键数据、对话、决策过程
+- ✅ **有反思**：记录真实的想法和感受
+- ✅ **可分享**：写出来的东西，别人看了也能有收获
+- ❌ **避免**：过度分段、太多小标题、机械的"事件 1/事件 2"格式
+- ❌ **避免**：流水账、空洞的总结
+
+**篇幅建议**：800-2000 字，重点突出 2-3 个核心事件即可。
+
+### 5. 发布到飞书云文档
+
+使用 `feishu_update_doc` 工具：
+
+1. 搜索"龙虾日记本"文档：
+```
+feishu_search_doc_wiki(query="龙虾日记本")
+```
+
+2. 追加日记内容：
+```
+feishu_update_doc(
+  doc_id="文档 ID",
+  markdown="日记内容",
+  mode="append"
+)
+```
+
+**注意**：
+- 内容较长时分段追加，每段 < 1000 字
+- 追加模式使用 `mode="append"`
+- 确认发布成功后通知用户
+
+### 6. 生成并上传日记封面（必须步骤）
+
+**日记必须配封面图**，让日记更生动、更适合分享。
+
+#### 方案 A：使用 AI 生成封面（推荐）
+
+根据日记主题/关键词，调用 AI 绘画工具生成封面：
+
+**可选工具**：
+- 即梦数字人（适合人物/场景）
+- DALL-E 3 / Midjourney（适合抽象/艺术风格）
+- 其他可用的生图工具
+
+**生成提示词示例**：
+```
+根据日记主题生成封面图：
+- 主题："AI 时代的价值函数重构"
+- 风格：简约、现代、有科技感
+- 色调：温暖、启发性的配色
+- 尺寸：16:9 或 4:3（适合飞书文档展示）
+```
+
+**生成后保存**：
+```powershell
+# 保存到 scratchpad 目录
+$savePath = "C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scratchpad\diary-2026-03-24.png"
+```
+
+#### 方案 B：使用现有图片（备选）
+
+如果无法生成新图片，可使用：
+- 之前生成的 `diary_cover.jpeg`
+- 与日记主题相关的现有图片
+- 简洁的纯色背景 + 文字（用代码生成）
+
+#### 上传到飞书文档
+
+**重要**：必须使用 `feishu_doc_media`，不能用 `feishu_drive_file`！
+
+**步骤 1：复制文件到临时目录**
+```powershell
+$sourcePath = "C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scratchpad\diary-2026-03-24.png"
+$tempPath = "C:\Users\44452\AppData\Local\Temp\diary-2026-03-24.png"
+Copy-Item $sourcePath $tempPath -Force
+```
+
+**步骤 2：插入到文档（在日记内容之前）**
+```python
+feishu_doc_media(
+  action="insert",
+  doc_id="LMVKd9a7mocum2xlJTicaR8hn5q",  # 龙虾日记本
+  file_path="C:\\Users\\44452\\AppData\\Local\\Temp\\diary-2026-03-24.png",
+  type="image",
+  align="center",
+  caption="📅 2026-03-24 日记封面"
+)
+```
+
+**步骤 3：追加日记正文**
+```python
+feishu_update_doc(
+  doc_id="LMVKd9a7mocum2xlJTicaR8hn5q",
+  markdown="日记内容...",
+  mode="append"
+)
+```
+
+#### 步骤：
+
+**1. 复制文件到临时目录**
+```powershell
+# PowerShell
+$sourcePath = "C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scratchpad\diary-2026-03-21.png"
+$tempPath = "C:\Users\44452\AppData\Local\Temp\diary-2026-03-21.png"
+Copy-Item $sourcePath $tempPath -Force
+```
+
+或
+
+```python
+# Python
+import shutil
+from pathlib import Path
+
+source = Path.home() / ".openclaw/agents/guaiguaixia/workspace/scratchpad/diary-2026-03-21.png"
+temp = Path.home() / "AppData/Local/Temp/diary-2026-03-21.png"
+shutil.copy2(source, temp)
+```
+
+**2. 使用 feishu_doc_media 插入文档**
+```python
+feishu_doc_media(
+  action="insert",
+  doc_id="LMVKd9a7mocum2xlJTicaR8hn5q",  # 龙虾日记本
+  file_path="C:\\Users\\44452\\AppData\\Local\\Temp\\diary-2026-03-21.png",
+  type="image",
+  align="center",
+  caption="日记封面 - 2026-03-21"
+)
+```
+
+**返回值**：
+```json
+{
+  "success": true,
+  "type": "image",
+  "document_id": "LMVKd9a7mocum2xlJTicaR8hn5q",
+  "block_id": "doxcne2YJdaViKe73WYiluRZPjg",
+  "file_token": "K4WabnmAHoHcYHxPD4ic0Ueunbf",
+  "file_name": "diary-2026-03-21.png"
+}
+```
+
+**⚠️ 常见错误**：
+
+1. **file_token undefined**
+   - 原因：使用了 `feishu_drive_file` 而非 `feishu_doc_media`
+   - 解决：改用 `feishu_doc_media`
+
+2. **Local file access denied**
+   - 原因：文件不在允许的目录下
+   - 解决：先复制到 `C:\Users\44452\AppData\Local\Temp\`
+
+3. **文件不存在**
+   - 原因：路径错误或文件未生成
+   - 解决：检查文件路径和文件名
+
+#### 自动化脚本
+
+可使用提供的脚本自动上传：
+
+**PowerShell 版本**：
+```powershell
+# 上传昨天的日记图片
+.\upload-diary-images.ps1 2026-03-21
+
+# 或自动使用昨天日期
+.\upload-diary-images.ps1
+```
+
+**Python 版本**：
+```python
+# 上传昨天的日记图片
+python upload_diary_images.py 2026-03-21
+
+# 或自动使用昨天日期
+python upload_diary_images.py
+```
+
+脚本位置：
+- `C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scripts\upload-diary-images.ps1`
+- `C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scripts\upload_diary_images.py`
+
+---
+
+## 自动模式（定时任务）
+
+定时任务触发时，跳过交互步骤：
+
+1. 计算昨天日期
+2. 读取昨天的 chat-logs
+3. 提取关键事件
+4. **生成日记封面图片**（使用 diary-cover.py 脚本）
+5. 撰写完整日记（跳过提纲确认）
+6. 发布封面图到飞书云文档
+7. 追加日记正文到云文档
+8. 保存到 `scratchpad\diary-YYYY-MM-DD.md`
+
+**触发命令**：
+```
+按照 <diary-assistant>技能，执行"日记撰写"
+
+**重要执行步骤**:
+1. 计算昨天日期，使用 Exec 命令读取昨日所有虾的 chat-logs 对话
+2. 提取关键事件、决策、反思
+3. 生成封面图片（使用 diary-cover.py 脚本，见下方"封面图生成"详细步骤）
+4. 撰写完整日记（跳过提纲确认）
+5. 发布封面图 + 日记正文到飞书云文档"龙虾日记本"
+6. 保存到 scratchpad\diary-YYYY-MM-DD.md（YYYY-MM-DD 为昨天日期）
+```
+
+---
+
+## 封面图生成（自动模式专用）
+
+**使用 diary-cover.py 脚本（已测试验证）**
+
+**脚本位置：** `C:\Users\44452\.openclaw\skills\seedream-image-generation\scripts\diary-cover.py`
+
+**功能：**
+- 使用 Seedream 4.5 模型生成 9:16 竖屏手绘风格封面
+- 根据日期自动选择主题（8 种龙虾场景轮换）
+- **自动保存到 scratchpad 目录**
+
+**调用命令（PowerShell，使用分号语法）：**
+```powershell
+# 生成昨天的封面图
+cd "C:\Users\44452\.openclaw\skills\seedream-image-generation\scripts"; python diary-cover.py --date "2026-03-28" --output "C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scratchpad"
+```
+
+**输出文件：** `scratchpad\diary-YYYY-MM-DD-cover.png`
+
+**注意事项：**
+1. 必须使用 PowerShell 分号 `;` 语法，不能用 `&&`
+2. `--output` 参数必须是完整绝对路径
+3. 脚本会自动下载图片到本地，无需额外步骤
+
+---
+
+## 示例对话
+
+**用户**："帮我写今天的日记"
+
+**助手**：
+1. "让我先看看今天的对话记录..."
+2. [从对话记录提取关键事件]
+3. "我整理了以下重要事件：
+   - 研究定时任务补偿执行机制
+   - 讨论心跳配置问题
+   - 提到技能共享中心的需求
+   
+   这些需要重点记录吗？还有其他需要补充的？"
+4. [等待用户确认]
+5. [撰写完整日记]
+6. [发布到云文档]
+7. "日记已发布到云文档 ✅"
+
+---
+
+## 关键原则
+
+- **真实性**：基于实际对话，不编造
+- **温度感**：像写博客一样自然，不是冷冰冰的日志
+- **可分享**：写出来的东西，别人看了也能有收获
+- **完整性**：必须生成封面图，图文并茂
+- **深度性**：细节记录 + 深度反思
+- **效率**：分段发布避免超时
+
+---
+
+## 相关文件
+
+| 文件 | 路径 | 说明 |
+|------|------|------|
+| 日记脚本 | `workspace/scripts/upload_diary_images.py` | Python 上传脚本 |
+| 日记脚本 | `workspace/scripts/upload-diary-images.ps1` | PowerShell 上传脚本 |
+| 最佳实践 | `workspace/knowledge/飞书图片上传最佳实践.md` | 上传操作详细文档 |
+| 日记模板 | `workspace/scratchpad/diary-YYYY-MM-DD.md` | 日记保存位置 |
+| 封面图片 | `workspace/scratchpad/diary-YYYY-MM-DD.png` | 日记封面图片 |
+
+---
+
+_记录者：乖乖虾_
+_更新时间：2026-03-24_

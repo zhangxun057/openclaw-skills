@@ -1,0 +1,37 @@
+[
+  {
+    "id": "A-01",
+    "name": "市场概览",
+    "prompt": "A technical specifications scale infographic module for information design.\n\nStyle: Laboratory manual aesthetic with precise technical design.\n\nContent: Technical ruler or gauge showing parameter scale. Include numerical increments, markers, and comparison points (Standard vs Premium).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Scale: Muted sage green for main scale\n- Markers: Vibrant fluorescent pink for critical points\n- Highlights: Lemon yellow for key measurements\n- Text: Dark charcoal for labels\n\nLayout: Horizontal or vertical ruler with precise measurements. Include coordinate-style label (e.g., B-05).\n\nTypography: Large highlighted numbers in yellow/blue, clean body text for descriptions.\n\nImage size: 800x600 pixels\n\nSpecific Content for 市场概览:\nA 股市场走势 2026-03-25 | 沪指收复 3900 点 | 创业板 +2% | 恒生指数 +1% | 算力硬件爆发 | 半导体反弹 | 有色金属反弹 | 市场情绪回暖 | 消费板块有望跟随反弹 | 模板 by WaytoAGI AJ"
+  },
+  {
+    "id": "B-05",
+    "name": "板块动态",
+    "prompt": "A technical deep dive infographic module for information design.\n\nStyle: Laboratory manual aesthetic with exploded view.\n\nContent: Technical sketch or exploded view of the subject. Include zoom-in callout circles showing internal components and details.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Drawing: Ultra-fine dark charcoal for technical lines\n- Highlights: Vibrant fluorescent pink for callout circles\n- Annotations: Lemon yellow for key labels\n- Text: Dark charcoal for specifications\n\nLayout: Central technical drawing with circular callouts pointing to specific features. Include anchor points and directional arrows.\n\nTypography: Technical annotations in small crisp font, bold labels for major components.\n\nImage size: 800x600 pixels\n\nSpecific Content for 板块动态:\n白酒板块观察 | 季报披露期临近 | 龙头业绩成焦点 | 大盘企稳后资金关注 | 风险偏好提升 | 消费板块轮动机会 | 板块估值修复窗口 | 机构配置比例监测 | 北向资金流向跟踪"
+  },
+  {
+    "id": "C-12",
+    "name": "龙头跟踪",
+    "prompt": "A professional brand comparison infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean technical design.\n\nContent: Brand matrix grid (3x3 or 4x4) showing multiple brand options. Highlight the best choice with vibrant fluorescent pink (#E91E63).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Grid lines: Ultra-fine dark charcoal\n- Highlight: Vibrant fluorescent pink for the winner\n- Text: Dark charcoal for labels\n\nLayout: Grid layout with brand names and key specs. Minimal margins with technical annotations.\n\nTypography: Bold headers for brand names, clean body text for specifications.\n\nImage size: 800x600 pixels\n\nSpecific Content for 龙头跟踪:\n贵州茅台 600519:高端酒价格稳定/直销占比提升 | 五粮液 000858:普八批价走势/系列酒增长 | 泸州老窖 000568:国窖 1573 动销/区域扩张 | 山西汾酒 600809:青花系列增速/全国化 | 洋河股份 002304:产品结构调整/渠道改革 | 模板 by WaytoAGI AJ"
+  },
+  {
+    "id": "D-03",
+    "name": "宏观要闻",
+    "prompt": "A scenario comparison grid infographic module for information design.\n\nStyle: Laboratory manual aesthetic with clean data comparison.\n\nContent: Comparison cards showing different scenarios or use cases. Separated by fine hair-lines (0.5pt).\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Cards: Muted sage green for card backgrounds\n- Highlights: Vibrant fluorescent pink for recommended scenarios\n- Dividers: Ultra-fine dark charcoal lines\n- Text: Dark charcoal for content\n\nLayout: Grid of comparison cards. Each card shows scenario name, key parameters, and pros/cons.\n\nTypography: Bold headers for scenario names, clean body text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 宏观要闻:\n货币政策：新债王称今年降息无望/加息可能性更大/流动性收紧预期 | 存储价格：二季度涨幅超预期/野村称长期牛市/科技板块资金分流 | 地缘风险：伊朗危机牵动市场/油价波动传导物流成本/间接影响渠道成本"
+  },
+  {
+    "id": "E-07",
+    "name": "风险提示",
+    "prompt": "A warning and pitfalls infographic module for information design.\n\nStyle: High-contrast warning zone with laboratory manual aesthetic.\n\nContent: Critical warnings, pitfalls to avoid, and common mistakes. Use high-contrast design to grab attention.\n\nColor Palette:\n- Background: Vibrant fluorescent pink (#E91E63) for high alert\n- Text: Black for maximum contrast\n- Warnings: Black panels with white text for specific warnings\n- Icons: Black warning symbols\n\nLayout: High-contrast layout with warning icons, bullet points of pitfalls, and clear alert boxes. Include coordinate-style label (e.g., E-07).\n\nTypography: Bold brutalist Chinese characters for warnings, clean text for details.\n\nImage size: 800x600 pixels\n\nSpecific Content for 风险提示:\n⚠️ 全球降息预期减弱可能抑制高端消费 | ⚠️ 季报披露期需关注业绩兑现情况 | ⚠️ 科技股吸金效应分流消费板块资金 | ⚠️ 高端酒价格稳定性需持续监测 | ⚠️ 消费刺激政策落地节奏不确定"
+  },
+  {
+    "id": "F-10",
+    "name": "明日关注",
+    "prompt": "A quick reference summary table infographic module for information design.\n\nStyle: Laboratory manual aesthetic resembling a lab data sheet.\n\nContent: Dense summary table with key parameters, ratings, and quick reference data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Table: Muted sage green for alternate rows\n- Highlights: Lemon yellow for critical values\n- Text: Dark charcoal for content\n\nLayout: Dense table with columns for parameter, value, rating, and notes. Include row headers and summary statistics.\n\nTypography: Clean tabular font, large highlighted numbers for key metrics.\n\nImage size: 800x600 pixels\n\nSpecific Content for 明日关注:\n白酒板块资金流向 | 龙头股批价日报 | 消费刺激政策动态 | 季报预告披露 | 北向资金动向 | 机构调研纪要 | 渠道库存数据 | 终端动销情况"
+  },
+  {
+    "id": "G-02",
+    "name": "数据源",
+    "prompt": "A status bar and metadata infographic module for information design.\n\nStyle: Laboratory manual aesthetic with information block stack.\n\nContent: Status information, metadata, timestamps, technical parameters, and supplementary data.\n\nColor Palette:\n- Background: Professional light gray with faint grid texture\n- Blocks: Muted sage green for information blocks\n- Highlights: Lemon yellow for critical metadata\n- Text: Dark charcoal for labels and values\n\nLayout: Vertical or horizontal stack of information blocks. Include bar code patterns, timestamps, and technical parameters.\n\nTypography: Small crisp font for metadata, bold headers for section titles.\n\nImage size: 800x600 pixels\n\nSpecific Content for 数据源:\n数据来源：华尔街见闻/36 氪/腾讯新闻 | 生成时间：2026-03-25 10:15 | 时区：Asia/Shanghai | 简报类型：白酒股票 | 更新频率：每日 10:15 | 下次更新：2026-03-26 | 模板 by WaytoAGI AJ"
+  }
+]
