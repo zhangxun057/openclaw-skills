@@ -7,8 +7,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/pdf-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/pdf-generator"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/pdf-generator.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/pdf-generator"
     },
     {
       "name": "agent-retrospective",
@@ -17,8 +17,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/agent-retrospective.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/agent-retrospective"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/agent-retrospective.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/agent-retrospective"
     },
     {
       "name": "ai-image-generator",
@@ -27,8 +27,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/ai-image-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/ai-image-generator"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/ai-image-generator.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/ai-image-generator"
     },
     {
       "name": "alipay-payment-integration",
@@ -37,8 +37,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/alipay-payment-integration.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/alipay-payment-integration"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/alipay-payment-integration.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/alipay-payment-integration"
     },
     {
       "name": "amap",
@@ -47,8 +47,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/amap.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/amap"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/amap.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/amap"
     },
     {
       "name": "amap-lbs-skill",
@@ -57,8 +57,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/amap-lbs-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/amap-lbs-skill"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/amap-lbs-skill.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/amap-lbs-skill"
     },
     {
       "name": "baoyu-post-to-wechat",
@@ -67,8 +67,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/baoyu-post-to-wechat.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/baoyu-post-to-wechat"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/baoyu-post-to-wechat.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/baoyu-post-to-wechat"
     },
     {
       "name": "bocha-search",
@@ -77,8 +77,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/bocha-search.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/bocha-search"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/bocha-search.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/bocha-search"
     },
     {
       "name": "bocha-search",
@@ -87,8 +87,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/bocha-search-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/bocha-search-skill"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/bocha-search-skill.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/bocha-search-skill"
     },
     {
       "name": "brainstorming",
@@ -97,8 +97,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/brainstorming.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/brainstorming"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/brainstorming.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/brainstorming"
     },
     {
       "name": "browser-automation",
@@ -107,8 +107,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/browser-automation.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/browser-automation"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/browser-automation.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/browser-automation"
     },
     {
       "name": "capability-evolver",
@@ -117,8 +117,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/capability-evolver.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/capability-evolver"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/capability-evolver.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/capability-evolver"
     },
     {
       "name": "claude-session-relay",
@@ -127,8 +127,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/claude-session-relay.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/claude-session-relay"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/claude-session-relay.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/claude-session-relay"
     },
     {
       "name": "cloudflare-deploy",
@@ -137,8 +137,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/cloudflare-deploy.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/cloudflare-deploy"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/cloudflare-deploy.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/cloudflare-deploy"
     },
     {
       "name": "content-extract",
@@ -147,8 +147,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/content-extract.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/content-extract"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/content-extract.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/content-extract"
     },
     {
       "name": "cron-generator",
@@ -157,8 +157,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/cron-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/cron-generator"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/cron-generator.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/cron-generator"
     },
     {
       "name": "cron-rescue",
@@ -167,8 +167,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/cron-rescue.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/cron-rescue"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/cron-rescue.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/cron-rescue"
     },
     {
       "name": "customer-mgr",
@@ -177,8 +177,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/customer-mgr.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/customer-mgr"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/customer-mgr.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/customer-mgr"
     },
     {
       "name": "customer-research",
@@ -187,8 +187,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/customer-research.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/customer-research"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/customer-research.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/customer-research"
     },
     {
       "name": "data-visualization",
@@ -197,8 +197,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/data-visualization.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/data-visualization"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/data-visualization.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/data-visualization"
     },
     {
       "name": "diary-assistant",
@@ -207,8 +207,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/diary-assistant.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/diary-assistant"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/diary-assistant.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/diary-assistant"
     },
     {
       "name": "edge-tts",
@@ -217,8 +217,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/edge-tts.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/edge-tts"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/edge-tts.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/edge-tts"
     },
     {
       "name": "feishu-auto-reply",
@@ -227,8 +227,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/feishu-auto-reply.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/feishu-auto-reply"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-auto-reply.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-auto-reply"
     },
     {
       "name": "feishu-bitable-upload",
@@ -237,8 +237,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/feishu-bitable-upload.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/feishu-bitable-upload"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-bitable-upload.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-bitable-upload"
     },
     {
       "name": "feishu-card",
@@ -247,8 +247,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/feishu-card.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/feishu-card"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-card.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-card"
     },
     {
       "name": "feishu-create-doc",
@@ -257,8 +257,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/feishu-create-doc.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/feishu-create-doc"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-create-doc.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-create-doc"
     },
     {
       "name": "feishu-interactive-cards",
@@ -267,8 +267,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/feishu-interactive-card.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/feishu-interactive-card"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-interactive-card.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-interactive-card"
     },
     {
       "name": "find-skills",
@@ -277,8 +277,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/find-skills.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/find-skills"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/find-skills.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/find-skills"
     },
     {
       "name": "follow-builders",
@@ -287,8 +287,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/follow-builders.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/follow-builders"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/follow-builders.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/follow-builders"
     },
     {
       "name": "gaode-heatmap",
@@ -297,8 +297,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/gaode-heatmap.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/gaode-heatmap"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/gaode-heatmap.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/gaode-heatmap"
     },
     {
       "name": "gateway-restart",
@@ -307,8 +307,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/gateway-restart.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/gateway-restart"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/gateway-restart.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/gateway-restart"
     },
     {
       "name": "html-generator",
@@ -317,8 +317,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/html-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/html-generator"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/html-generator.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/html-generator"
     },
     {
       "name": "info-designer-infographic",
@@ -327,8 +327,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/info-designer-infographic.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/info-designer-infographic"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/info-designer-infographic.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/info-designer-infographic"
     },
     {
       "name": "interview-tracker",
@@ -337,8 +337,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/interview-tracker.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/interview-tracker"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/interview-tracker.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/interview-tracker"
     },
     {
       "name": "jimeng-digital-human",
@@ -347,8 +347,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/jimeng-digital-human.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/jimeng-digital-human"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/jimeng-digital-human.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/jimeng-digital-human"
     },
     {
       "name": "lark-approval",
@@ -357,8 +357,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-approval.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-approval"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-approval.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-approval"
     },
     {
       "name": "lark-base",
@@ -367,8 +367,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-base.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-base"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-base.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-base"
     },
     {
       "name": "lark-calendar",
@@ -377,8 +377,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-calendar.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-calendar"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-calendar.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-calendar"
     },
     {
       "name": "lark-contact",
@@ -387,8 +387,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-contact.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-contact"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-contact.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-contact"
     },
     {
       "name": "lark-doc",
@@ -397,8 +397,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-doc.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-doc"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-doc.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-doc"
     },
     {
       "name": "lark-drive",
@@ -407,8 +407,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-drive.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-drive"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-drive.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-drive"
     },
     {
       "name": "lark-event",
@@ -417,8 +417,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-event.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-event"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-event.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-event"
     },
     {
       "name": "lark-im",
@@ -427,8 +427,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-im.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-im"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-im.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-im"
     },
     {
       "name": "lark-mail",
@@ -437,8 +437,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-mail.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-mail"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-mail.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-mail"
     },
     {
       "name": "lark-minutes",
@@ -447,8 +447,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-minutes.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-minutes"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-minutes.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-minutes"
     },
     {
       "name": "lark-openapi-explorer",
@@ -457,8 +457,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-openapi-explorer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-openapi-explorer"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-openapi-explorer.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-openapi-explorer"
     },
     {
       "name": "lark-shared",
@@ -467,8 +467,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-shared.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-shared"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-shared.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-shared"
     },
     {
       "name": "lark-sheets",
@@ -477,8 +477,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-sheets.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-sheets"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-sheets.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-sheets"
     },
     {
       "name": "lark-skill-maker",
@@ -487,8 +487,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-skill-maker.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-skill-maker"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-skill-maker.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-skill-maker"
     },
     {
       "name": "lark-task",
@@ -497,8 +497,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-task.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-task"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-task.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-task"
     },
     {
       "name": "lark-vc",
@@ -507,8 +507,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-vc.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-vc"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-vc.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-vc"
     },
     {
       "name": "lark-whiteboard",
@@ -517,8 +517,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-whiteboard.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-whiteboard"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-whiteboard.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-whiteboard"
     },
     {
       "name": "lark-whiteboard-cli",
@@ -527,8 +527,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-whiteboard-cli.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-whiteboard-cli"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-whiteboard-cli.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-whiteboard-cli"
     },
     {
       "name": "lark-wiki",
@@ -537,8 +537,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-wiki.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-wiki"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-wiki.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-wiki"
     },
     {
       "name": "lark-workflow-meeting-summary",
@@ -547,8 +547,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-workflow-meeting-summary.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-workflow-meeting-summary"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-workflow-meeting-summary.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-workflow-meeting-summary"
     },
     {
       "name": "lark-workflow-standup-report",
@@ -557,8 +557,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/lark-workflow-standup-report.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/lark-workflow-standup-report"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-workflow-standup-report.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-workflow-standup-report"
     },
     {
       "name": "local-cli-tools",
@@ -567,8 +567,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/local-cli-tools.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/local-cli-tools"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/local-cli-tools.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/local-cli-tools"
     },
     {
       "name": "mao-zedong-perspective",
@@ -577,8 +577,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/maoxuan-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/maoxuan-skill"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/maoxuan-skill.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/maoxuan-skill"
     },
     {
       "name": "mineru-extract",
@@ -587,8 +587,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/mineru-extract.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/mineru-extract"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/mineru-extract.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/mineru-extract"
     },
     {
       "name": "morning-briefing",
@@ -597,8 +597,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/morning-briefing.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/morning-briefing"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/morning-briefing.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/morning-briefing"
     },
     {
       "name": "news-aggregator-skill",
@@ -607,8 +607,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/news-aggregator-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/news-aggregator-skill"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/news-aggregator-skill.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/news-aggregator-skill"
     },
     {
       "name": "project-manager",
@@ -617,8 +617,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/project-manager.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/project-manager"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/project-manager.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/project-manager"
     },
     {
       "name": "pua-debugging",
@@ -627,8 +627,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/big-factory-pua.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/big-factory-pua"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/big-factory-pua.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/big-factory-pua"
     },
     {
       "name": "sales-visit-summary",
@@ -637,8 +637,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/sales-visit-summary.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/sales-visit-summary"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/sales-visit-summary.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/sales-visit-summary"
     },
     {
       "name": "seedream-image-generation",
@@ -647,8 +647,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/seedream-image-generation.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/seedream-image-generation"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/seedream-image-generation.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/seedream-image-generation"
     },
     {
       "name": "self-improvement",
@@ -657,8 +657,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/self-improving-agent.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/self-improving-agent"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/self-improving-agent.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/self-improving-agent"
     },
     {
       "name": "serper-search",
@@ -667,8 +667,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/serper-search.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/serper-search"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/serper-search.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/serper-search"
     },
     {
       "name": "session-summarizer",
@@ -677,8 +677,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/session-summarizer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/session-summarizer"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/session-summarizer.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/session-summarizer"
     },
     {
       "name": "skill-auditor",
@@ -687,8 +687,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/skill-auditor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/skill-auditor"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-auditor.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-auditor"
     },
     {
       "name": "skill-creator",
@@ -697,8 +697,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/skill-creator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/skill-creator"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-creator.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-creator"
     },
     {
       "name": "skill-polisher",
@@ -707,8 +707,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/skill-polisher.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/skill-polisher"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-polisher.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-polisher"
     },
     {
       "name": "skill-radar",
@@ -717,8 +717,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/skill-radar.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/skill-radar"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-radar.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-radar"
     },
     {
       "name": "stock-analysis",
@@ -727,8 +727,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/stock-analysis.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/stock-analysis"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/stock-analysis.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/stock-analysis"
     },
     {
       "name": "swap",
@@ -737,8 +737,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/swap.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/swap"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/swap.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/swap"
     },
     {
       "name": "task-monitor",
@@ -747,8 +747,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/task-monitor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/task-monitor"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/task-monitor.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/task-monitor"
     },
     {
       "name": "text-to-image-prompt-optimizer",
@@ -757,8 +757,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/text-to-image-prompt-optimizer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/text-to-image-prompt-optimizer"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/text-to-image-prompt-optimizer.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/text-to-image-prompt-optimizer"
     },
     {
       "name": "todolist-manager",
@@ -767,8 +767,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/todolist-manager.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/todolist-manager"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/todolist-manager.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/todolist-manager"
     },
     {
       "name": "user-research-synthesis",
@@ -777,8 +777,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/user-research-synthesis.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/user-research-synthesis"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/user-research-synthesis.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/user-research-synthesis"
     },
     {
       "name": "vercel-composition-patterns",
@@ -787,8 +787,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/vercel-composition-patterns.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/vercel-composition-patterns"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/vercel-composition-patterns.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/vercel-composition-patterns"
     },
     {
       "name": "vercel-react-best-practices",
@@ -797,8 +797,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/vercel-react-best-practices.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/vercel-react-best-practices"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/vercel-react-best-practices.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/vercel-react-best-practices"
     },
     {
       "name": "video-analysis",
@@ -807,8 +807,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/video-analysis.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/video-analysis"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/video-analysis.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/video-analysis"
     },
     {
       "name": "vision-analyzer",
@@ -817,8 +817,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/vision-analyzer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/vision-analyzer"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/vision-analyzer.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/vision-analyzer"
     },
     {
       "name": "volcengine-ark-vision",
@@ -827,8 +827,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/volcengine-ark-vision.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/volcengine-ark-vision"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/volcengine-ark-vision.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/volcengine-ark-vision"
     },
     {
       "name": "web-design-guidelines",
@@ -837,8 +837,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/web-design-guidelines.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/web-design-guidelines"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/web-design-guidelines.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/web-design-guidelines"
     },
     {
       "name": "wechat-analyzer",
@@ -847,8 +847,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-analyzer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-analyzer"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-analyzer.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-analyzer"
     },
     {
       "name": "wechat-article-extractor",
@@ -857,8 +857,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-article-extractor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-article-extractor"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-article-extractor.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-article-extractor"
     },
     {
       "name": "wechat-moments-analyzer",
@@ -867,8 +867,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-moments-analyzer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-moments-analyzer"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-moments-analyzer.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-moments-analyzer"
     },
     {
       "name": "wechat-moments-extractor",
@@ -877,8 +877,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-moments-extractor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-moments-extractor"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-moments-extractor.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-moments-extractor"
     },
     {
       "name": "wechat-moments-loader",
@@ -887,8 +887,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-moments-loader.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-moments-loader"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-moments-loader.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-moments-loader"
     },
     {
       "name": "wechat-mp-cn",
@@ -897,8 +897,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-mp-cn.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-mp-cn"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-mp-cn.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-mp-cn"
     },
     {
       "name": "wechat-send-message",
@@ -907,8 +907,8 @@
       "category": "未分类",
       "version": null,
       "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/main/skills/wechat-send-message.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/main/skills/wechat-send-message"
+      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-send-message.zip",
+      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-send-message"
     }
   ],
   "totalCount": 91,
