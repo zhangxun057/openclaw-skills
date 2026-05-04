@@ -106,5 +106,15 @@ npm install -g evolver@latest
 
 Latest releases and changelog: `https://github.com/autogame-17/evolver/releases`
 
+## Usage Logging
+
+每次触发后执行以下脚本记录调用情况：
+
+```bash
+node ~/.openclaw/skills/_shared/log-usage.mjs "capability-evolver" "<触发原因>" "<结果>"
+```
+
+**Note:** This skill also maintains internal evolution events in `assets/gep/events.jsonl` for tracking gene mutations and capsule updates. Usage Logging tracks user-facing invocations separately.
+
 ## License
 MIT

@@ -1,0 +1,121 @@
+"""多维度并行提取主控脚本"""
+import json, sys, os, time, argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
+sys.stdout.reconfigure(encoding='utf-8')
+
+# 添加当前目录到路径
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from extract_events import extract_events
+from extract_traits import extract_traits
+from extract_post_type import extract_post_type
+from extract_signals import extract_signals
+
+def get_api_config():
+    cfg_path = os.path.expanduser('~/.openclaw/openclaw.json')
+    with open(cfg_path, 'r', encoding='utf-8') as f:
+        cfg = json.load(f)
+    ali = cfg['models']['providers']['aliyun-bailian']
+    return ali['apiKey'], ali['baseUrl']
+
+def validate_and_retry(posts, api_key, base_url, extractor_func, field_name, max_retries=2):
+    """验证返回数量，不对齐则重试"""
+    for retry in range(max_retries):
+        result = extractor_func(posts, api_key, base_url)
+        if result and len(result) == len(posts):
+            return result
+        print(f"  {field_name} 数量不对齐: {len(result) if result else 0} vs {len(posts)}, 重试 {retry+1}/{max_retries}")
+        time.sleep(1)
+    # 最后一次尝试，返回对齐的结果
+    if result and len(result) < len(posts):
+        result.extend([None] * (len(posts) - len(result)))
+    return result or [None] * len(posts)
+
+def run_batch_concurrent(posts, api_key, base_url):
+    """并发调用4个提取器"""
+    print(f"  并发调用4个API...")
+    t0 = time.time()
+    
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        future_events = executor.submit(validate_and_retry, posts, api_key, base_url, extract_events, 'events')
+        future_traits = executor.submit(validate_and_retry, posts, api_key, base_url, extract_traits, 'traits')
+        future_type = executor.submit(validate_and_retry, posts, api_key, base_url, extract_post_type, 'post_type')
+        future_signals = executor.submit(validate_and_retry, posts, api_key, base_url, extract_signals, 'signals')
+        
+        events = future_events.result()
+        traits = future_traits.result()
+        post_type = future_type.result()
+        signals = future_signals.result()
+    
+    elapsed = time.time() - t0
+    print(f"  4个API完成，耗时{elapsed:.1f}s")
+    
+    # 合并结果
+    results = []
+    for i, post in enumerate(posts):
+        results.append({
+            'wxid': post.get('wxid', ''),
+            'nickname': post.get('nickname', ''),
+            'post_type': post_type[i] if i < len(post_type) and post_type[i] else None,
+            'traits': traits[i] if i < len(traits) and traits[i] else {},
+            'events': events[i] if i < len(events) and events[i] else [],
+            'signals': signals[i] if i < len(signals) and signals[i] else []
+        })
+    
+    return results
+
+def run_full_analysis(posts_file, batch_size=10, output_file=None):
+    """完整分析流程"""
+    # 加载数据
+    with open(posts_file, 'r', encoding='utf-8') as f:
+        posts = json.load(f)
+    
+    api_key, base_url = get_api_config()
+    
+    total_posts = len(posts)
+    num_batches = (total_posts + batch_size - 1) // batch_size
+    
+    print(f"总共 {total_posts} 条，分 {num_batches} 批，每批 {batch_size} 条")
+    print("="*50)
+    
+    all_results = []
+    
+    for batch_idx in range(num_batches):
+        start = batch_idx * batch_size
+        end = min(start + batch_size, total_posts)
+        batch = posts[start:end]
+        
+        print(f"\n批 {batch_idx+1}/{num_batches} ({end-start}条)...")
+        
+        results = run_batch_concurrent(batch, api_key, base_url)
+        all_results.extend(results)
+        
+        # 保存中间结果
+        if output_file:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(all_results, f, ensure_ascii=False, indent=2)
+        
+        # 避免API过载
+        if batch_idx < num_batches - 1:
+            time.sleep(1)
+    
+    print("\n" + "="*50)
+    print(f"完成! 共处理 {len(all_results)} 条")
+    
+    return all_results
+
+def main():
+    parser = argparse.ArgumentParser(description='多维度并行提取朋友圈数据')
+    parser.add_argument('--posts-file', type=str, required=True, help='输入JSON文件路径')
+    parser.add_argument('--batch-size', type=int, default=10, help='每批数量，默认10')
+    parser.add_argument('--output-file', type=str, default=None, help='输出JSON文件路径')
+    
+    args = parser.parse_args()
+    
+    output_file = args.output_file or args.posts_file.replace('.json', '_analyzed.json')
+    
+    run_full_analysis(args.posts_file, args.batch_size, output_file)
+    print(f"结果已保存到: {output_file}")
+
+if __name__ == '__main__':
+    main()

@@ -320,15 +320,10 @@ skill-logs/skill-radar/
 
 ## 使用日志
 
-每次触发追加到 `log.md`：
+每次触发后执行以下脚本记录调用情况：
 
 ```bash
-echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> log.md
-echo "- **触发方式**: 手动/定时" >> log.md
-echo "- **新增待办**: X 个" >> log.md
-echo "- **焦点搜索**: Y 个关键词" >> log.md
-echo "- **扫描结果**: 从 Z 个中精选 W 个" >> log.md
-echo "" >> log.md
+node ~/.openclaw/skills/_shared/log-usage.mjs "skill-radar" "<触发原因>" "<结果>"
 ```
 
 ## 版本更新

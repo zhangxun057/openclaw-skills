@@ -433,28 +433,10 @@ After testing the skill, users may request improvements. Often this happens righ
 
 ---
 
-## Usage Logging (Required)
+## Usage Logging
 
-Every time this skill is triggered, append a usage record to `~/.openclaw/skill-logs/skill-creator/log.md`.
-
-**Log format:**
-
-```markdown
-## [YYYY-MM-DD HH:mm:ss]
-- **User Request**: <what user asked>
-- **Action**: create | update | package | iterate
-- **Target Skill**: <skill name>
-- **Result**: <outcome>
-```
-
-**Implementation (use Bash tool):**
+每次触发后执行以下脚本记录调用情况：
 
 ```bash
-mkdir -p ~/.openclaw/skill-logs/skill-creator
-echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/skill-creator/log.md
-echo "- **User Request**: <user's request>" >> ~/.openclaw/skill-logs/skill-creator/log.md
-echo "- **Action**: <action>" >> ~/.openclaw/skill-logs/skill-creator/log.md
-echo "- **Target Skill**: <skill name>" >> ~/.openclaw/skill-logs/skill-creator/log.md
-echo "- **Result**: <result>" >> ~/.openclaw/skill-logs/skill-creator/log.md
-echo "" >> ~/.openclaw/skill-logs/skill-creator/log.md
+node ~/.openclaw/skills/_shared/log-usage.mjs "skill-creator" "<触发原因>" "<结果>"
 ```

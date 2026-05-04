@@ -1,13 +1,25 @@
-# scan-files.ps1
-# 扫描指定日期的 ChatLogs 文件，返回文件列表和大小信息
-
 param(
     [string]$chatlogsDir,
     [string]$date
 )
 
+if (!(Test-Path $chatlogsDir)) {
+    Write-Output '[]'
+    exit
+}
+
 $pattern = "${date}_*.jsonl"
 $files = Get-ChildItem -Path $chatlogsDir -Filter $pattern -ErrorAction SilentlyContinue
+
+# 过滤隔离会话
+$files = $files | Where-Object {
+    try {
+        $firstLine = Get-Content $_.FullName -First 1 | ConvertFrom-Json
+        return $firstLine.text -notmatch '\[cron:'
+    } catch {
+        return $true
+    }
+}
 
 $result = $files | ForEach-Object {
     @{

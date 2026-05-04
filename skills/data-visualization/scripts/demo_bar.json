@@ -1,0 +1,1 @@
+{"tool":"generate_bar_chart","args":{"data":[{"region":"贵州","revenue":850},{"region":"四川","revenue":720},{"region":"山西","revenue":380},{"region":"江苏","revenue":290},{"region":"安徽","revenue":210},{"region":"山东","revenue":180}],"xField":"region","yField":"revenue","title":"各省白酒营收排名（亿元）","width":900,"height":500}}

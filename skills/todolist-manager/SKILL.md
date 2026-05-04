@@ -14,7 +14,7 @@ description: |
   
   **Keywords:** todolist, todo list, 愿望清单，学习计划，计划清单，想做，想学，目标，每日工作简报，每日复盘，断线头，捡起机制
 author: 乖乖虾
-version: 6.0 (会话摘要优化版)
+version: 6.1 (任务方向过滤)
 ---
 
 # Todolist Manager
@@ -248,6 +248,20 @@ if ($summaries.Count -eq 0) {
 1. 归属检查：这个事项是否属于某个已有任务的执行过程/子步骤？
 2. 目标检查：用户是在推进实际业务，还是在调试/测试能力？
 3. 复用检查：这个事项完成后，是否能复用到其他场景？
+
+**任务方向过滤：**
+通过归并检查后，判断是否属于龙虾进化方向的任务：
+
+| 方向 | 含义 | 示例 |
+|------|------|------|
+| 生态扩展 | 打通新平台/新渠道 | 朋友圈分析、飞书CLI |
+| 能力构建 | 让龙虾获得新能力 | 自建tool、迁移联想 |
+| 体系搭建 | 建立长期可用系统 | 客户管理体系、多agents协作 |
+| 武器库扩充 | 持续积累模型/API | 模型收集、开放平台集成 |
+| 酷炫功能 | 有技术含量、可展示 | Claude Code环境、HarmonyOS AG |
+| 效率飞轮 | 让龙虾运转更高效 | 对话总结提炼、session-summary合并 |
+
+不属于上述方向 → 降级处理（P3或暂不创建，仅日志记录）。
 
 ---
 
@@ -544,20 +558,17 @@ A: 删除会导致信息丢失。改为将状态设为"取消"并记录原因。
 
 ## 九、使用日志
 
-每次技能触发时，自动记录到 `~/.openclaw/skill-logs/todolist-manager/log.md`：
+每次触发后执行以下脚本记录调用情况：
 
 ```bash
-echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/todolist-manager/log.md
-echo "- **User Request**: <what user asked>" >> ~/.openclaw/skill-logs/todolist-manager/log.md
-echo "- **Action**: <what this skill did>" >> ~/.openclaw/skill-logs/todolist-manager/log.md
-echo "" >> ~/.openclaw/skill-logs/todolist-manager/log.md
+node ~/.openclaw/skills/_shared/log-usage.mjs "todolist-manager" "<触发原因>" "<结果>"
 ```
 
 ---
 
 _Created: 2026-03-08_
-_Version: 6.0 (会话摘要优化版)_
-_Last Updated: 2026-04-05_
+_Version: 6.1 (任务方向过滤)_
+_Last Updated: 2026-04-19_
 
 ---
 

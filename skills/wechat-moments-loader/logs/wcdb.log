@@ -1,0 +1,57 @@
+[2026-04-29T14:21:10.447Z] [bootstrap] setLogEnabled=0 env.WCDB_LOG_ENABLED=
+[2026-04-29T14:21:10.648Z] [bootstrap] initialize platform=win32 dllPath=D:\WeFlow\resources\resources\wcdb_api.dll resourcesPath= userDataPath=
+[2026-04-29T14:21:10.654Z] [bootstrap] koffi.load begin path=D:\WeFlow\resources\resources\wcdb_api.dll
+[2026-04-29T14:21:10.656Z] [bootstrap] koffi.load ok
+[2026-04-29T14:21:10.657Z] [bootstrap] InitProtection call path=D:\WeFlow\resources\resources
+[2026-04-29T14:21:10.662Z] open dbPath=C:\Users\44452\Documents\xwechat_files wxid=mikeshenxian dbStorage=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage
+[2026-04-29T14:21:10.665Z] open sessionDb=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\session\session.db
+[2026-04-29T14:21:10.819Z] open ok handle=1
+[2026-04-29T14:21:10.820Z] [diag:open] db_status skipped: api not supported
+[2026-04-29T14:21:10.820Z] [diag:open] input dbPath=C:\Users\44452\Documents\xwechat_files wxid=mikeshenxian
+[2026-04-29T14:21:10.821Z] [diag:open] resolved dbStorage=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage
+[2026-04-29T14:21:10.821Z] [diag:open] resolved sessionDb=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\session\session.db
+[2026-04-29T14:21:10.821Z] [diag:open] dbStorage entries(12) sample=bizchat,contact,emoticon,favorite,general,hardlink,head_image,message,MMKV,session,sns,solitaire
+[2026-04-29T14:21:10.822Z] [diag:execQuery] contact path override -> C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db
+[2026-04-29T14:21:10.959Z] [diag:execQuery] contact query ok rows=16 kind=contact path=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db sql="SELECT name FROM sqlite_master WHERE type='table' ORDER BY name LIMIT 50"
+[2026-04-29T14:21:10.959Z] [diag:open] contact sqlite_master rows=16 names=biz_info,chat_room,chat_room_info_detail,chatroom_member,contact,contact_label,encrypt_name2id,name2id,openim_acct_type,openim_appid,openim_wording,oplog,sqlite_sequence,stranger,stranger_ticket_info,ticket_info
+[2026-04-29T14:21:10.960Z] [diag:execQuery] contact path override -> C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db
+[2026-04-29T14:21:10.963Z] [diag:execQuery] contact query ok rows=1 kind=contact path=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db sql="SELECT COUNT(1) AS cnt FROM contact"
+[2026-04-29T14:21:10.963Z] [diag:open] contact count=10112
+[2026-05-01T15:59:48.007Z] [bootstrap] setLogEnabled=0 env.WCDB_LOG_ENABLED=
+[2026-05-01T15:59:48.288Z] [bootstrap] initialize platform=win32 dllPath=D:\WeFlow\resources\resources\wcdb_api.dll resourcesPath= userDataPath=
+[2026-05-01T15:59:48.293Z] [bootstrap] koffi.load begin path=D:\WeFlow\resources\resources\wcdb_api.dll
+[2026-05-01T15:59:48.296Z] [bootstrap] koffi.load ok
+[2026-05-01T15:59:48.296Z] [bootstrap] InitProtection call path=D:\WeFlow\resources\resources
+[2026-05-01T15:59:48.302Z] open dbPath=C:\Users\44452\Documents\xwechat_files wxid=mikeshenxian dbStorage=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage
+[2026-05-01T15:59:48.308Z] open sessionDb=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\session\session.db
+[2026-05-01T15:59:48.526Z] open ok handle=1
+[2026-05-01T15:59:48.527Z] [diag:open] db_status skipped: api not supported
+[2026-05-01T15:59:48.528Z] [diag:open] input dbPath=C:\Users\44452\Documents\xwechat_files wxid=mikeshenxian
+[2026-05-01T15:59:48.528Z] [diag:open] resolved dbStorage=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage
+[2026-05-01T15:59:48.529Z] [diag:open] resolved sessionDb=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\session\session.db
+[2026-05-01T15:59:48.529Z] [diag:open] dbStorage entries(12) sample=bizchat,contact,emoticon,favorite,general,hardlink,head_image,message,MMKV,session,sns,solitaire
+[2026-05-01T15:59:48.530Z] [diag:execQuery] contact path override -> C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db
+[2026-05-01T15:59:48.761Z] [diag:execQuery] contact query ok rows=16 kind=contact path=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db sql="SELECT name FROM sqlite_master WHERE type='table' ORDER BY name LIMIT 50"
+[2026-05-01T15:59:48.762Z] [diag:open] contact sqlite_master rows=16 names=biz_info,chat_room,chat_room_info_detail,chatroom_member,contact,contact_label,encrypt_name2id,name2id,openim_acct_type,openim_appid,openim_wording,oplog,sqlite_sequence,stranger,stranger_ticket_info,ticket_info
+[2026-05-01T15:59:48.762Z] [diag:execQuery] contact path override -> C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db
+[2026-05-01T15:59:48.766Z] [diag:execQuery] contact query ok rows=1 kind=contact path=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db sql="SELECT COUNT(1) AS cnt FROM contact"
+[2026-05-01T15:59:48.767Z] [diag:open] contact count=10125
+[2026-05-02T12:39:17.838Z] [bootstrap] setLogEnabled=0 env.WCDB_LOG_ENABLED=
+[2026-05-02T12:39:18.149Z] [bootstrap] initialize platform=win32 dllPath=D:\WeFlow\resources\resources\wcdb_api.dll resourcesPath= userDataPath=
+[2026-05-02T12:39:18.156Z] [bootstrap] koffi.load begin path=D:\WeFlow\resources\resources\wcdb_api.dll
+[2026-05-02T12:39:18.166Z] [bootstrap] koffi.load ok
+[2026-05-02T12:39:18.167Z] [bootstrap] InitProtection call path=D:\WeFlow\resources\resources
+[2026-05-02T12:39:18.172Z] open dbPath=C:\Users\44452\Documents\xwechat_files wxid=mikeshenxian dbStorage=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage
+[2026-05-02T12:39:18.177Z] open sessionDb=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\session\session.db
+[2026-05-02T12:39:18.349Z] open ok handle=1
+[2026-05-02T12:39:18.350Z] [diag:open] db_status skipped: api not supported
+[2026-05-02T12:39:18.350Z] [diag:open] input dbPath=C:\Users\44452\Documents\xwechat_files wxid=mikeshenxian
+[2026-05-02T12:39:18.351Z] [diag:open] resolved dbStorage=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage
+[2026-05-02T12:39:18.351Z] [diag:open] resolved sessionDb=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\session\session.db
+[2026-05-02T12:39:18.351Z] [diag:open] dbStorage entries(12) sample=bizchat,contact,emoticon,favorite,general,hardlink,head_image,message,MMKV,session,sns,solitaire
+[2026-05-02T12:39:18.352Z] [diag:execQuery] contact path override -> C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db
+[2026-05-02T12:39:18.492Z] [diag:execQuery] contact query ok rows=16 kind=contact path=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db sql="SELECT name FROM sqlite_master WHERE type='table' ORDER BY name LIMIT 50"
+[2026-05-02T12:39:18.493Z] [diag:open] contact sqlite_master rows=16 names=biz_info,chat_room,chat_room_info_detail,chatroom_member,contact,contact_label,encrypt_name2id,name2id,openim_acct_type,openim_appid,openim_wording,oplog,sqlite_sequence,stranger,stranger_ticket_info,ticket_info
+[2026-05-02T12:39:18.493Z] [diag:execQuery] contact path override -> C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db
+[2026-05-02T12:39:18.496Z] [diag:execQuery] contact query ok rows=1 kind=contact path=C:\Users\44452\Documents\xwechat_files\mikeshenxian_141f\db_storage\Contact\contact.db sql="SELECT COUNT(1) AS cnt FROM contact"
+[2026-05-02T12:39:18.496Z] [diag:open] contact count=10126

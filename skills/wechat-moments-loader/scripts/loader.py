@@ -1,0 +1,1029 @@
+"""
+微信朋友圈自动加载器 v0.4
+- 打开朋友圈 + 滚动加载
+- 调用WeFlow导出HTML + 媒体到本地（outputDir直出）
+- 状态管理（status.json）
+- 支持绝对日期和相对时间入参
+"""
+import cv2
+import pyautogui
+pyautogui.FAILSAFE = False
+import time
+import win32gui
+import os
+import sys
+import io
+import random
+import re
+import json
+import glob
+import requests
+import threading
+from datetime import datetime, timedelta
+from PIL import Image
+
+# Windows GBK 编码兼容：stdout 使用 UTF-8
+tty = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+tty_err = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+sys.stdout = tty
+sys.stderr = tty_err
+
+SKILL_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.join(SKILL_DIR, "scripts")
+ASSETS_DIR = os.path.join(SKILL_DIR, "assets")
+TEMPLATES_DIR = os.path.join(ASSETS_DIR, "templates")
+
+WEFLOW_API = "http://127.0.0.1:5032"
+
+# 默认数据目录（可被 --output 参数覆盖）
+DEFAULT_OUTPUT = os.path.join(os.path.expanduser("~"), ".openclaw", "projects", "moments-analysis")
+
+
+# ============================================================
+# 模块1：OpenCV图标识别
+# ============================================================
+
+def get_dpi_scale():
+    """检测pyautogui坐标和截图是否一致，返回需要的缩放比例"""
+    try:
+        import ctypes
+        # 获取物理分辨率
+        physical_w = ctypes.windll.user32.GetSystemMetrics(0)
+        logical_w, _ = pyautogui.size()
+        # 如果pyautogui已返回物理像素，不需要缩放
+        if abs(logical_w - physical_w) < 10:
+            return 1.0
+        return physical_w / logical_w
+    except:
+        return 1.0
+
+
+def find_icon_in_region(screenshot_path, template_path, region=None, threshold=0.7, attempts=3):
+    """多尺度匹配 + 多次重试，兼容高DPI屏幕和图标闪烁"""
+    screenshot = cv2.imread(screenshot_path)
+    template_orig = cv2.imread(template_path)
+    if screenshot is None or template_orig is None:
+        return None
+
+    scale = get_dpi_scale()
+
+    # 将逻辑坐标region转换为物理像素坐标
+    if region:
+        x1, y1, x2, y2 = [int(v * scale) for v in region]
+        x1 = max(0, x1)
+        y1 = max(0, y1)
+        x2 = min(x2, screenshot.shape[1])
+        y2 = min(y2, screenshot.shape[0])
+        search_area = screenshot[y1:y2, x1:x2]
+        offset_x, offset_y = x1, y1
+    else:
+        search_area = screenshot
+        offset_x, offset_y = 0, 0
+
+    best = None
+    # 尝试多个缩放比例（应对DPI和图标尺寸变化）
+    for s in [scale, scale * 0.8, scale * 1.25, scale * 0.75, 1.0, 0.8]:
+        th, tw = template_orig.shape[:2]
+        new_w, new_h = max(1, int(tw * s)), max(1, int(th * s))
+        template = cv2.resize(template_orig, (new_w, new_h))
+
+        if new_h > search_area.shape[0] or new_w > search_area.shape[1]:
+            continue
+
+        result = cv2.matchTemplate(search_area, template, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(result)
+
+        if best is None or max_val > best['similarity']:
+            cx = int((max_loc[0] + new_w // 2 + offset_x) / scale)
+            cy = int((max_loc[1] + new_h // 2 + offset_y) / scale)
+            best = {'position': (cx, cy), 'similarity': float(max_val)}
+
+    if best and best['similarity'] >= threshold:
+        return best
+    return None
+
+
+def find_icon_with_retry(template_path, region, threshold=0.6, attempts=3, shot_prefix="cv2_shot"):
+    """多次截图重试，应对图标闪烁"""
+    best = None
+    for i in range(attempts):
+        shot_path = f"{shot_prefix}_retry{i}.png"
+        pyautogui.screenshot(shot_path)
+        match = find_icon_in_region(shot_path, template_path, region, threshold)
+        if match:
+            if best is None or match['similarity'] > best['similarity']:
+                best = match
+            if best['similarity'] >= threshold:
+                break
+        if i < attempts - 1:
+            time.sleep(0.5)
+    return best
+
+
+# ============================================================
+# 模块2：Windows API窗口管理
+# ============================================================
+
+def find_moments_window():
+    windows = []
+    def callback(hwnd, windows):
+        title = win32gui.GetWindowText(hwnd)
+        if "朋友圈" in title or title == "Weixin":
+            rect = win32gui.GetWindowRect(hwnd)
+            w, h = rect[2] - rect[0], rect[3] - rect[1]
+            if w > 200 and h > 200:  # 过滤掉小的辅助窗口
+                windows.append({'hwnd': hwnd, 'title': title, 'rect': rect})
+        return True
+    win32gui.EnumWindows(callback, windows)
+    return windows[0] if windows else None
+
+
+def find_and_activate_wechat():
+    """找到微信主窗口并激活，返回hwnd或None"""
+    import ctypes
+    result = []
+    def callback(hwnd, _):
+        title = win32gui.GetWindowText(hwnd)
+        if title == "微信":
+            result.append(hwnd)
+        return True
+    win32gui.EnumWindows(callback, None)
+    if result:
+        import win32con
+        hwnd = result[0]
+        win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+        # 模拟Alt键触发前台切换权限（Windows前台保护绕过）
+        ctypes.windll.user32.keybd_event(0x12, 0, 0, 0)       # Alt down
+        ctypes.windll.user32.SetForegroundWindow(hwnd)
+        ctypes.windll.user32.keybd_event(0x12, 0, 0x0002, 0)  # Alt up
+        time.sleep(0.5)
+        return hwnd
+    return None
+
+
+# ============================================================
+# 模块3：打开微信朋友圈
+# ============================================================
+
+def open_wechat_moments():
+    print("=" * 70)
+    print("微信朋友圈自动加载器 v0.4")
+    print("=" * 70)
+
+    screen_width, screen_height = pyautogui.size()
+    print(f"屏幕尺寸: {screen_width} x {screen_height}")
+
+    max_attempts = 3
+    for attempt in range(1, max_attempts + 1):
+        print(f"\n{'='*70}")
+        print(f"尝试 {attempt}/{max_attempts}")
+        print("=" * 70)
+
+        taskbar_region = (0, screen_height - 200, screen_width, screen_height)
+
+        # [1] 折叠按钮
+        print("\n[1] 查找折叠按钮...")
+        match = find_icon_with_retry(
+            os.path.join(TEMPLATES_DIR, "template_arrow.png"),
+            region=taskbar_region, threshold=0.7, shot_prefix="cv2_shot1"
+        )
+        if match:
+            print(f"  ✅ 找到: {match['position']}, 相似度: {match['similarity']:.2f}")
+            pyautogui.click(match['position'][0], match['position'][1])
+            time.sleep(3)
+        else:
+            print("  ⚠️ 未找到折叠按钮（托盘可能已展开），继续...")
+
+        # [2] 微信图标
+        print("\n[2] 查找微信图标...")
+        tray_region = (screen_width - 1000, screen_height - 600, screen_width, screen_height)
+        match = find_icon_with_retry(
+            os.path.join(TEMPLATES_DIR, "template_wechat.png"),
+            region=tray_region, threshold=0.5, attempts=5, shot_prefix="cv2_shot2"
+        )
+        if match:
+            print(f"  ✅ 找到: {match['position']}, 相似度: {match['similarity']:.2f}")
+            pyautogui.click(match['position'][0], match['position'][1])
+            time.sleep(2)
+            # 激活微信窗口确保后续点击生效
+            hwnd = find_and_activate_wechat()
+            if hwnd:
+                try:
+                    win32gui.SetActiveWindow(hwnd)
+                except:
+                    pass
+            time.sleep(2)
+        else:
+            print("  ❌ 未找到微信图标，尝试下一次...")
+            time.sleep(2)
+            continue  # 重试整个流程
+
+        # [3] 朋友圈图标
+        print("\n[3] 查找朋友圈图标...")
+        wechat_rects = []
+        def _cb(hwnd, _):
+            if win32gui.IsWindowVisible(hwnd) and win32gui.GetWindowText(hwnd) == "微信":
+                wechat_rects.append(win32gui.GetWindowRect(hwnd))
+            return True
+        win32gui.EnumWindows(_cb, None)
+        if wechat_rects:
+            wx_l, wx_t, wx_r, wx_b = wechat_rects[0]
+            wechat_nav_region = (wx_l, wx_t, wx_r, wx_b)
+        else:
+            wechat_nav_region = (0, 0, screen_width, screen_height)
+        match = find_icon_with_retry(
+            os.path.join(TEMPLATES_DIR, "template_moments.png"),
+            region=wechat_nav_region, threshold=0.7, shot_prefix="cv2_shot3"
+        )
+        if match:
+            print(f"  ✅ 找到: {match['position']}, 相似度: {match['similarity']:.2f}")
+            import win32con
+            hwnd = find_and_activate_wechat()
+            if hwnd:
+                time.sleep(1)
+            cx, cy = match['position']
+            pyautogui.moveTo(cx, cy, duration=0.5)
+            time.sleep(0.3)
+            pyautogui.click()
+        else:
+            print("  ❌ 未找到朋友圈图标，尝试下一次...")
+            time.sleep(2)
+            continue  # 重试整个流程
+
+        # 确认窗口（等待最多10秒）
+        window = None
+        for _ in range(5):
+            time.sleep(2)
+            window = find_moments_window()
+            if window:
+                import win32con
+                win32gui.ShowWindow(window['hwnd'], win32con.SW_SHOW)
+                break
+            wins = []
+            win32gui.EnumWindows(lambda h, _: wins.append(win32gui.GetWindowText(h)) or True, None)
+            print(f"  当前窗口: {[t for t in wins if t][:5]}")
+        if window:
+            left, top, right, bottom = window['rect']
+            print(f"\n  ✅ 朋友圈窗口: ({left}, {top}) - ({right}, {bottom})")
+            return window['hwnd']
+        else:
+            print("  ❌ 朋友圈窗口未出现，尝试下一次...")
+            continue
+
+    # 三次都失败
+    print("\n❌ 三次尝试均失败，放弃")
+    return None
+
+
+# ============================================================
+# 模块4：滚动操作
+# ============================================================
+
+def scroll_by_wheel(window_rect, count):
+    left, top, right, bottom = window_rect
+    for i in range(count):
+        rx = random.randint(left + 50, right - 50)
+        ry = random.randint(top + 50, bottom - 50)
+        if user_monitor:
+            user_monitor.pause()
+        pyautogui.moveTo(rx, ry, duration=0.2)
+        if user_monitor:
+            user_monitor.resume()
+        pyautogui.scroll(random.randint(-1700, -1200))
+        print(f"  [{i+1}/{count}] 滚轮 @ ({rx}, {ry})")
+        if i < count - 1:
+            time.sleep(random.uniform(2, 4))
+        if check_abort():
+            return True
+    return False
+
+
+def scroll_by_click(window_rect, offset=30):
+    left, top, right, bottom = window_rect
+    pyautogui.click(right - offset, bottom - offset)
+    reset_baseline()  # 脚本主动点击，重置基准点
+    time.sleep(random.uniform(2, 4))
+
+
+# ============================================================
+# 模块5：OCR时间识别
+# ============================================================
+
+def extract_time_from_image(image):
+    from rapidocr_onnxruntime import RapidOCR
+    ocr = RapidOCR()
+    temp_path = os.path.join(SCRIPTS_DIR, "_temp_ocr.png")
+    image.save(temp_path)
+    result, _ = ocr(temp_path)
+    if not result:
+        return {'raw_text': '', 'times': [], 'latest_time': None}
+
+    all_texts = [item[1] for item in result]
+    raw_text = '\n'.join(all_texts)
+
+    times = []
+    time_patterns = [r'\d+分钟前', r'\d+小时前', r'昨天', r'\d+天前']
+    for text in all_texts:
+        for pattern in time_patterns:
+            m = re.search(pattern, text)
+            if m:
+                times.append(m.group(0))
+    times = list(dict.fromkeys(times))
+
+    latest_time = None
+    max_rank = -1
+    for t in times:
+        rank = parse_time_rank(t)
+        if rank is not None and rank > max_rank:
+            max_rank = rank
+            latest_time = t
+
+    return {'raw_text': raw_text, 'times': times, 'latest_time': latest_time}
+
+
+def capture_moments_screenshot(window_rect):
+    left, top, right, bottom = window_rect
+    screenshot = pyautogui.screenshot()
+    return screenshot.crop((left, top, right, bottom))
+
+
+# ============================================================
+# 模块6：时间比较逻辑
+# ============================================================
+
+def parse_time_rank(time_str):
+    if not time_str:
+        return None
+    m = re.match(r'(\d+)分钟前', time_str)
+    if m:
+        return 0 + int(m.group(1)) * 0.001
+    m = re.match(r'(\d+)小时前', time_str)
+    if m:
+        return 1 + int(m.group(1)) * 0.01
+    if time_str == '昨天':
+        return 2.0
+    m = re.match(r'(\d+)天前', time_str)
+    if m:
+        return 2 + int(m.group(1))
+    return None
+
+
+def parse_target_rank(target_str):
+    """解析目标时间的覆盖阈值"""
+    rank = parse_time_rank(target_str)
+    if rank is None:
+        return None
+    if rank < 1:  # 分钟级
+        return rank + 0.001
+    elif rank < 2:  # 小时级
+        base_hours = int((rank - 1) * 100)
+        return 1 + (base_hours + 1) * 0.01
+    else:  # 天级：到达即停
+        return rank
+
+
+def is_time_covered(bottom_time_str, target_str):
+    bottom_rank = parse_time_rank(bottom_time_str)
+    target_rank = parse_target_rank(target_str)
+    if bottom_rank is None or target_rank is None:
+        return False
+    return bottom_rank >= target_rank
+
+
+# ============================================================
+# 模块7：状态管理
+# ============================================================
+
+def get_output_dir(output_base):
+    """获取输出目录，创建 raw 子目录"""
+    data_dir = os.path.join(output_base, "raw")
+    os.makedirs(data_dir, exist_ok=True)
+    return data_dir
+
+
+def get_status_file(output_dir):
+    return os.path.join(output_dir, "status.json")
+
+
+def load_status(output_dir):
+    status_file = get_status_file(output_dir)
+    if os.path.exists(status_file):
+        with open(status_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {"last_fetch": None, "history": []}
+
+
+def save_status(output_dir, status):
+    status_file = get_status_file(output_dir)
+    with open(status_file, 'w', encoding='utf-8') as f:
+        json.dump(status, f, ensure_ascii=False, indent=2)
+
+
+# ============================================================
+# 模块8：WeFlow服务
+# ============================================================
+
+def check_weflow():
+    """检查WeFlow服务是否在线"""
+    try:
+        r = requests.get(f"{WEFLOW_API}/health", timeout=5)
+        return r.status_code == 200
+    except:
+        return False
+
+
+def start_weflow():
+    """启动WeFlow服务"""
+    print("\n  启动WeFlow服务...")
+    try:
+        import subprocess
+        weflow_manager = os.path.join(SCRIPTS_DIR, "weflow_manager.py")
+        subprocess.run([sys.executable, weflow_manager, "--action", "start"], timeout=90)
+        # 等待服务就绪
+        for _ in range(12):
+            time.sleep(5)
+            if check_weflow():
+                print("  ✅ WeFlow服务已就绪")
+                return True
+        print("  ❌ WeFlow服务启动超时")
+        return False
+    except Exception as e:
+        print(f"  ❌ WeFlow启动失败: {e}")
+        return False
+
+
+def ensure_weflow():
+    """确保WeFlow服务可用"""
+    if check_weflow():
+        print("  ✅ WeFlow服务在线")
+        return True
+    return start_weflow()
+
+
+# ============================================================
+# 模块9：WeFlow导出 + 媒体下载
+# ============================================================
+
+def get_wxid():
+    """获取自己的wxid"""
+    try:
+        r = requests.get(f"{WEFLOW_API}/api/v1/sessions", params={"limit": 1}, timeout=10)
+        data = r.json()
+        # 从sessions中找到自己（通常第一条）
+        sessions = data.get("sessions", [])
+        if sessions:
+            return sessions[0].get("username")
+    except:
+        pass
+    return None
+
+
+def export_moments_via_weflow(start_date, end_date, output_dir):
+    """
+    调用WeFlow导出朋友圈HTML + 媒体文件
+    WeFlow会在outputDir下直接生成 HTML文件 + media/ 子目录
+    返回 (success, html_path, media_count)
+    """
+    print(f"\n  导出朋友圈: {start_date} ~ {end_date}")
+    print(f"  输出目录: {output_dir}")
+    os.makedirs(output_dir, exist_ok=True)
+
+    payload = {
+        "outputDir": output_dir,
+        "format": "html",
+        "exportMedia": True,
+        "exportImages": True,
+        "exportLivePhotos": True,
+        "exportVideos": True,
+        "start": start_date,
+        "end": end_date
+    }
+
+    try:
+        r = requests.post(
+            f"{WEFLOW_API}/api/v1/sns/export",
+            json=payload,
+            timeout=120
+        )
+        if r.status_code != 200:
+            print(f"  ❌ 导出失败: {r.status_code} {r.text[:200]}")
+            return False, None, 0
+
+        data = r.json()
+        weflow_html = data.get("filePath", "")
+        post_count = data.get("postCount", 0)
+        media_count = data.get("mediaCount", 0)
+        print(f"  ✅ 导出成功: {post_count} 条朋友圈, {media_count} 个媒体文件")
+
+        if not weflow_html:
+            # API没返回filePath，在outputDir里找HTML
+            html_files = glob.glob(os.path.join(output_dir, "*.html"))
+            if html_files:
+                weflow_html = sorted(html_files)[-1]
+            else:
+                print("  ❌ 未找到导出的HTML文件")
+                return False, None, 0
+
+        return True, weflow_html, media_count
+
+    except Exception as e:
+        print(f"  ❌ 导出请求失败: {e}")
+        return False, None, 0
+
+
+def export_json_via_weflow(start_date, end_date, output_dir, json_filename):
+    """
+    用 /sns/timeline offset分页拉取全部朋友圈，按日期过滤后保存JSON
+    返回 (success, json_path, post_count)
+    """
+    json_path = os.path.join(output_dir, json_filename)
+    print(f"\n  导出JSON结构化数据: {json_filename}")
+
+    try:
+        all_posts = []
+        offset = 0
+        page_size = 50
+        # start_date/end_date 转 timestamp 边界
+        start_ts = int(datetime.strptime(start_date, "%Y%m%d").timestamp())
+        end_ts = int((datetime.strptime(end_date, "%Y%m%d") + timedelta(days=1)).timestamp())
+
+        while True:
+            r = requests.get(
+                f"{WEFLOW_API}/api/v1/sns/timeline",
+                params={"limit": page_size, "offset": offset},
+                timeout=15
+            )
+            data = r.json()
+            posts = data.get("timeline", [])
+            if not posts:
+                break
+
+            for post in posts:
+                ct = post.get("createTime", 0)
+                if ct >= start_ts and ct < end_ts:
+                    all_posts.append(post)
+
+            # 如果最后一条已早于start_ts，不需要继续翻页
+            if posts[-1].get("createTime", 0) < start_ts:
+                break
+
+            if len(posts) < page_size:
+                break
+            offset += page_size
+
+        # 精简数据：过滤冗余字段，保留分析所需内容
+        clean_posts = []
+        for post in all_posts:
+            clean_posts.append({
+                "id": post.get("id"),
+                "tid": post.get("tid"),
+                "username": post.get("username"),
+                "nickname": post.get("nickname"),
+                "createTime": post.get("createTime"),
+                "contentDesc": post.get("contentDesc", ""),
+                "type": post.get("type"),
+                "likes": [u for u in post.get("likes", []) if u],
+                "likes_count": len(post.get("likes", [])),
+                "comments": [
+                    {"content": c.get("content", ""), "nickname": c.get("nickname", "")}
+                    for c in post.get("comments", [])
+                ],
+                "media_count": len(post.get("media", [])),
+                "media_types": list(set(m.get("type", 0) for m in post.get("media", []))),
+                "location": post.get("location")
+            })
+
+        result = {"success": True, "count": len(clean_posts), "timeline": clean_posts}
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        print(f"  ✅ JSON导出成功: {len(all_posts)} 条")
+        return True, json_path, len(all_posts)
+
+    except Exception as e:
+        print(f"  ❌ JSON导出失败: {e}")
+        return False, None, 0
+
+
+# ============================================================
+# 模块10：时间参数处理
+# ============================================================
+
+def parse_time_arg(time_str):
+    """
+    解析时间参数，支持绝对和相对格式
+    返回 datetime 对象
+
+    绝对格式: 20260409, 20260409T08
+    相对格式: 5h (5小时前), 30m (30分钟前), 2d (2天前)
+    """
+    now = datetime.now()
+
+    if not time_str:
+        return now
+
+    # 相对时间: 5h, 30m, 2d
+    rel_match = re.match(r'^(\d+)(h|m|d)$', time_str.lower())
+    if rel_match:
+        value = int(rel_match.group(1))
+        unit = rel_match.group(2)
+        if unit == 'h':
+            return now - timedelta(hours=value)
+        elif unit == 'm':
+            return now - timedelta(minutes=value)
+        elif unit == 'd':
+            return now - timedelta(days=value)
+
+    # 绝对日期: 20260409
+    abs_match = re.match(r'^(\d{8})$', time_str)
+    if abs_match:
+        return datetime.strptime(time_str, '%Y%m%d')
+
+    # 绝对日期+小时: 20260409T08
+    abs_hour_match = re.match(r'^(\d{8})T(\d{2})$', time_str)
+    if abs_hour_match:
+        return datetime.strptime(time_str, '%Y%m%dT%H')
+
+    print(f"  ⚠️ 无法解析时间: {time_str}，使用当前时间")
+    return now
+
+
+def datetime_to_date_str(dt):
+    """datetime → 20260409 格式"""
+    return dt.strftime('%Y%m%d')
+
+
+def datetime_to_display(dt):
+    """datetime → 可读格式"""
+    return dt.strftime('%Y-%m-%d %H:%M')
+
+
+# ============================================================
+# 模块11：主控制流程
+# ============================================================
+
+def run(start_time, end_time, output_base, scroll_only=False, skip_weflow=False):
+    """
+    主流程
+
+    Args:
+        start_time: 开始时间字符串（绝对/相对）
+        end_time: 结束时间字符串（绝对/相对）
+        output_base: 输出基础目录（agent的workspace/scratchpad）
+        scroll_only: 仅滚动不导出
+        skip_weflow: 跳过WeFlow步骤
+    """
+    global user_monitor
+    user_monitor = UserMonitor(sensitivity_ms=3000, move_threshold=50)
+
+    # 解析时间
+    start_dt = parse_time_arg(start_time)
+    end_dt = parse_time_arg(end_time)
+    fetch_time = datetime.now()
+
+    # 输出目录
+    output_dir = get_output_dir(output_base)
+
+    print(f"\n时间区间: {datetime_to_display(start_dt)} → {datetime_to_display(end_dt)}")
+    print(f"输出目录: {output_dir}")
+
+    # 打开朋友圈
+    if not scroll_only:
+        import win32con
+        hwnd = find_and_activate_wechat()
+        if hwnd:
+            win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+            try:
+                win32gui.SetActiveWindow(hwnd)
+            except:
+                pass
+            time.sleep(1)
+        moments_hwnd = open_wechat_moments()
+        if not moments_hwnd:
+            print("\n❌ 打开朋友圈失败")
+            return False
+    else:
+        print("\n跳过打开步骤（scroll-only模式）")
+        moments_hwnd = None
+
+    # 查找窗口
+    window = find_moments_window()
+    if not window:
+        print("\n❌ 未找到朋友圈窗口")
+        return False
+
+    # 优先用打开时保存的hwnd，否则用查找到的
+    moments_hwnd = moments_hwnd or window['hwnd']
+    window_rect = window['rect']
+    left, top, right, bottom = window_rect
+    print(f"\n朋友圈窗口: ({left}, {top}) - ({right}, {bottom})")
+
+    print(f"\n需要滚动到: {datetime_to_display(start_dt)}")
+
+    # 滚动加载
+    print("\n--- 开始滚动加载 ---")
+    max_groups = 60
+    abort_count = 0
+    aborted = False
+    for group in range(max_groups):
+        count = random.randint(5, 8)
+        print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 第 {group+1} 组（滚动 {count} 次）")
+
+        # 确保朋友圈窗口仍然可用
+        if moments_hwnd and win32gui.IsWindow(moments_hwnd):
+            try:
+                import win32con
+                win32gui.ShowWindow(moments_hwnd, win32con.SW_RESTORE)
+                win32gui.SetForegroundWindow(moments_hwnd)
+            except:
+                pass
+
+        user_monitor.abort = False
+        user_monitor.start()
+        mode = random.choices(['wheel', 'click'], weights=[90, 10])[0]
+        print(f"  模式: {mode}")
+        if mode == 'wheel':
+            scroll_by_wheel(window_rect, count)
+        else:
+            for i in range(count):
+                scroll_by_click(window_rect)
+        user_monitor.stop()
+
+        if user_monitor.check():
+            abort_count += 1
+            print(f"\n[{datetime.now().strftime('%H:%M:%S')}] ⚠️ 用户夺回控制（第{abort_count}次）")
+            if abort_count >= 3:
+                print("⚠️ 夺回控制 ≥3次，完全退出")
+                aborted = True
+                break
+            time.sleep(5)
+            user_monitor.abort = False
+            print(f"  继续执行...")
+            continue
+
+        # OCR检查
+        print(f"  截图检查...")
+        img = capture_moments_screenshot(window_rect)
+        ocr_result = extract_time_from_image(img)
+
+        if ocr_result['latest_time']:
+            print(f"  底部时间: {ocr_result['latest_time']}")
+            if is_dt_covered(ocr_result['latest_time'], start_dt):
+                print(f"  ✅ 已到达目标时间")
+                break
+        else:
+            print(f"  未识别到时间，继续滚动...")
+
+    if aborted:
+        status = load_status(output_dir)
+        status["aborted"] = True
+        status["abort_reason"] = "user_intervention"
+        status["abort_time"] = datetime.now().isoformat()
+        save_status(output_dir, status)
+        # 仍尝试WeFlow导出（用户可能已加载到部分数据）
+        skip_weflow = False
+
+    # WeFlow导出
+    if not skip_weflow:
+        print("\n--- WeFlow数据导出 ---")
+
+        if not ensure_weflow():
+            print("  ❌ WeFlow不可用，跳过导出")
+            return False
+
+        # 用精确时间点命名
+        timestamp = fetch_time.strftime('%Y%m%d_%H%M%S')
+        media_dirname = f"moments_{timestamp}"
+        html_filename = f"moments_{timestamp}.html"
+        # WeFlow的outputDir直接设为最终媒体目录
+        export_dir = os.path.join(output_dir, media_dirname)
+
+        # WeFlow导出日期参数
+        start_date_str = datetime_to_date_str(start_dt)
+        end_date_str = datetime_to_date_str(end_dt)
+
+        success, weflow_html, media_count = export_moments_via_weflow(
+            start_date_str, end_date_str, export_dir
+        )
+        if not success:
+            print("  ❌ WeFlow导出失败")
+            return False
+
+        # WeFlow生成文件名如 "朋友圈导出_2026-04-11T05-29-40.html"
+        # 重命名并保留在 export_dir 内（与 media/ 同级，相对路径才正确）
+        final_html = os.path.join(export_dir, html_filename)
+        if weflow_html and os.path.exists(weflow_html) and weflow_html != final_html:
+            os.rename(weflow_html, final_html)
+            print(f"  HTML重命名: {os.path.basename(weflow_html)} → {html_filename}")
+        else:
+            final_html = weflow_html if weflow_html else final_html
+
+        # 统计实际媒体文件数
+        if os.path.isdir(export_dir):
+            actual_media = sum(len(files) for _, _, files in os.walk(export_dir))
+            if actual_media > 0:
+                media_count = actual_media
+
+        print(f"  HTML: {html_filename}")
+        print(f"  媒体文件: {media_count} 个")
+
+        # JSON结构化数据导出（新增）
+        json_filename = f"{timestamp}.json"
+        json_success, json_path, json_post_count = export_json_via_weflow(
+            start_date_str, end_date_str, output_dir, json_filename
+        )
+
+        # 更新状态
+        status = load_status(output_dir)
+        status["last_fetch"] = fetch_time.isoformat()
+        history_entry = {
+            "file": html_filename,
+            "media_dir": media_dirname,
+            "start_time": datetime_to_display(start_dt),
+            "end_time": datetime_to_display(end_dt),
+            "fetch_time": fetch_time.isoformat(),
+            "media_count": media_count
+        }
+        if json_success and json_path:
+            history_entry["json_file"] = json_filename
+            history_entry["json_count"] = json_post_count
+        status["history"].append(history_entry)
+        save_status(output_dir, status)
+
+        print(f"\n✅ 完成！")
+        print(f"  HTML: {html_filename}")
+        print(f"  媒体: {media_count} 个")
+        if json_success and json_path:
+            print(f"  JSON: {json_filename} ({json_post_count} 条)")
+        print(f"  目录: {output_dir}")
+        return True
+    else:
+        print("\n  跳过WeFlow导出")
+        return True
+
+
+def parse_time_rank_for_dt(dt):
+    """将datetime转换为rank值（用于滚动判断）
+    多加1天缓冲：如--start 1d 实际会滚到2天前，确保昨天的内容完整覆盖
+    """
+    now = datetime.now()
+    delta = now - dt
+    total_minutes = delta.total_seconds() / 60
+
+    if total_minutes < 60:
+        return 0 + total_minutes * 0.001
+    elif total_minutes < 1440:  # 24小时内
+        return 1 + (total_minutes / 60) * 0.01
+    elif total_minutes < 2880:  # 48小时内
+        return 2.0  # 昨天
+    else:
+        return 2 + int(total_minutes / 1440)
+
+
+def is_dt_covered(ocr_time_str, target_dt):
+    """判断OCR识别的时间是否已覆盖目标datetime"""
+    rank = parse_time_rank(ocr_time_str)
+    target_rank = parse_time_rank_for_dt(target_dt)
+    if rank is None:
+        return False
+    return rank >= target_rank
+
+
+# ============================================================
+# 模块0：用户抢回控制检测
+# ============================================================
+
+class UserMonitor:
+    """监听用户鼠标操作，3秒内用户抢回控制则终止自动化"""
+    def __init__(self, sensitivity_ms=3000, move_threshold=50):
+        self.sensitivity_ms = sensitivity_ms
+        self.move_threshold = move_threshold
+        self.abort = False
+        self.start_time = None
+        self.last_pos = None
+        self.running = False
+        self.paused = False
+        self.thread = None
+
+    def _monitor(self):
+        while self.running:
+            try:
+                if self.paused:
+                    time.sleep(0.05)
+                    continue
+                now = time.time()
+                elapsed_ms = (now - self.start_time) * 1000
+                if elapsed_ms > self.sensitivity_ms:
+                    return
+                current_pos = pyautogui.position()
+                if self.last_pos is not None:
+                    dx = current_pos[0] - self.last_pos[0]
+                    dy = current_pos[1] - self.last_pos[1]
+                    dist = (dx * dx + dy * dy) ** 0.5
+                    if dist > self.move_threshold:
+                        self.abort = True
+                        self.running = False
+                        return
+                self.last_pos = current_pos
+            except Exception:
+                pass
+            time.sleep(0.05)
+
+    def start(self):
+        self.abort = False
+        self.paused = True  # 初始暂停，等第一次resume才开始监测
+        self.start_time = time.time()
+        self.last_pos = pyautogui.position()
+        self.running = True
+        self.thread = threading.Thread(target=self._monitor, daemon=True)
+        self.thread.start()
+
+    def pause(self):
+        self.paused = True
+
+    def resume(self):
+        self.last_pos = pyautogui.position()
+        self.start_time = time.time()
+        self.paused = False
+
+    def reset_baseline(self):
+        """脚本主动移动鼠标后调用，重置基准点避免误判"""
+        self.last_pos = pyautogui.position()
+
+    def check(self):
+        return self.abort
+
+    def stop(self):
+        self.running = False
+
+
+user_monitor = None
+
+
+def reset_baseline():
+    if user_monitor:
+        user_monitor.reset_baseline()
+
+
+def check_abort():
+    """每次操作间隙检查用户是否抢回控制"""
+    if user_monitor and user_monitor.check():
+        print("\n⚠️ 用户抢回控制，自动化终止")
+        return True
+    return False
+
+def reset_baseline():
+    """脚本主动移动鼠标后，更新基准点防止误报"""
+    if user_monitor:
+        user_monitor.last_pos = pyautogui.position()
+
+
+def main():
+    global user_monitor
+    import argparse
+    parser = argparse.ArgumentParser(description='微信朋友圈自动加载器 v0.4')
+    parser.add_argument('--start', required=False, default=None, help='开始时间（绝对: 20260409 或 20260409T08, 相对: 5h/30m/2d）')
+    parser.add_argument('--end', default=None, help='结束时间（默认当前时间）')
+    parser.add_argument('--output', default=None, help='输出基础目录（默认：~/.openclaw/projects/moments-analysis）')
+    parser.add_argument('--scroll-only', action='store_true', help='仅滚动不导出')
+    parser.add_argument('--skip-weflow', action='store_true', help='跳过WeFlow导出')
+    parser.add_argument('--open-only', action='store_true', help='仅打开朋友圈')
+    parser.add_argument('--api-only', action='store_true', help='不调浏览器，直接用WeFlow API取数据')
+
+    args = parser.parse_args()
+
+    if args.open_only:
+        hwnd = open_wechat_moments()
+        sys.exit(0 if hwnd else 1)
+
+    # --api-only 模式：跳过浏览器操作，直接调用 WeFlow API
+    if args.api_only:
+        start_dt = parse_time_arg(args.start)
+        end_dt = parse_time_arg(args.end) if args.end else datetime.now()
+        start_date = datetime_to_date_str(start_dt)
+        end_date = datetime_to_date_str(end_dt)
+        output_dir = args.output or DEFAULT_OUTPUT
+        os.makedirs(output_dir, exist_ok=True)
+        timestamp = start_dt.strftime('%Y%m%d_%H%M%S')
+        json_filename = f"{timestamp}.json"
+        success, json_path, count = export_json_via_weflow(start_date, end_date, output_dir, json_filename)
+        if success:
+            print(f"✅ API导出成功: {count} 条, {json_path}")
+        else:
+            print("❌ API导出失败")
+        sys.exit(0 if success else 1)
+
+    # 使用默认路径或指定路径
+    output_base = args.output or DEFAULT_OUTPUT
+
+    success = run(
+        start_time=args.start,
+        end_time=args.end,
+        output_base=output_base,
+        scroll_only=args.scroll_only,
+        skip_weflow=args.skip_weflow
+    )
+    sys.exit(0 if success else 1)
+
+
+if __name__ == "__main__":
+    main()

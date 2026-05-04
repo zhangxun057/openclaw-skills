@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博查 AI 搜索 Skill - OpenClaw</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .title {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.15);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #00d9ff;
+            margin-top: 15px;
+        }
+        
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-title {
+            font-size: 1.3em;
+            color: #00ff88;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title .emoji {
+            font-size: 1.2em;
+        }
+        
+        /* Code blocks */
+        pre {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+        
+        code {
+            background: #0d1117;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: #ff7b72;
+        }
+        
+        .command {
+            color: #79c0ff;
+        }
+        
+        .string { color: #a5d6ff; }
+        .key { color: #ff7b72; }
+        .comment { color: #8b949e; }
+        
+        /* Config Table */
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .config-table th, .config-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .config-table th {
+            color: #00d9ff;
+            font-weight: 600;
+        }
+        
+        .config-table td:first-child {
+            color: #ff7b72;
+            font-family: monospace;
+        }
+        
+        /* Feature List */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .feature-item {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .feature-item .icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+        
+        .feature-item .name {
+            color: #00d9ff;
+            font-weight: 600;
+        }
+        
+        /* Workflow */
+        .workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .workflow-step {
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: #00ff88;
+            font-weight: 500;
+        }
+        
+        .workflow-arrow {
+            color: #666;
+            font-size: 1.5em;
+        }
+        
+        /* Trigger Words */
+        .triggers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .trigger-tag {
+            background: rgba(255, 123, 114, 0.15);
+            border: 1px solid rgba(255, 123, 114, 0.3);
+            color: #ff7b72;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+        }
+        
+        /* Version Info */
+        .version-bar {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.1));
+            border-left: 4px solid #00d9ff;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .highlight-box strong {
+            color: #00d9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🔍</div>
+            <h1 class="title">博查 AI 搜索</h1>
+            <p class="subtitle">OpenClaw 智能搜索Skill · 快速准确的网络信息获取</p>
+            <span class="badge">v2.1.0 · 101 工具</span>
+        </div>
+        
+        <!-- What is it -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">✨</span> 这是什么</h2>
+            <p>博查 AI 搜索是 OpenClaw 的默认搜索方式，通过博查 API 快速获取搜索结果，支持"搜索 + 访问"组合工作流，比传统浏览器搜索更快更准。</p>
+            
+            <div class="highlight-box">
+                <strong>核心优势：</strong>调用简单 · 结果精准 · 支持全文抓取 · 完全免费
+            </div>
+        </div>
+        
+        <!-- Features -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">🎯</span> 核心功能</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="icon">🔎</div>
+                    <div class="name">智能搜索</div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📄</div>
+                    <div class="name">内容提取</div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🌐</div>
+                    <div class="name">网页访问</div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📊</div>
+                    <div class="name">数据抓取</div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📸</div>
+                    <div class="name">页面截图</div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🎭</div>
+                    <div class="name">设备模拟</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Workflow -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">🔄</span> 工作流程</h2>
+            <div class="workflow">
+                <div class="workflow-step">用户请求搜索</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">调用 bocha_search.py</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">博查API返回URLs</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">可选：浏览器访问内容</div>
+            </div>
+        </div>
+        
+        <!-- Quick Usage -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">⚡</span> 快速使用</h2>
+            
+            <h3 style="color: #00d9ff; margin: 15px 0 10px;">命令行调用</h3>
+<pre><span class="comment"># 搜索关键词（返回 URLs + 摘要）</span>
+<span class="command">python3</span> scripts/bocha_search.py <span class="string">"搜索关键词"</span> -n <span class="key">5</span>
+
+<span class="comment"># 只搜索不访问内容（更快）</span>
+<span class="command">python3</span> scripts/bocha_search.py <span class="string">"搜索关键词"</span> --no-visit
+
+<span class="comment"># 搜索并自动访问第一个结果获取全文</span>
+<span class="command">python3</span> scripts/bocha_search.py <span class="string">"搜索关键词"</span> -n <span class="key">3</span> --visit-first
+
+<span class="comment"># JSON格式输出（AI友好）</span>
+<span class="command">python3</span> scripts/bocha_search.py <span class="string">"搜索关键词"</span> --json</pre>
+        </div>
+        
+        <!-- API Config -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">🔧</span> API 配置</h2>
+            <table class="config-table">
+                <tr>
+                    <th>配置项</th>
+                    <th>值</th>
+                </tr>
+                <tr>
+                    <td>API Key</td>
+                    <td><code>sk-130edef213334cdb8f9ae08a09a5b106</code></td>
+                </tr>
+                <tr>
+                    <td>端点</td>
+                    <td><code>https://api.bochaai.com/v1/web-search</code></td>
+                </tr>
+                <tr>
+                    <td>脚本路径</td>
+                    <td><code>scripts/bocha_search.py</code></td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Trigger Words -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">🔑</span> 触发关键词</h2>
+            <p style="color: #888; margin-bottom: 10px;">当用户说这些词时，自动激活博查搜索：</p>
+            <div class="triggers">
+                <span class="trigger-tag">搜索</span>
+                <span class="trigger-tag">search</span>
+                <span class="trigger-tag">查找</span>
+                <span class="trigger-tag">查询</span>
+                <span class="trigger-tag">帮我找</span>
+                <span class="trigger-tag">搜一下</span>
+                <span class="trigger-tag">AI搜索</span>
+                <span class="trigger-tag">博查</span>
+            </div>
+        </div>
+        
+        <!-- MCP Config -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">🔌</span> MCP 配置</h2>
+<pre>{
+  <span class="key">"command"</span>: <span class="string">"node"</span>,
+  <span class="key">"args"</span>: [<span class="string">"dist/mcp-server.js"</span>]
+}</pre>
+        </div>
+        
+        <!-- Tool Examples -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">📚</span> 常用工具示例</h2>
+            
+<pre><span class="comment">// 启动浏览器</span>
+browser_launch({ <span class="key">"headless"</span>: <span class="key">false</span> })
+
+<span class="comment">// 访问网页</span>
+browser_goto({ <span class="key">"url"</span>: <span class="string">"https://example.com"</span> })
+
+<span class="comment">// 点击按钮</span>
+browser_click({ <span class="key">"selector"</span>: <span class="string">"button.submit"</span> })
+
+<span class="comment">// 填写表单</span>
+browser_fill({ <span class="key">"selector"</span>: <span class="string">"#kw"</span>, <span class="key">"value"</span>: <span class="string">"OpenClaw"</span> })
+
+<span class="comment">// 获取文本</span>
+browser_get_text({ <span class="key">"selector"</span>: <span class="string">"h1"</span> })
+
+<span class="comment">// 截图</span>
+browser_screenshot({ <span class="key">"path"</span>: <span class="string">"screenshot.png"</span>, <span class="key">"fullPage"</span>: <span class="key">true</span> })</pre>
+        </div>
+        
+        <!-- 101 Tools -->
+        <div class="card">
+            <h2 class="card-title"><span class="emoji">🛠️</span> 101 个工具清单</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+                <div>✅ 浏览器管理 <small>(8)</small></div>
+                <div>✅ 页面导航 <small>(4)</small></div>
+                <div>✅ 元素交互 <small>(12)</small></div>
+                <div>✅ 键盘鼠标 <small>(8)</small></div>
+                <div>✅ 内容提取 <small>(11)</small></div>
+                <div>✅ 高级选择器 <small>(7)</small></div>
+                <div>✅ 等待操作 <small>(7)</small></div>
+                <div>✅ 截图和PDF <small>(3)</small></div>
+                <div>✅ JavaScript执行 <small>(3)</small></div>
+                <div>✅ Cookie和存储 <small>(8)</small></div>
+                <div>✅ 网络控制 <small>(7)</small></div>
+                <div>✅ 文件操作 <small>(2)</small></div>
+                <div>✅ 视口和设备 <small>(6)</small></div>
+                <div>✅ 滚动操作 <small>(2)</small></div>
+                <div>✅ 性能指标 <small>(3)</small></div>
+                <div>✅ 无障碍功能 <small>(1)</small></div>
+                <div>✅ 时间控制 <small>(5)</small></div>
+                <div>✅ 权限管理 <small>(2)</small></div>
+                <div>✅ 对话框处理 <small>(1)</small></div>
+                <div>✅ Frame操作 <small>(1)</small></div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="version-bar">
+            <p>�龙虾出品 · OpenClaw Skill</p>
+            <p style="margin-top: 5px;">playwright-browser-skill v2.1.0</p>
+        </div>
+    </div>
+</body>
+</html>

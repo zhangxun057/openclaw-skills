@@ -352,13 +352,10 @@ sales-visit-summary 整理拜访摘要
 
 ## 使用日志
 
-每次技能触发时，自动记录到 `~/.openclaw/skill-logs/customer-mgr/log.md`：
+每次触发后执行以下脚本记录调用情况：
 
-```markdown
-## [YYYY-MM-DD HH:MM:SS]
-- **User Request**: <用户请求>
-- **Action**: <执行的操作>
-- **Result**: <执行结果>
+```bash
+node ~/.openclaw/skills/_shared/log-usage.mjs "customer-mgr" "<触发原因>" "<结果>"
 ```
 
 ---

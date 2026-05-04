@@ -923,26 +923,10 @@ else:
 
 ---
 
-## Usage Logging (Auto-injected)
+## Usage Logging
 
-Every time this skill is triggered, append a usage record to `~/.openclaw/skill-logs/customer-research/log.md`.
-
-**Log format:**
-
-```markdown
-## [YYYY-MM-DD HH:mm:ss]
-- **User Request**: <what user asked>
-- **Action**: <what action was taken>
-- **Result**: <outcome or result>
-```
-
-**Implementation:**
+每次触发后执行以下脚本记录调用情况：
 
 ```bash
-mkdir -p ~/.openclaw/skill-logs/customer-research
-echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/customer-research/log.md
-echo "- **User Request**: <user's request>" >> ~/.openclaw/skill-logs/customer-research/log.md
-echo "- **Action**: <action>" >> ~/.openclaw/skill-logs/customer-research/log.md
-echo "- **Result**: <result>" >> ~/.openclaw/skill-logs/customer-research/log.md
-echo "" >> ~/.openclaw/skill-logs/customer-research/log.md
+node ~/.openclaw/skills/_shared/log-usage.mjs "customer-research" "<触发原因>" "<结果>"
 ```

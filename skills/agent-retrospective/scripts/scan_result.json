@@ -1,0 +1,331 @@
+{
+  "target_date": "2026-05-03",
+  "scanned_days": 1,
+  "scan_summary": {
+    "session_files_found": 6,
+    "chatlog_files_found": 3,
+    "session_with_snippets": 6,
+    "chatlog_with_snippets": 0
+  },
+  "session_files": [
+    {
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\64875bd0-55ce-4cd5-9de8-7c26a6831cac.jsonl",
+      "name": "64875bd0-55ce-4cd5-9de8-7c26a6831cac.jsonl",
+      "mtime": "2026-05-02 08:44"
+    },
+    {
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\7cf628d9-6fe9-48cd-8029-897085fd8f5a.jsonl",
+      "name": "7cf628d9-6fe9-48cd-8029-897085fd8f5a.jsonl",
+      "mtime": "2026-05-02 08:43"
+    },
+    {
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\96333720-547a-49bd-a0b6-b6c9e469c8b1.jsonl",
+      "name": "96333720-547a-49bd-a0b6-b6c9e469c8b1.jsonl",
+      "mtime": "2026-05-03 22:07"
+    },
+    {
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\99f3bb66-8fc1-43f7-8f6a-d18383fe2029.jsonl",
+      "name": "99f3bb66-8fc1-43f7-8f6a-d18383fe2029.jsonl",
+      "mtime": "2026-05-02 08:55"
+    },
+    {
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\cb37128e-c427-4a92-91ec-59173ca140b0.jsonl",
+      "name": "cb37128e-c427-4a92-91ec-59173ca140b0.jsonl",
+      "mtime": "2026-05-03 22:13"
+    },
+    {
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\fbe292f6-e7f4-499d-9d01-b2f249876089.jsonl",
+      "name": "fbe292f6-e7f4-499d-9d01-b2f249876089.jsonl",
+      "mtime": "2026-05-03 21:53"
+    }
+  ],
+  "chatlog_files": [
+    {
+      "source": "chatlog",
+      "path": "C:\\Users\\44452\\.openclaw\\chat-logs\\main\\2026-05-03_96333720.jsonl",
+      "name": "2026-05-03_96333720.jsonl",
+      "mtime": "2026-05-03 22:11",
+      "has_snippets": false,
+      "snippet_count": 0,
+      "snippets": []
+    },
+    {
+      "source": "chatlog",
+      "path": "C:\\Users\\44452\\.openclaw\\chat-logs\\main\\2026-05-03_cb37128e.jsonl",
+      "name": "2026-05-03_cb37128e.jsonl",
+      "mtime": "2026-05-03 22:11",
+      "has_snippets": false,
+      "snippet_count": 0,
+      "snippets": []
+    },
+    {
+      "source": "chatlog",
+      "path": "C:\\Users\\44452\\.openclaw\\chat-logs\\main\\2026-05-03_fbe292f6.jsonl",
+      "name": "2026-05-03_fbe292f6.jsonl",
+      "mtime": "2026-05-03 22:11",
+      "has_snippets": false,
+      "snippet_count": 0,
+      "snippets": []
+    }
+  ],
+  "suspicious_files": [
+    {
+      "source": "session",
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\64875bd0-55ce-4cd5-9de8-7c26a6831cac.jsonl",
+      "name": "64875bd0-55ce-4cd5-9de8-7c26a6831cac.jsonl",
+      "mtime": "2026-05-02 08:44",
+      "has_snippets": true,
+      "snippet_count": 3,
+      "snippets": [
+        {
+          "line": 7,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"3da9b75b\",\"parentId\":\"20a3d2b9\",\"timestamp\":\"2026-05-02T00:37:34.736Z\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[cron:a1b1b578-326e-4703-a3af-140b9f8b5219 **信息获取**技能雷达] 按照 <skill-radar>技能，执行\\\"每日技能雷达扫描\\\"，并将生成的雷达日报额外保存一份到 workspace/每日成果/技能雷达/YYYY-MM-DD-雷达.md（作",
+            "{\"type\":\"message\",\"id\":\"60f40408\",\"parentId\":\"3da9b75b\",\"timestamp\":\"2026-05-02T00:37:40.695Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me read the skill-radar skill first to understand what to do.\"},{\"type\":\"toolCall\",\"id\":\"call_function_85r6v4wfppk6_1\",\"name\":\"re",
+            "{\"type\":\"message\",\"id\":\"468b135d\",\"parentId\":\"60f40408\",\"timestamp\":\"2026-05-02T00:37:40.703Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_85r6v4wfppk6_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: skill-radar\\ndescription: 每日自动监控市场热门 Skill，智能推荐值得安装的新技能。从 skills.sh",
+            "{\"type\":\"message\",\"id\":\"dc7c7db3\",\"parentId\":\"468b135d\",\"timestamp\":\"2026-05-02T00:37:54.274Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to execute the skill-radar daily scan. Let me follow the steps:\\n\\n1. Read installed skills list\\n2. Read history (7-day d",
+            "{\"type\":\"message\",\"id\":\"da9f9d78\",\"parentId\":\"dc7c7db3\",\"timestamp\":\"2026-05-02T00:37:54.659Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"---DONE---\"}],\"details\":{\"status\":\"completed\",\"exitCode\":0,\"durationMs\":361,\"a"
+          ]
+        },
+        {
+          "line": 9,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"468b135d\",\"parentId\":\"60f40408\",\"timestamp\":\"2026-05-02T00:37:40.703Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_85r6v4wfppk6_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: skill-radar\\ndescription: 每日自动监控市场热门 Skill，智能推荐值得安装的新技能。从 skills.sh",
+            "{\"type\":\"message\",\"id\":\"dc7c7db3\",\"parentId\":\"468b135d\",\"timestamp\":\"2026-05-02T00:37:54.274Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to execute the skill-radar daily scan. Let me follow the steps:\\n\\n1. Read installed skills list\\n2. Read history (7-day d",
+            "{\"type\":\"message\",\"id\":\"da9f9d78\",\"parentId\":\"dc7c7db3\",\"timestamp\":\"2026-05-02T00:37:54.659Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"---DONE---\"}],\"details\":{\"status\":\"completed\",\"exitCode\":0,\"durationMs\":361,\"a",
+            "{\"type\":\"message\",\"id\":\"9c564ac7\",\"parentId\":\"da9f9d78\",\"timestamp\":\"2026-05-02T00:37:54.660Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_2\",\"toolName\":\"memory_search\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"results\\\": [\\n    {\\n      \\\"id\\\": \\\"1047b715d32e1c79c5c6bb6ac",
+            "{\"type\":\"message\",\"id\":\"18d4ffe1\",\"parentId\":\"9c564ac7\",\"timestamp\":\"2026-05-02T00:37:57.511Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_3\",\"toolName\":\"feishu_bitable_app_table_record\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"records\\\": [\\n    {\\n      \\\"fields\\\": {\\n  "
+          ]
+        },
+        {
+          "line": 10,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"dc7c7db3\",\"parentId\":\"468b135d\",\"timestamp\":\"2026-05-02T00:37:54.274Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to execute the skill-radar daily scan. Let me follow the steps:\\n\\n1. Read installed skills list\\n2. Read history (7-day d",
+            "{\"type\":\"message\",\"id\":\"da9f9d78\",\"parentId\":\"dc7c7db3\",\"timestamp\":\"2026-05-02T00:37:54.659Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"---DONE---\"}],\"details\":{\"status\":\"completed\",\"exitCode\":0,\"durationMs\":361,\"a",
+            "{\"type\":\"message\",\"id\":\"9c564ac7\",\"parentId\":\"da9f9d78\",\"timestamp\":\"2026-05-02T00:37:54.660Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_2\",\"toolName\":\"memory_search\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"results\\\": [\\n    {\\n      \\\"id\\\": \\\"1047b715d32e1c79c5c6bb6ac",
+            "{\"type\":\"message\",\"id\":\"18d4ffe1\",\"parentId\":\"9c564ac7\",\"timestamp\":\"2026-05-02T00:37:57.511Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rzw6pz7mooze_3\",\"toolName\":\"feishu_bitable_app_table_record\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"records\\\": [\\n    {\\n      \\\"fields\\\": {\\n  ",
+            "{\"type\":\"message\",\"id\":\"8de76078\",\"parentId\":\"18d4ffe1\",\"timestamp\":\"2026-05-02T00:38:18.404Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I have the installed skills list and the tasks. Let me check for recent recommendations (7-day dedup). Let me also read the histo"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "session",
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\7cf628d9-6fe9-48cd-8029-897085fd8f5a.jsonl",
+      "name": "7cf628d9-6fe9-48cd-8029-897085fd8f5a.jsonl",
+      "mtime": "2026-05-02 08:43",
+      "has_snippets": true,
+      "snippet_count": 3,
+      "snippets": [
+        {
+          "line": 8,
+          "signal": "timeout",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"6458d07c\",\"parentId\":\"e72db7d1\",\"timestamp\":\"2026-04-20T14:46:51.071Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"agent-retrospective-v4-SKILL.md\"}],\"api\":\"openai-responses\",\"provider\":\"openclaw\",\"model\":\"delivery-mirror\",\"usage\":{\"input\":0,\"output\":0,\"ca",
+            "{\"type\":\"message\",\"id\":\"38d00c5e\",\"parentId\":\"6458d07c\",\"timestamp\":\"2026-04-22T01:42:15.416Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🦞 **Skill 雷达日报 | 2026-04-22**\\n\\n━━━━━━━━━━━━━━━━━━━\\n\\n**📊 本轮扫描**\\n- 已安装：87 个 | 7天内推荐过：47 个\\n- 本次新增推荐：**8 个**\\n\\n━━━━━━━━━━━━━━━━━━━\\n\\n**🎯 ",
+            "{\"type\":\"message\",\"id\":\"329664c0\",\"parentId\":\"38d00c5e\",\"timestamp\":\"2026-04-22T15:35:01.599Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-22**\\n\\n**统计**：扫描 session 13个（main 7 + gxixia 6），发现问题 98 个（🔴32 / 🟡64 / ⚠️2）\\n\\n---\\n**老问题追踪**：\\n- P001 PowerShell编码：🔴",
+            "{\"type\":\"message\",\"id\":\"8ac9d00f\",\"parentId\":\"329664c0\",\"timestamp\":\"2026-04-23T15:35:13.719Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-23**\\n\\n**总体评价：良好 ✅**\\n- 扫描4个session，问题仅3个（🔴1 / ⚠️2），较昨日大幅减少\\n- P003（Cron变量未替换）未触发，药方生效\\n- 新发现：AI自己踩了P009（`~/.opencla",
+            "{\"type\":\"message\",\"id\":\"48180a55\",\"parentId\":\"8ac9d00f\",\"timestamp\":\"2026-04-24T15:35:21.183Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-24**\\n\\n**总体评价：⚠️ 需关注**\\n- 扫描7个session，问题41个（🔴14 / 🟡27），较昨日（3个）大幅回升\\n- 主要是旧坑反弹 + 新坑N5发现\\n\\n---\\n\\n**🔴 本期最突出问题：exec pr"
+          ]
+        },
+        {
+          "line": 10,
+          "signal": "timeout",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"329664c0\",\"parentId\":\"38d00c5e\",\"timestamp\":\"2026-04-22T15:35:01.599Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-22**\\n\\n**统计**：扫描 session 13个（main 7 + gxixia 6），发现问题 98 个（🔴32 / 🟡64 / ⚠️2）\\n\\n---\\n**老问题追踪**：\\n- P001 PowerShell编码：🔴",
+            "{\"type\":\"message\",\"id\":\"8ac9d00f\",\"parentId\":\"329664c0\",\"timestamp\":\"2026-04-23T15:35:13.719Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-23**\\n\\n**总体评价：良好 ✅**\\n- 扫描4个session，问题仅3个（🔴1 / ⚠️2），较昨日大幅减少\\n- P003（Cron变量未替换）未触发，药方生效\\n- 新发现：AI自己踩了P009（`~/.opencla",
+            "{\"type\":\"message\",\"id\":\"48180a55\",\"parentId\":\"8ac9d00f\",\"timestamp\":\"2026-04-24T15:35:21.183Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-24**\\n\\n**总体评价：⚠️ 需关注**\\n- 扫描7个session，问题41个（🔴14 / 🟡27），较昨日（3个）大幅回升\\n- 主要是旧坑反弹 + 新坑N5发现\\n\\n---\\n\\n**🔴 本期最突出问题：exec pr",
+            "{\"type\":\"message\",\"id\":\"8f0075fc\",\"parentId\":\"48180a55\",\"timestamp\":\"2026-04-25T06:47:01.396Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-25**\\n\\n**统计**：14个session，11个可疑，真实报错仅2个\\n\\n**整体健康度显著提升**（vs昨日）：\\n- 问题总量：41 → ~6（↓85%）\\n- 🔴严重：14 → 2（↓86%）\\n- P001/P00",
+            "{\"type\":\"message\",\"id\":\"7206d598\",\"parentId\":\"8f0075fc\",\"timestamp\":\"2026-04-25T15:35:40.340Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-25（晚）**\\n\\n✅ **本日整体健康度良好**\\n\\n**统计**：0个真实报错，旧坑未复现\\n\\n---\\n**老问题追踪**：\\n| 坑 | 状态 | 趋势 |\\n|----|------|------|\\n| P001 P"
+          ]
+        },
+        {
+          "line": 11,
+          "signal": "失败",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"8ac9d00f\",\"parentId\":\"329664c0\",\"timestamp\":\"2026-04-23T15:35:13.719Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-23**\\n\\n**总体评价：良好 ✅**\\n- 扫描4个session，问题仅3个（🔴1 / ⚠️2），较昨日大幅减少\\n- P003（Cron变量未替换）未触发，药方生效\\n- 新发现：AI自己踩了P009（`~/.opencla",
+            "{\"type\":\"message\",\"id\":\"48180a55\",\"parentId\":\"8ac9d00f\",\"timestamp\":\"2026-04-24T15:35:21.183Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-24**\\n\\n**总体评价：⚠️ 需关注**\\n- 扫描7个session，问题41个（🔴14 / 🟡27），较昨日（3个）大幅回升\\n- 主要是旧坑反弹 + 新坑N5发现\\n\\n---\\n\\n**🔴 本期最突出问题：exec pr",
+            "{\"type\":\"message\",\"id\":\"8f0075fc\",\"parentId\":\"48180a55\",\"timestamp\":\"2026-04-25T06:47:01.396Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-25**\\n\\n**统计**：14个session，11个可疑，真实报错仅2个\\n\\n**整体健康度显著提升**（vs昨日）：\\n- 问题总量：41 → ~6（↓85%）\\n- 🔴严重：14 → 2（↓86%）\\n- P001/P00",
+            "{\"type\":\"message\",\"id\":\"7206d598\",\"parentId\":\"8f0075fc\",\"timestamp\":\"2026-04-25T15:35:40.340Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🐉🦞 **龙虾每日体检报告 · 2026-04-25（晚）**\\n\\n✅ **本日整体健康度良好**\\n\\n**统计**：0个真实报错，旧坑未复现\\n\\n---\\n**老问题追踪**：\\n| 坑 | 状态 | 趋势 |\\n|----|------|------|\\n| P001 P",
+            "{\"type\":\"message\",\"id\":\"7b0e6f66\",\"parentId\":\"7206d598\",\"timestamp\":\"2026-04-25T23:07:21.041Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"🦞 **Skill 雷达 | 2026-04-26**\\n\\n━━━━━━━━━━━━━━━━━━\\n\\n**【🎯 匹配你的待办】**\\n\\n**1. minimax-multimodal-toolkit** ⭐⭐⭐⭐\\n匹配：「微信朋友圈分析（多模态）」进行中\\n能力：MiniM"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "session",
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\96333720-547a-49bd-a0b6-b6c9e469c8b1.jsonl",
+      "name": "96333720-547a-49bd-a0b6-b6c9e469c8b1.jsonl",
+      "mtime": "2026-05-03 22:07",
+      "has_snippets": true,
+      "snippet_count": 3,
+      "snippets": [
+        {
+          "line": 7,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"cdf3088d\",\"parentId\":\"1b29f350\",\"timestamp\":\"2026-05-03T14:05:15.288Z\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[cron:778b7ea8-8ca7-4bc1-9986-240e3d91a00a **工作复盘**丑丑虾会话总结] [cron:session-summary-main] 按照 <session-summarizer>技能，执行会话摘要\\n日期：{{yesterday}}\\nAgent:",
+            "{\"type\":\"message\",\"id\":\"a3835537\",\"parentId\":\"cdf3088d\",\"timestamp\":\"2026-05-03T14:05:21.655Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me read the session-summarizer skill first.\"},{\"type\":\"toolCall\",\"id\":\"call_function_1mryt1su4na0_1\",\"name\":\"read\",\"arguments\":{\"",
+            "{\"type\":\"message\",\"id\":\"8aa5bec0\",\"parentId\":\"a3835537\",\"timestamp\":\"2026-05-03T14:05:21.694Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_1mryt1su4na0_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: session-summarizer\\ndescription: |\\n  会话摘要技能。将指定 agent 全天的所有会话合并为 1",
+            "{\"type\":\"message\",\"id\":\"8382dcea\",\"parentId\":\"8aa5bec0\",\"timestamp\":\"2026-05-03T14:05:31.953Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to follow the session-summarizer skill. Let me extract the key parameters:\\n- date: yesterday (2026-05-02 based on current",
+            "{\"type\":\"message\",\"id\":\"e8defafc\",\"parentId\":\"8382dcea\",\"timestamp\":\"2026-05-03T14:05:35.812Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_0x29k788vrh4_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"所在位置 行:1 字符: 175\\r\\n+ ... ue | ForEach-Object { @{filename=.Name; sizeKB=[math"
+          ]
+        },
+        {
+          "line": 8,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"a3835537\",\"parentId\":\"cdf3088d\",\"timestamp\":\"2026-05-03T14:05:21.655Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me read the session-summarizer skill first.\"},{\"type\":\"toolCall\",\"id\":\"call_function_1mryt1su4na0_1\",\"name\":\"read\",\"arguments\":{\"",
+            "{\"type\":\"message\",\"id\":\"8aa5bec0\",\"parentId\":\"a3835537\",\"timestamp\":\"2026-05-03T14:05:21.694Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_1mryt1su4na0_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: session-summarizer\\ndescription: |\\n  会话摘要技能。将指定 agent 全天的所有会话合并为 1",
+            "{\"type\":\"message\",\"id\":\"8382dcea\",\"parentId\":\"8aa5bec0\",\"timestamp\":\"2026-05-03T14:05:31.953Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to follow the session-summarizer skill. Let me extract the key parameters:\\n- date: yesterday (2026-05-02 based on current",
+            "{\"type\":\"message\",\"id\":\"e8defafc\",\"parentId\":\"8382dcea\",\"timestamp\":\"2026-05-03T14:05:35.812Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_0x29k788vrh4_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"所在位置 行:1 字符: 175\\r\\n+ ... ue | ForEach-Object { @{filename=.Name; sizeKB=[math",
+            "{\"type\":\"message\",\"id\":\"b6737f0f\",\"parentId\":\"e8defafc\",\"timestamp\":\"2026-05-03T14:05:50.720Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"The `$_.` variable reference is getting stripped in PowerShell inline command. Let me write the script to a file instead.\"},{\"type\":\""
+          ]
+        },
+        {
+          "line": 9,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"8aa5bec0\",\"parentId\":\"a3835537\",\"timestamp\":\"2026-05-03T14:05:21.694Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_1mryt1su4na0_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: session-summarizer\\ndescription: |\\n  会话摘要技能。将指定 agent 全天的所有会话合并为 1",
+            "{\"type\":\"message\",\"id\":\"8382dcea\",\"parentId\":\"8aa5bec0\",\"timestamp\":\"2026-05-03T14:05:31.953Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to follow the session-summarizer skill. Let me extract the key parameters:\\n- date: yesterday (2026-05-02 based on current",
+            "{\"type\":\"message\",\"id\":\"e8defafc\",\"parentId\":\"8382dcea\",\"timestamp\":\"2026-05-03T14:05:35.812Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_0x29k788vrh4_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"所在位置 行:1 字符: 175\\r\\n+ ... ue | ForEach-Object { @{filename=.Name; sizeKB=[math",
+            "{\"type\":\"message\",\"id\":\"b6737f0f\",\"parentId\":\"e8defafc\",\"timestamp\":\"2026-05-03T14:05:50.720Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"The `$_.` variable reference is getting stripped in PowerShell inline command. Let me write the script to a file instead.\"},{\"type\":\"",
+            "{\"type\":\"message\",\"id\":\"7492f5f4\",\"parentId\":\"b6737f0f\",\"timestamp\":\"2026-05-03T14:05:50.732Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_8p7vvq7ey1xh_1\",\"toolName\":\"write\",\"content\":[{\"type\":\"text\",\"text\":\"Successfully wrote 616 bytes to C:\\\\Users\\\\44452\\\\.openclaw\\\\skills\\\\session-"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "session",
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\99f3bb66-8fc1-43f7-8f6a-d18383fe2029.jsonl",
+      "name": "99f3bb66-8fc1-43f7-8f6a-d18383fe2029.jsonl",
+      "mtime": "2026-05-02 08:55",
+      "has_snippets": true,
+      "snippet_count": 3,
+      "snippets": [
+        {
+          "line": 7,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"4c34c695\",\"parentId\":\"1a252b07\",\"timestamp\":\"2026-05-02T00:53:44.627Z\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[cron:778b7ea8-8ca7-4bc1-9986-240e3d91a00a **工作复盘**丑丑虾会话总结] [cron:session-summary-main] 按照 <session-summarizer>技能，执行会话摘要\\n日期：{{yesterday}}\\nAgent:",
+            "{\"type\":\"message\",\"id\":\"96d565c6\",\"parentId\":\"4c34c695\",\"timestamp\":\"2026-05-02T00:53:50.696Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"This is a cron job triggered session summarization task. I need to follow the session-summarizer skill to summarize yesterday's conve",
+            "{\"type\":\"message\",\"id\":\"23893ae5\",\"parentId\":\"96d565c6\",\"timestamp\":\"2026-05-02T00:53:50.704Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_znaq1xvf8vfe_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: session-summarizer\\ndescription: |\\n  会话摘要技能。将指定 agent 全天的所有会话合并为 1",
+            "{\"type\":\"message\",\"id\":\"5add2cce\",\"parentId\":\"23893ae5\",\"timestamp\":\"2026-05-02T00:54:02.407Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to execute the session summarizer for date 2026-05-01 (yesterday from 2026-05-02), agent \\\"main\\\".\\n\\nLet me follow the st",
+            "{\"type\":\"message\",\"id\":\"027dede7\",\"parentId\":\"5add2cce\",\"timestamp\":\"2026-05-02T00:54:04.927Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_4zr69zjac03r_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"所在位置 行:17 字符: 2\\r\\n+  | ForEach-Object {\\r\\n+  ~\\r\\n不允许使用空管道元素。\\r\\n所在位置 行:21 字"
+          ]
+        },
+        {
+          "line": 8,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"96d565c6\",\"parentId\":\"4c34c695\",\"timestamp\":\"2026-05-02T00:53:50.696Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"This is a cron job triggered session summarization task. I need to follow the session-summarizer skill to summarize yesterday's conve",
+            "{\"type\":\"message\",\"id\":\"23893ae5\",\"parentId\":\"96d565c6\",\"timestamp\":\"2026-05-02T00:53:50.704Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_znaq1xvf8vfe_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: session-summarizer\\ndescription: |\\n  会话摘要技能。将指定 agent 全天的所有会话合并为 1",
+            "{\"type\":\"message\",\"id\":\"5add2cce\",\"parentId\":\"23893ae5\",\"timestamp\":\"2026-05-02T00:54:02.407Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to execute the session summarizer for date 2026-05-01 (yesterday from 2026-05-02), agent \\\"main\\\".\\n\\nLet me follow the st",
+            "{\"type\":\"message\",\"id\":\"027dede7\",\"parentId\":\"5add2cce\",\"timestamp\":\"2026-05-02T00:54:04.927Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_4zr69zjac03r_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"所在位置 行:17 字符: 2\\r\\n+  | ForEach-Object {\\r\\n+  ~\\r\\n不允许使用空管道元素。\\r\\n所在位置 行:21 字",
+            "{\"type\":\"message\",\"id\":\"fb58a903\",\"parentId\":\"027dede7\",\"timestamp\":\"2026-05-02T00:54:13.670Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"The PowerShell escaping is problematic. Let me write the script to a file instead.\"},{\"type\":\"toolCall\",\"id\":\"call_function_fv54e4zn5"
+          ]
+        },
+        {
+          "line": 9,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"23893ae5\",\"parentId\":\"96d565c6\",\"timestamp\":\"2026-05-02T00:53:50.704Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_znaq1xvf8vfe_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: session-summarizer\\ndescription: |\\n  会话摘要技能。将指定 agent 全天的所有会话合并为 1",
+            "{\"type\":\"message\",\"id\":\"5add2cce\",\"parentId\":\"23893ae5\",\"timestamp\":\"2026-05-02T00:54:02.407Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Now I need to execute the session summarizer for date 2026-05-01 (yesterday from 2026-05-02), agent \\\"main\\\".\\n\\nLet me follow the st",
+            "{\"type\":\"message\",\"id\":\"027dede7\",\"parentId\":\"5add2cce\",\"timestamp\":\"2026-05-02T00:54:04.927Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_4zr69zjac03r_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"所在位置 行:17 字符: 2\\r\\n+  | ForEach-Object {\\r\\n+  ~\\r\\n不允许使用空管道元素。\\r\\n所在位置 行:21 字",
+            "{\"type\":\"message\",\"id\":\"fb58a903\",\"parentId\":\"027dede7\",\"timestamp\":\"2026-05-02T00:54:13.670Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"The PowerShell escaping is problematic. Let me write the script to a file instead.\"},{\"type\":\"toolCall\",\"id\":\"call_function_fv54e4zn5",
+            "{\"type\":\"message\",\"id\":\"3ff61687\",\"parentId\":\"fb58a903\",\"timestamp\":\"2026-05-02T00:54:13.677Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_fv54e4zn5268_1\",\"toolName\":\"write\",\"content\":[{\"type\":\"text\",\"text\":\"Successfully wrote 717 bytes to C:\\\\Users\\\\44452\\\\.openclaw\\\\skills\\\\session-"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "session",
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\cb37128e-c427-4a92-91ec-59173ca140b0.jsonl",
+      "name": "cb37128e-c427-4a92-91ec-59173ca140b0.jsonl",
+      "mtime": "2026-05-03 22:13",
+      "has_snippets": true,
+      "snippet_count": 3,
+      "snippets": [
+        {
+          "line": 7,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"ec0a24de\",\"parentId\":\"e669d146\",\"timestamp\":\"2026-05-03T14:10:47.685Z\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[cron:8d14b187-56a4-4d62-8c74-63cb94c42c82 **工作复盘**龙虾每日体检] 按照 <agent-retrospective> 技能，执行龙虾每日体检，生成体检报告后推送给我（张洵）\\nCurrent time: Sunday, May 3rd, 20",
+            "{\"type\":\"message\",\"id\":\"926a7fae\",\"parentId\":\"ec0a24de\",\"timestamp\":\"2026-05-03T14:10:58.150Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me read the agent-retrospective skill first.\"},{\"type\":\"toolCall\",\"id\":\"call_function_rj9qkwibz32u_1\",\"name\":\"read\",\"arguments\":{",
+            "{\"type\":\"message\",\"id\":\"d8c65dc0\",\"parentId\":\"926a7fae\",\"timestamp\":\"2026-05-03T14:10:58.166Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rj9qkwibz32u_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: agent-retrospective\\ndescription: |\\n  龙虾每日体检 + 问题处置。扫描 sessions，精准",
+            "{\"type\":\"message\",\"id\":\"b573afd0\",\"parentId\":\"d8c65dc0\",\"timestamp\":\"2026-05-03T14:11:12.425Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"好的，我需要执行龙虾每日体检。按照技能文档，我需要：\\n\\n1. Step 1: 全身扫描 - 执行 health_scan.py 和 scan_session_errors.py\\n2. Step 2: 精准诊断 - 读取 scan_result.json 和可疑",
+            "{\"type\":\"message\",\"id\":\"7086ecc1\",\"parentId\":\"b573afd0\",\"timestamp\":\"2026-05-03T14:11:12.540Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_kveb89cozjuj_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"error\\\",\\n  \\\"tool\\\": \\\"exec\\\",\\n  \\\"error\\\": \\\"exec prefli"
+          ]
+        },
+        {
+          "line": 8,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"926a7fae\",\"parentId\":\"ec0a24de\",\"timestamp\":\"2026-05-03T14:10:58.150Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me read the agent-retrospective skill first.\"},{\"type\":\"toolCall\",\"id\":\"call_function_rj9qkwibz32u_1\",\"name\":\"read\",\"arguments\":{",
+            "{\"type\":\"message\",\"id\":\"d8c65dc0\",\"parentId\":\"926a7fae\",\"timestamp\":\"2026-05-03T14:10:58.166Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rj9qkwibz32u_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: agent-retrospective\\ndescription: |\\n  龙虾每日体检 + 问题处置。扫描 sessions，精准",
+            "{\"type\":\"message\",\"id\":\"b573afd0\",\"parentId\":\"d8c65dc0\",\"timestamp\":\"2026-05-03T14:11:12.425Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"好的，我需要执行龙虾每日体检。按照技能文档，我需要：\\n\\n1. Step 1: 全身扫描 - 执行 health_scan.py 和 scan_session_errors.py\\n2. Step 2: 精准诊断 - 读取 scan_result.json 和可疑",
+            "{\"type\":\"message\",\"id\":\"7086ecc1\",\"parentId\":\"b573afd0\",\"timestamp\":\"2026-05-03T14:11:12.540Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_kveb89cozjuj_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"error\\\",\\n  \\\"tool\\\": \\\"exec\\\",\\n  \\\"error\\\": \\\"exec prefli",
+            "{\"type\":\"message\",\"id\":\"4f8151f5\",\"parentId\":\"7086ecc1\",\"timestamp\":\"2026-05-03T14:11:12.545Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_kveb89cozjuj_2\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"error\\\",\\n  \\\"tool\\\": \\\"exec\\\",\\n  \\\"error\\\": \\\"exec prefli"
+          ]
+        },
+        {
+          "line": 9,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"d8c65dc0\",\"parentId\":\"926a7fae\",\"timestamp\":\"2026-05-03T14:10:58.166Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_rj9qkwibz32u_1\",\"toolName\":\"read\",\"content\":[{\"type\":\"text\",\"text\":\"---\\nname: agent-retrospective\\ndescription: |\\n  龙虾每日体检 + 问题处置。扫描 sessions，精准",
+            "{\"type\":\"message\",\"id\":\"b573afd0\",\"parentId\":\"d8c65dc0\",\"timestamp\":\"2026-05-03T14:11:12.425Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"好的，我需要执行龙虾每日体检。按照技能文档，我需要：\\n\\n1. Step 1: 全身扫描 - 执行 health_scan.py 和 scan_session_errors.py\\n2. Step 2: 精准诊断 - 读取 scan_result.json 和可疑",
+            "{\"type\":\"message\",\"id\":\"7086ecc1\",\"parentId\":\"b573afd0\",\"timestamp\":\"2026-05-03T14:11:12.540Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_kveb89cozjuj_1\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"error\\\",\\n  \\\"tool\\\": \\\"exec\\\",\\n  \\\"error\\\": \\\"exec prefli",
+            "{\"type\":\"message\",\"id\":\"4f8151f5\",\"parentId\":\"7086ecc1\",\"timestamp\":\"2026-05-03T14:11:12.545Z\",\"message\":{\"role\":\"toolResult\",\"toolCallId\":\"call_function_kveb89cozjuj_2\",\"toolName\":\"exec\",\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"error\\\",\\n  \\\"tool\\\": \\\"exec\\\",\\n  \\\"error\\\": \\\"exec prefli",
+            "{\"type\":\"message\",\"id\":\"ab28b278\",\"parentId\":\"4f8151f5\",\"timestamp\":\"2026-05-03T14:11:26.442Z\",\"message\":{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Need to write a Python script to run the health scan. Let me write a wrapper script.\"},{\"type\":\"toolCall\",\"id\":\"call_function_n2odbpd"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "session",
+      "path": "C:\\Users\\44452\\.openclaw\\agents\\main\\sessions\\fbe292f6-e7f4-499d-9d01-b2f249876089.jsonl",
+      "name": "fbe292f6-e7f4-499d-9d01-b2f249876089.jsonl",
+      "mtime": "2026-05-03 21:53",
+      "has_snippets": true,
+      "snippet_count": 3,
+      "snippets": [
+        {
+          "line": 6,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"custom\",\"customType\":\"model-snapshot\",\"data\":{\"timestamp\":1777816266880,\"provider\":\"minimax-shengxiang\",\"modelApi\":\"openai-completions\",\"modelId\":\"MiniMax-M2.7\"},\"id\":\"858c0281\",\"parentId\":\"a07de620\",\"timestamp\":\"2026-05-03T13:51:06.880Z\"}",
+            "{\"type\":\"message\",\"id\":\"56fa65c3\",\"parentId\":\"858c0281\",\"timestamp\":\"2026-05-03T13:51:06.893Z\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[cron:a1b1b578-326e-4703-a3af-140b9f8b5219 **信息获取**技能雷达] 按照 <skill-radar>技能，执行\\\"每日技能雷达扫描\\\"，并将生成的雷达日报额外保存一份到 workspace/每日成果/技能雷达/YYYY-MM-DD-雷达.md（作",
+            "{\"type\":\"message\",\"id\":\"9f13b69e\",\"parentId\":\"56fa65c3\",\"timestamp\":\"2026-05-03T13:51:08.315Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"07511a19\",\"parentId\":\"9f13b69e\",\"timestamp\":\"2026-05-03T13:51:11.817Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"44539718\",\"parentId\":\"07511a19\",\"timestamp\":\"2026-05-03T13:51:17.138Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost"
+          ]
+        },
+        {
+          "line": 7,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"56fa65c3\",\"parentId\":\"858c0281\",\"timestamp\":\"2026-05-03T13:51:06.893Z\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[cron:a1b1b578-326e-4703-a3af-140b9f8b5219 **信息获取**技能雷达] 按照 <skill-radar>技能，执行\\\"每日技能雷达扫描\\\"，并将生成的雷达日报额外保存一份到 workspace/每日成果/技能雷达/YYYY-MM-DD-雷达.md（作",
+            "{\"type\":\"message\",\"id\":\"9f13b69e\",\"parentId\":\"56fa65c3\",\"timestamp\":\"2026-05-03T13:51:08.315Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"07511a19\",\"parentId\":\"9f13b69e\",\"timestamp\":\"2026-05-03T13:51:11.817Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"44539718\",\"parentId\":\"07511a19\",\"timestamp\":\"2026-05-03T13:51:17.138Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"f9b4ca24\",\"parentId\":\"44539718\",\"timestamp\":\"2026-05-03T13:51:26.556Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost"
+          ]
+        },
+        {
+          "line": 8,
+          "signal": "error",
+          "context": [
+            "{\"type\":\"message\",\"id\":\"9f13b69e\",\"parentId\":\"56fa65c3\",\"timestamp\":\"2026-05-03T13:51:08.315Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"07511a19\",\"parentId\":\"9f13b69e\",\"timestamp\":\"2026-05-03T13:51:11.817Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"44539718\",\"parentId\":\"07511a19\",\"timestamp\":\"2026-05-03T13:51:17.138Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"message\",\"id\":\"f9b4ca24\",\"parentId\":\"44539718\",\"timestamp\":\"2026-05-03T13:51:26.556Z\",\"message\":{\"role\":\"assistant\",\"content\":[],\"api\":\"openai-completions\",\"provider\":\"minimax-shengxiang\",\"model\":\"MiniMax-M2.7\",\"usage\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0,\"totalTokens\":0,\"cost",
+            "{\"type\":\"custom\",\"customType\":\"openclaw:bootstrap-context:full\",\"data\":{\"timestamp\":1777816286559,\"runId\":\"fbe292f6-e7f4-499d-9d01-b2f249876089\",\"sessionId\":\"fbe292f6-e7f4-499d-9d01-b2f249876089\"},\"id\":\"88ee5936\",\"parentId\":\"f9b4ca24\",\"timestamp\":\"2026-05-03T13:51:26.559Z\"}"
+          ]
+        }
+      ]
+    }
+  ]
+}

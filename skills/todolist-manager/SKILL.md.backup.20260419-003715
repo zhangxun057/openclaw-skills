@@ -1,0 +1,569 @@
+---
+name: todolist-manager
+description: |
+  张洵的个人 todolist（多维表格）。用于捕捉想法、愿望清单、学习计划、记录进展、每日复盘、每日工作简报、断线头检测。
+  **Use this skill when:**
+  (1) User explicitly mentions "todolist" or "todo list"
+  (2) User mentions wish list, learning plan, improvement goals
+  (3) User says "I want to do/learn..." without formal task assignment
+  (4) Discussing progress of items in the todolist
+  (5) Performing daily review/retrospective
+  (6) Triggered by cron job for daily work brief
+  (7) User requests "执行每日工作简报" or "帮我写今天的日记"
+  (8) User mentions "断线头", "捡起机制", "中断的任务", "没做完的事"
+  
+  **Keywords:** todolist, todo list, 愿望清单，学习计划，计划清单，想做，想学，目标，每日工作简报，每日复盘，断线头，捡起机制
+author: 乖乖虾
+version: 6.0 (会话摘要优化版)
+---
+
+# Todolist Manager
+
+管理飞书多维表格中的任务。自动捕捉想法、记录进展、执行每日复盘。
+
+## 核心规则
+
+- **永不删除** - 只创建和更新，不删除任务记录
+- **状态控制** - AI 只能设置 `待确认 (AI 提交)`、`进行中 `、` 待验收 (AI 提交)`
+- **追加日志** - 永远不要覆盖现有日志，使用 `\n\n` 追加
+- **日志即缓存** - 任务日志作为每日复盘的临时缓存
+
+---
+
+## 🚨 执行前必读：隔离会话注意事项
+
+**定时任务在隔离会话中执行，以下工具可用性不同：**
+
+| 工具 | 是否可用 | 原因 | 替代方案 |
+|------|---------|------|---------|
+| `feishu_task_task` | ❌ 否 | 需要 OAuth，隔离会话无授权 | 使用 `feishu_bitable_app_table_record`（已验证可用） |
+| `feishu_bitable_app_table_record` | ✅ 是 | 已验证隔离会话可用 | 直接使用 |
+| `sessions_history` | ❌ 否 | 只能读当前会话树 | 直接读取 chat-logs 文件 |
+| `read` (chat-logs) | ✅ 是 | 文件读取无需授权 | 推荐使用 |
+
+**隔离会话识别：**
+- 第一条消息包含 `[cron:{jobId} {jobName}]` 前缀
+- 使用 PowerShell 过滤：`$firstLine.text -notmatch '\[cron:'`
+
+**⚠️ 重要：** 本技能的定时任务流程已针对隔离会话优化，请严格按照 Step 0-7 执行。
+
+---
+
+## 一、核心能力
+
+### 1. 新增 Todo
+
+**触发：** 用户口述或对话分析发现新事项
+
+**操作：**
+- 状态：`待确认 (AI 提交)`
+- 日志：`【YYYY/MM/DD】创建原因：用户口述/对话分析发现`
+
+**示例：**
+```
+用户：帮我记个 Todo，明天要研究朋友圈分析
+→ 新增 Todo，状态=待确认 (AI 提交)
+```
+
+---
+
+### 2. 更新 Todo
+
+**可更新：**
+- 状态：`进行中` / `待验收 (AI 提交)`
+- 日志：AI 可直接追加
+- 风险总结：可更新
+
+**不可更新：** 优先级、截止日期、执行者、任务描述
+
+**状态含义：**
+| 状态 | 含义 | 触发条件 |
+|------|------|---------|
+| `进行中` | 用户正在推进 | 对话中看到用户在执行 |
+| `待验收 (AI 提交)` | AI 判断已完成 | 用户明确表示完成，或产出已可用 |
+| `待确认 (AI 提交)` | AI 建议新增 | 断线头/已完成未记录，需用户确认 |
+
+---
+
+### 3. 查询 Todo
+
+**支持：**
+- 按状态筛选（进行中/待验收/未启动）
+- 按优先级筛选（P1/P2/P3）
+
+---
+
+### 4. 创建新 Todolist
+
+**触发：** 用户明确要求创建新 Todolist
+
+**操作：**
+1. 创建多维表格 App
+2. 描述中包含"todolist"关键词（便于发现）
+3. 创建标准字段（见字段说明）
+
+---
+
+## 二、触发场景
+
+### 场景 A：日常对话触发
+
+**特征：** 零散、随意、单点操作
+
+**示例：**
+- "帮我记个 Todo，明天要研究朋友圈分析"
+- "更新一下定时任务的进展，已经可以读 chat-logs 了"
+- "那个图片分析功能做完了，记一下"
+
+**处理：** 即时响应，调用对应核心能力
+
+---
+
+### 场景 B：定时任务触发（每日复盘 SOP）
+
+**特征：** 系统性、批量操作、自动化
+
+**触发：** 定时任务消息："按照 <todolist-manager>技能，执行每日复盘"
+
+#### SOP 流程
+
+**Step 1: 查询现有 TodoList**
+
+**目的**：复盘前先了解当前任务状态，作为对比基准。
+
+**⚠️ 重要：** 使用飞书多维表格（Bitable），不是飞书任务（Task）！
+
+**执行命令：**
+```javascript
+// 读取"🐉🦐龙虾养成计划"多维表格
+const app_token = "Ms0Sbx75jahr5QsX4vQc8rnxn2f";
+const table_id = "tblU1u2KzTmZIqdw";
+
+// 查询未完成记录
+const records = await feishu_bitable_app_table_record({
+  action: "list",
+  app_token: app_token,
+  table_id: table_id,
+  field_names: ["任务名称", "任务状态", "任务优先级", "任务描述", "任务日志"],
+  filter: {
+    conjunction: "and",
+    conditions: [{
+      field_name: "任务状态",
+      operator: "isNot",
+      value: ["已完成"]
+    }]
+  },
+  page_size: 50
+});
+
+// 构建任务清单用于后续对比
+const taskMap = records.records.map(r => ({
+  record_id: r.record_id,
+  title: r.fields["任务名称"]?.[0]?.text || "",
+  status: r.fields["任务状态"] || "",
+  priority: r.fields["任务优先级"] || "",
+  description: r.fields["任务描述"]?.map(d => d.text).join("") || "",
+  log: r.fields["任务日志"]?.map(l => l.text).join("") || ""
+}));
+```
+
+**输出**：`scratchpad/todo-preload-YYYY-MM-DD.json`
+- 任务总数
+- 各虾负责任务列表
+- 当前状态分布
+
+**后续使用**：
+- Step 3 对比分析时，检查这些任务是否有进展
+- 识别"已完成但未更新状态"的任务
+- 断线头区分：新任务→创建 Todo，老任务→更新日志
+
+---
+
+**Step 2: 读取会话摘要**
+
+**摘要位置：** `C:\Users\44452\.openclaw\chat-logs\summaries\{agent}_${date}_*.md`
+
+**执行命令：**
+```powershell
+# 扫描当天所有摘要文件
+$summaryDir = "C:\Users\44452\.openclaw\chat-logs\summaries"
+$pattern = "*_${date}_*.md"
+$summaries = Get-ChildItem -Path $summaryDir -Filter $pattern -ErrorAction SilentlyContinue
+
+if ($summaries.Count -eq 0) {
+    Write-Host "⚠️ 未找到摘要文件，降级读取原始 ChatLogs"
+    # 降级：执行原有 Step 1-4 流程（读取 ChatLogs）
+    & "C:\Users\44452\.openclaw\skills\todolist-manager\scripts\read-chatlogs-v3.ps1" -Date $date
+} else {
+    Write-Host "✅ 找到 $($summaries.Count) 个摘要文件"
+    
+    # 提取每个摘要的「任务视角」部分
+    $taskSections = @()
+    foreach ($summary in $summaries) {
+        $content = Get-Content $summary.FullName -Raw
+        if ($content -match '## 第一部分：任务视角 (.*?)## 第二部分') {
+            $taskSections += $matches[1]
+        }
+    }
+    
+    # 输出合并的任务视角
+    $taskSections | Out-File "scratchpad/task-summary-${date}.md" -Encoding UTF8
+}
+```
+
+**输出文件：** `scratchpad/task-summary-YYYY-MM-DD.md`
+
+**降级处理：**
+- 如果摘要文件不存在 → 执行原有 Step 1-4（读取 ChatLogs）
+- 日志记录：`~/.openclaw/skill-logs/todolist-manager/log.md`
+
+**⚠️ 注意：隔离会话过滤已由 session-summarizer 处理，无需在此重复过滤。**
+
+---
+
+**Step 3: 对比分析**
+
+**输入：**
+- Step 1 输出：`scratchpad/todo-preload-YYYY-MM-DD.json`（现有任务清单）
+- Step 2 输出：`scratchpad/task-summary-YYYY-MM-DD.md`（会话摘要）
+
+**分析框架：**
+
+1. **对照 Step 1 任务清单，检查每个现有任务：**
+   - 摘要中有进展 → 状态改为 `进行中` 或 `待验收 (AI 提交)`，追加日志
+   - 摘要中无记录 → 任务无进展（保持原状态）
+
+2. **检查摘要中的新事项：**
+   - 不在 Step 1 任务清单中
+   - 但用户投入了大量时间 / 明显在推进
+   - → 通过任务归并检查 → 决定是否创建新 Todo
+
+3. **断线头处理：**
+   - 新任务执行到一半停了 → 创建新 Todo（状态=`待确认`）
+   - 老任务执行到一半停了 → 更新原任务日志（记录中断位置）
+   - 记录到提醒列表 → 在 Step 5 报告中提醒用户
+
+**任务归并检查：**
+对每个待新增的 Todo，依次问 3 个问题：
+1. 归属检查：这个事项是否属于某个已有任务的执行过程/子步骤？
+2. 目标检查：用户是在推进实际业务，还是在调试/测试能力？
+3. 复用检查：这个事项完成后，是否能复用到其他场景？
+
+---
+
+**Step 4: 批量更新 TodoList**
+
+**前置条件：** 已完成 Step 1（任务清单）、Step 3（对比分析）。
+
+**执行逻辑：**
+
+1. **更新现有任务状态（对照 Step 1 清单）**
+```javascript
+// 遍历 Step 1 获取的 taskMap
+for (const task of taskMap) {
+  // 在 Step 3 分析中是否有进展？
+  if (hasProgressInSummary(task.title)) {
+    await feishu_bitable_app_table_record({
+      action: "update",
+      app_token: "Ms0Sbx75jahr5QsX4vQc8rnxn2f",
+      table_id: "tblU1u2KzTmZIqdw",
+      record_id: task.record_id,
+      fields: {
+        // 状态：进行中 / 待验收 (AI 提交)
+        // 日志追加：【YYYY/MM/DD】工作进展：...
+      }
+    })
+  }
+}
+```
+
+2. **新增 Todo（通过任务归并检查的新事项）**
+- 状态：`待确认 (AI 提交)`
+- 日志：`【YYYY/MM/DD】创建原因：...`
+
+3. **断线头日志更新：**
+- 老任务中断 → 更新原任务日志：`【YYYY/MM/DD】中断位置：... 进度：...%`
+- 新任务中断 → 创建新 Todo（状态=`待确认`）
+
+**状态设置规则：**
+| 场景 | 状态 |
+|------|------|
+| 用户对话中在推进 | `进行中` |
+| 用户明确表示完成 | `待验收 (AI 提交)` |
+| 新任务中断 | `待确认 (AI 提交)` |
+| 老任务中断 | 更新原任务日志 |
+
+**追加日志（仅追加，不覆盖）：**
+```
+【YYYY/MM/DD】
+工作进展：xxx
+风险描述：xxx (无风险可省略)
+```
+
+---
+
+**Step 5: 生成本地报告（含断线头提醒）**
+
+**保存路径：**
+```
+C:\Users\44452\.openclaw\agents\guaiguaixia\workspace\scratchpad\daily-brief-YYYY-MM-DD.md
+```
+
+**注意：** 本地报告必须生成，推送由定时任务配置负责
+
+---
+
+## 三、字段说明
+
+### 标准字段参考
+
+| 逻辑名 | 常见别名 | 类型 | AI 权限 | 说明 |
+|--------|---------|------|--------|------|
+| title | 任务名称，工作目标，事项名称 | Text(1) | ✅ 创建 | 必填 |
+| description | 任务描述，目标说明，描述 | Text(1) | ✅ 创建 | 可包含子项 |
+| status | 任务状态，完成状态，状态 | SingleSelect(3) | ⚠️ 受限 | 仅 AI 特定状态 |
+| log | 任务日志，进展记录，日志 | Text(1) | ✅ 追加 | 进展缓存，仅追加 |
+| log_date | 日志最后更新日期 | DateTime(5) | ✅ 更新 | 毫秒时间戳 |
+| dispatch_date | 派发日期 | DateTime(5) | ✅ 创建 | 毫秒时间戳 |
+| deadline | 截止日期 | DateTime(5) | ❌ 用户 | - |
+| owner | 任务执行者 | User(11) | ❌ 用户 | 格式：`[{id:"ou_xxx"}]` |
+| priority | 任务优先级，优先级 | SingleSelect(3) | ✅ 仅创建 | 1/2/3/9/0/其他 |
+| module | 所属模块，分类 | SingleSelect(3) | ✅ 仅创建 | 可选 |
+| risk | 风险总结 | Text(1) | ✅ 更新 | 风险描述 |
+
+**AI 可设置的状态：**
+- `待确认 (AI 提交)` - AI 捕捉的想法，待用户确认
+- `进行中` - 看到用户在推进
+- `待验收 (AI 提交)` - AI 判断已完成，待用户验收
+
+### 字段类型参考
+
+| type | ui_type | 格式 | 说明 |
+|------|---------|------|------|
+| 1 | Text | String | 文本 |
+| 3 | SingleSelect | String (选项名) | 单选 |
+| 4 | MultiSelect | String[] (选项名数组) | 多选 |
+| 5 | DateTime | 毫秒时间戳 | 日期时间 |
+| 7 | Checkbox | Boolean | 复选框 |
+| 11 | User | `[{id:"ou_xxx"}]` | 人员 |
+| 13 | Phone | String | 电话 |
+| 15 | Hyperlink | String (URL) | 超链接 |
+| 17 | Attachment | `[{file_token:"xxx"}]` | 附件 |
+
+---
+
+## 四、动态发现机制
+
+**规范：** 所有 todolist 多维表的描述必须包含 "todolist" 关键词。
+
+技能启动时自动扫描所有符合规范的多维表，根据描述内容智能路由到正确的表。
+
+### 字段名解析
+
+```javascript
+const FIELD_CANDIDATES = {
+  title: ["任务名称", "工作目标", "事项名称", "标题"],
+  description: ["任务描述", "目标说明", "描述", "详情"],
+  status: ["任务状态", "完成状态", "状态"],
+  log: ["任务日志", "进展记录", "日志", "备注"],
+  log_date: ["日志最后更新日期"],
+  dispatch_date: ["派发日期"],
+  priority: ["任务优先级", "优先级"],
+  module: ["所属模块", "分类", "模块"]
+}
+
+function resolveFieldName(tableFields, logicalName) {
+  const candidates = FIELD_CANDIDATES[logicalName]
+  for (const name of candidates) {
+    if (tableFields.some(f => f.field_name === name)) return name
+  }
+  return null
+}
+```
+
+---
+
+## 五、代码示例
+
+### 新增 Todo
+
+```javascript
+// 1. 加载所有 todolists
+const todolists = await loadAllTodolists()
+
+// 2. 路由到目标表
+const targetList = await routeToList(userInput, todolists)
+
+// 3. 获取表结构
+const tables = await feishu_bitable_app_table({
+  action: "list",
+  app_token: targetList.app_token
+})
+const table = tables.items[0]
+
+// 4. 获取字段列表
+const fields = await feishu_bitable_app_table_field({
+  action: "list",
+  app_token: targetList.app_token,
+  table_id: table.table_id
+})
+
+// 5. 解析字段名
+const titleField = resolveFieldName(fields.items, "title")
+const descField = resolveFieldName(fields.items, "description")
+const statusField = resolveFieldName(fields.items, "status")
+const logField = resolveFieldName(fields.items, "log")
+const dispatchField = resolveFieldName(fields.items, "dispatch_date")
+
+// 6. 创建任务
+const taskFields = {}
+if (titleField) taskFields[titleField] = "任务标题"
+if (descField) taskFields[descField] = "用户提到：..."
+if (statusField) taskFields[statusField] = "待确认 (AI 提交)"
+if (dispatchField) taskFields[dispatchField] = Date.now()
+if (logField) taskFields[logField] = `【${new Date().toISOString().split('T')[0]}】创建原因：...`
+
+await feishu_bitable_app_table_record({
+  action: "create",
+  app_token: targetList.app_token,
+  table_id: table.table_id,
+  fields: taskFields
+})
+```
+
+---
+
+### 更新日志（追加模式）
+
+```javascript
+// 1. 找到匹配的任务
+const tasks = await feishu_bitable_app_table_record({
+  action: "list",
+  app_token: targetList.app_token,
+  table_id: table.table_id,
+  filter: {
+    conjunction: "and",
+    conditions: [{
+      field_name: titleField,
+      operator: "contains",
+      value: ["关键词"]
+    }]
+  }
+})
+
+// 2. 追加日志（永不覆盖）
+const task = tasks.records[0]
+const existingLog = task.fields[logField] || ""
+const newLog = existingLog + `\n\n【${new Date().toISOString().split('T')[0]}】\n工作进展：xxx\n风险描述：无`
+
+const updateFields = {}
+if (logField) updateFields[logField] = newLog
+if (logDateField) updateFields[logDateField] = Date.now()
+
+await feishu_bitable_app_table_record({
+  action: "update",
+  app_token: targetList.app_token,
+  table_id: table.table_id,
+  record_id: task.record_id,
+  fields: updateFields
+})
+```
+
+---
+
+### 任务状态审查
+
+```javascript
+// 检查是否完成
+let isCompleted = /已完成 | 完成了 | 做完了 | 已实现 | 已上线 | 已部署 | 验证通过 | 测试通过/.test(log)
+
+if (isCompleted && status !== "已完成" && status !== "待验收 (AI 提交)") {
+  await feishu_bitable_app_table_record({
+    action: "update",
+    app_token: list.app_token,
+    table_id: table.table_id,
+    record_id: task.record_id,
+    fields: { [statusField]: "待验收 (AI 提交)" }
+  })
+}
+
+// 检查逾期
+if (deadline && Date.now() > deadline && (status === "进行中" || status === "未启动")) {
+  await feishu_bitable_app_table_record({
+    action: "update",
+    app_token: list.app_token,
+    table_id: table.table_id,
+    record_id: task.record_id,
+    fields: { [riskField]: "任务已逾期" }
+  })
+}
+```
+
+---
+
+## 六、常见问题
+
+**Q: 如何识别正在讨论哪个任务？**
+A: 匹配任务名称关键词，结合上下文理解，或询问用户。
+
+**Q: 如何避免覆盖日志？**
+A: 先读取现有日志，然后使用 `\n\n` 追加。
+
+**Q: 为什么 AI 不能删除任务？**
+A: 删除会导致信息丢失。改为将状态设为"取消"并记录原因。
+
+**Q: AI 可以修改哪些字段？**
+- 可修改：任务日志、日志最后更新日期、风险总结
+- 有条件：任务状态（仅限 AI 特定状态）
+- 不可修改：任务执行者、截止日期、任务优先级
+
+---
+
+## 七、用户响应处理
+
+**断线头后续处理：**
+
+用户可能的回应：
+- "继续第 1 个" / "把第 2 个捡起来" / "恢复第 3 个" → 添加到待办（进行中）
+- "第 1 个不要了" / "放弃 2" → 添加到待办（已取消）
+- "第 1 个已经完成了" → 添加到待办（已完成）
+- 不回复 → 什么都不做，明日不再提醒
+
+---
+
+## 八、配置
+
+**当前维护的 Todolist：**
+- 名称：🐉🦐龙虾养成计划
+- Token: `Ms0Sbx75jahr5QsX4vQc8rnxn2f`
+- 表格 ID: `tblU1u2KzTmZIqdw`
+
+（可选，便于 AI 自我执行）
+
+---
+
+## 九、使用日志
+
+每次触发后执行以下脚本记录调用情况：
+
+```bash
+node ~/.openclaw/skills/_shared/log-usage.mjs "todolist-manager" "<触发原因>" "<结果>"
+```
+
+---
+
+_Created: 2026-03-08_
+_Version: 6.0 (会话摘要优化版)_
+_Last Updated: 2026-04-05_
+
+---
+
+## 版本 6.0 修改说明
+
+| 修改点 | 老内容（v5.0） | 新内容（v6.0） | 原因 |
+|--------|---------------|---------------|------|
+| **SOP 流程** | Step 0-7（10 步） | Step 1-5（5 步） | 精简流程 |
+| **Step 1 → Step 2** | 获取 Session 列表 + 生成 Digest + 提炼 + 填写 | 读取会话摘要 | session-summarizer 已完成提炼 |
+| **数据源** | 原始 ChatLogs | 会话摘要（chat-logs/summaries/） | 节省 Token，避免溢出 |
+| **隔离会话过滤** | 在 Step 1 中过滤 | session-summarizer 已过滤 | 避免重复 |
+| **断线头处理** | 创建新 Todo | 新任务→创建，老任务→更新日志，报告提醒 | 更精准 |

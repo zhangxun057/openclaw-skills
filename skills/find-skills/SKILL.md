@@ -181,64 +181,23 @@ If this is something you do often, you could create your own skill:
 npx skills init my-xyz-skill
 ```
 
-## Step 5: Sync to Bitable After Install (���ר��?
+## Step 5: Sync to Bitable After Install (张洵专用)
 
-��װskill��ͬ���������ά��?��Ϻ���ɼƻ�"��
-
-```javascript
-// ��ȡ��װ��skill��Ϣ
-const skillName = "skill-name";  // �Ӱ�װ�����SKILL.md��ȡ
-const description = "��������";   // ��SKILL.md frontmatter��ȡ
-const source = "clawhub";        // �� "github" / "npm"
-const version = "1.0.0";         // ��SKILL.md frontmatter��ȡ
-
-// ��鲢���ӵ���ά��?const existing = await feishu_bitable_app_table_record({
-  action: "list",
-  app_token: "Ms0Sbx75jahr5QsX4vQc8rnxn2f",
-  table_id: "tbl3gLHsyjGGl7iN",
-  filter: {
-    conjunction: "and",
-    conditions: [{
-      field_name: "Skill����",
-      operator: "is",
-      value: [skillName]
-    }]
-  }
-});
-
-if (existing.records.length === 0) {
-  await feishu_bitable_app_table_record({
-    action: "create",
-    app_token: "Ms0Sbx75jahr5QsX4vQc8rnxn2f",
-    table_id: "tbl3gLHsyjGGl7iN",
-    fields: {
-      "Skill����": skillName,
-      "����": description,
-      "����": "��������",  // ����ʵ���������?      "·����Դ": source,
-      "�汾��": version
-    }
-  });
-  console.log(? ��ͬ������ά��: ${skillName});
-}
-```
-
-## Step 5: Sync to Bitable After Install (���ר��?
-
-��װskill�󣬴����ͬ���������ά��"��Ϻ���ɼƻ�"��
+安装skill后自动同步到飞书多维表"龙虾技能计划"。
 
 ```javascript
-// ��ȡ��װ��skill��Ϣ
-const skillName = "skill-name";  // �Ӱ�װ�����SKILL.md��ȡ
-const description = "��������";   // ��SKILL.md frontmatter��ȡ
-const source = "clawhub";        // �� "github" / "npm"
-const version = "1.0.0";         // ��SKILL.md frontmatter��ȡ
+// 获取安装的skill信息
+const skillName = "skill-name";  // 从安装命令或SKILL.md获取
+const description = "技能描述";   // 从SKILL.md frontmatter获取
+const source = "clawhub";        // 或 "github" / "npm"
+const version = "1.0.0";         // 从SKILL.md frontmatter获取
 const skillPath = `C:\\Users\\44452\\.openclaw\\workspace\\skills\\${skillName}`;
 
-// 1. ���skillΪzip
+// 1. 打包skill为zip
 const zipPath = `C:\\Users\\44452\\.openclaw\\workspace\\skills\\_packages\\${skillName}.zip`;
 await exec(`Compress-Archive -Path "${skillPath}\\*" -DestinationPath "${zipPath}" -Force`);
 
-// 2. �ϴ�����ά����parent_type=bitable_file��
+// 2. 上传到多维表(必须指定parent_type=bitable_file)
 const uploadResult = await feishu_drive_file({
   action: "upload",
   file_path: zipPath,
@@ -247,14 +206,15 @@ const uploadResult = await feishu_drive_file({
 });
 const fileToken = uploadResult.raw_response.file_token;
 
-// 3. ��鲢���ӵ���ά��?const existing = await feishu_bitable_app_table_record({
+// 3. 检查并添加到多维表
+const existing = await feishu_bitable_app_table_record({
   action: "list",
   app_token: "Ms0Sbx75jahr5QsX4vQc8rnxn2f",
   table_id: "tbl3gLHsyjGGl7iN",
   filter: {
     conjunction: "and",
     conditions: [{
-      field_name: "Skill����",
+      field_name: "Skill名称",
       operator: "is",
       value: [skillName]
     }]
@@ -267,43 +227,23 @@ if (existing.records.length === 0) {
     app_token: "Ms0Sbx75jahr5QsX4vQc8rnxn2f",
     table_id: "tbl3gLHsyjGGl7iN",
     fields: {
-      "Skill����": skillName,
-      "����": description,
-      "����": "��������",
-      "·����Դ": source,
-      "�汾��": version,
-      "Skill�ļ���": [{ file_token: fileToken }]
+      "Skill名称": skillName,
+      "描述": description,
+      "分类": "待分类",
+      "路径来源": source,
+      "版本号": version,
+      "Skill文件包": [{ file_token: fileToken }]
     }
   });
-  console.log(`? ��ͬ������ά��: ${skillName}`);
+  console.log(`✓ 已同步到多维表: ${skillName}`);
 }
 ```
 
 
 ## Step 6: Log Skill Usage (Final Step)
 
-**IMPORTANT**: Every time this skill is triggered, append a usage record to `~/.openclaw/skill-logs/find-skills/log.md` (not in the skill code directory).
+每次触发后执行以下脚本记录调用情况：
 
-**Log format:**
-
-``markdown
-## [YYYY-MM-DD HH:mm:ss]
-- **User Request**: <what user asked>
-- **Action**: search | install | recommend
-- **Result**: <skill found/installed or "no match">
-``
-
-**Implementation:**
-
-``bash
-echo "## [(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/find-skills/log.md
-echo "- **User Request**: <user's original request>" >> ~/.openclaw/skill-logs/find-skills/log.md
-echo "- **Action**: <action>" >> ~/.openclaw/skill-logs/find-skills/log.md
-echo "- **Result**: <result>" >> ~/.openclaw/skill-logs/find-skills/log.md
-echo "" >> ~/.openclaw/skill-logs/find-skills/log.md
-``
-
-This log helps track:
-- What users are looking for
-- Success rate of skill discovery
-- Common skill needs
+```bash
+node ~/.openclaw/skills/_shared/log-usage.mjs "find-skills" "<触发原因>" "<结果>"
+```

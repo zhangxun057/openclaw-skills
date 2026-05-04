@@ -1,918 +1,459 @@
 {
+  "lastUpdated": "2026-05-04T09:10:10.513278+08:00",
+  "totalSkills": 93,
   "skills": [
     {
-      "name": "PDF Generator",
-      "folder": "pdf-generator",
-      "description": "Generate professional PDFs from Markdown, HTML, data, or code. Reports, invoices, contracts, and documents with best practices.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/pdf-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/pdf-generator"
-    },
-    {
       "name": "agent-retrospective",
-      "folder": "agent-retrospective",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/agent-retrospective.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/agent-retrospective"
+      "lastModified": "2026-05-03T22:13:05.229995+08:00",
+      "description": "龙虾体检 · agent-retrospective v5"
     },
     {
       "name": "ai-image-generator",
-      "folder": "ai-image-generator",
-      "description": "",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/ai-image-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/ai-image-generator"
+      "lastModified": "2026-04-26T15:40:53.510388+08:00",
+      "description": "Image Creative Studio (图像创意工作室)"
     },
     {
       "name": "alipay-payment-integration",
-      "folder": "alipay-payment-integration",
-      "description": ">-",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/alipay-payment-integration.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/alipay-payment-integration"
+      "lastModified": "2026-04-02T20:44:37.672633+08:00",
+      "description": "示例：获取当面付文档"
     },
     {
       "name": "amap",
-      "folder": "amap",
-      "description": "通过脚本直连高德 Web Service API 完成地理编码、逆地理编码、IP 定位、天气、路径规划、距离测量和 POI 查询。用户要求“高德/AMap 查询”“路线规划”“地理编码”“POI 搜索”或需要用命令行脚本调用高德 API 时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/amap.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/amap"
+      "lastModified": "2026-04-02T20:43:34.126924+08:00"
     },
     {
       "name": "amap-lbs-skill",
-      "folder": "amap-lbs-skill",
-      "description": "高德地图综合服务，支持POI搜索、路径规划、旅游规划、周边搜索和热力图数据可视化",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/amap-lbs-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/amap-lbs-skill"
+      "lastModified": "2026-04-02T20:44:02.229213+08:00",
+      "description": "基础搜索"
     },
     {
       "name": "baoyu-post-to-wechat",
-      "folder": "baoyu-post-to-wechat",
-      "description": "Posts content to WeChat Official Account via API or Chrome CDP.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/baoyu-post-to-wechat.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/baoyu-post-to-wechat"
+      "lastModified": "2026-03-16T23:21:46.593337+08:00",
+      "description": "Post to WeChat Official Account"
+    },
+    {
+      "name": "big-factory-pua",
+      "lastModified": "2026-04-11T17:54:43.240654+08:00",
+      "description": "PUA 万能激励引擎"
     },
     {
       "name": "bocha-search",
-      "folder": "bocha-search",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/bocha-search.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/bocha-search"
+      "lastModified": "2026-04-24T22:21:25.534469+08:00",
+      "description": "Bocha Search (博查搜索)"
     },
     {
-      "name": "bocha-search",
-      "folder": "bocha-search-skill",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/bocha-search-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/bocha-search-skill"
+      "name": "bocha-search-skill",
+      "lastModified": "2026-04-24T21:59:55.322703+08:00",
+      "description": "搜索关键词（返回 URLs + 摘要）"
     },
     {
       "name": "brainstorming",
-      "folder": "brainstorming",
-      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/brainstorming.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/brainstorming"
+      "lastModified": "2026-02-05T14:23:34+08:00",
+      "description": "Brainstorming Ideas Into Designs"
     },
     {
       "name": "browser-automation",
-      "folder": "browser-automation",
-      "description": "OpenClaw 浏览器自动化操作。使用场景：(1) 自动抓取网页内容，(2) 截图保存页面，(3) 模拟点击和输入操作，(4) 自动化网页测试。支持 openclaw 独立浏览器和 Chrome 扩展两种模式。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/browser-automation.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/browser-automation"
+      "lastModified": "2026-03-01T18:20:29.211813+08:00",
+      "description": "OpenClaw 浏览器自动化"
     },
     {
       "name": "capability-evolver",
-      "folder": "capability-evolver",
-      "description": "A self-evolution engine for AI agents. Analyzes runtime history to identify improvements and applies protocol-constrained evolution.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/capability-evolver.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/capability-evolver"
+      "lastModified": "2026-04-11T17:54:43.239642+08:00",
+      "description": "🧬 Capability Evolver"
     },
     {
       "name": "claude-session-relay",
-      "folder": "claude-session-relay",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/claude-session-relay.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/claude-session-relay"
+      "lastModified": "2026-04-26T13:19:42.571482+08:00",
+      "description": "Claude Session Relay"
     },
     {
       "name": "cloudflare-deploy",
-      "folder": "cloudflare-deploy",
-      "description": "Cloudflare Pages 自动部署配置。使用场景：(1) 将 GitHub 前端项目自动部署到 Cloudflare Pages，(2) 配置 CI/CD 自动发布流程，(3) 设置 API Token 和 GitHub Actions。支持 React/Vue/Next.js 等主流框架。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/cloudflare-deploy.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/cloudflare-deploy"
+      "lastModified": "2026-03-01T18:20:29.224456+08:00",
+      "description": "Cloudflare Pages 自动部署"
     },
     {
       "name": "content-extract",
-      "folder": "content-extract",
-      "description": "Robust URL-to-Markdown extraction for OpenClaw workflows. Use when the user wants to \"extract/summarize/convert a webpage to markdown\" (especially WeChat mp.weixin.qq.com) and web_fetch/browser is blo",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/content-extract.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/content-extract"
+      "lastModified": "2026-03-14T23:47:52.397146+08:00",
+      "description": "content-extract — 上层内容解析入口（MCP 语义对齐，但不跑 MCP Server）"
     },
     {
       "name": "cron-generator",
-      "folder": "cron-generator",
-      "description": "定时任务创建与管理技能。当用户要求创建定时任务、设置提醒、预约执行任务时使用。掌握 OpenClaw 定时任务的完整方法论，包括命令使用、配置结构、Message 规范。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/cron-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/cron-generator"
+      "lastModified": "2026-03-24T14:11:53.720927+08:00",
+      "description": "定时任务创建与管理技能"
     },
     {
       "name": "cron-rescue",
-      "folder": "cron-rescue",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/cron-rescue.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/cron-rescue"
+      "lastModified": "2026-04-19T09:30:01.156096+08:00",
+      "description": "Cron Rescue"
     },
     {
       "name": "customer-mgr",
-      "folder": "customer-mgr",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/customer-mgr.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/customer-mgr"
+      "lastModified": "2026-04-11T17:54:43.240654+08:00",
+      "description": "customer-mgr"
     },
     {
       "name": "customer-research",
-      "folder": "customer-research",
-      "description": "客户背景调研与自动搜索。采用渐进式流程：先自动完成基础调研，输出报告后引导用户选择深度调研方案。支持 2-3 种深度调研方向（含免费搜索和企业深度体检），用户确认后再执行。触发时机：用户说\"调研客户\"/\"查一下这个公司\"/\"customer research\"或创建新客户档案时自动调用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/customer-research.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/customer-research"
+      "lastModified": "2026-04-24T13:16:10.665243+08:00",
+      "description": "customer-research"
     },
     {
       "name": "data-visualization",
-      "folder": "data-visualization",
-      "description": "Transform data into visual charts. Use when the user wants to visualize data, create charts, generate graphs, or turn numbers/tables into visual images. Supports line, bar, column, pie, scatter, area,",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/data-visualization.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/data-visualization"
+      "lastModified": "2026-04-20T22:02:27.503719+08:00",
+      "description": "Data Visualization"
     },
     {
       "name": "diary-assistant",
-      "folder": "diary-assistant",
-      "description": "日记助手。当用户要求\"写日记\"、\"记录今天\"、\"总结对话写日记\"、\"发布日记到云文档\"时使用。自动分析会话摘要，提炼选题，生成配图，发布到飞书云文档\"龙虾日记本\"。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/diary-assistant.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/diary-assistant"
+      "lastModified": "2026-04-26T09:34:54.551903+08:00",
+      "description": "日记助手"
     },
     {
       "name": "edge-tts",
-      "folder": "edge-tts",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/edge-tts.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/edge-tts"
+      "lastModified": "2026-03-14T19:10:06.329813+08:00"
     },
     {
       "name": "feishu-auto-reply",
-      "folder": "feishu-auto-reply",
-      "description": "飞书消息自动回复。当用户发送飞书对话截图时，自动识别发送者并代为回复。使用场景：(1) 截图包含飞书对话界面，(2) 需要代替用户回复消息。触发条件：图片中包含飞书对话特征（头像、消息气泡、时间戳）。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-auto-reply.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-auto-reply"
+      "lastModified": "2026-03-08T13:22:00+08:00"
     },
     {
       "name": "feishu-bitable-upload",
-      "folder": "feishu-bitable-upload",
-      "description": "飞书多维表格附件上传。OpenClaw 的 feishu_drive_file 工具不支持 parent_type 参数,需直接调用飞书 API。提供完整的 Python 脚本实现。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-bitable-upload.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-bitable-upload"
+      "lastModified": "2026-03-18T21:05:08.917260+08:00",
+      "description": "飞书多维表格附件上传"
     },
     {
       "name": "feishu-card",
-      "folder": "feishu-card",
-      "description": "Send rich interactive cards to Feishu (Lark) with buttons, Markdown, images, and styled headers. Perfect for sending notifications, confirmations, polls, or any rich content to users or groups. Use wh",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-card.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-card"
+      "lastModified": "2026-03-16T22:23:11.178371+08:00",
+      "description": "(Use 'write' tool)"
     },
     {
       "name": "feishu-create-doc",
-      "folder": "feishu-create-doc",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-create-doc.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-create-doc"
+      "lastModified": "2026-03-07T23:11:52+08:00",
+      "description": "feishu_mcp_create_doc"
     },
     {
-      "name": "feishu-interactive-cards",
-      "folder": "feishu-interactive-card",
-      "description": "Create and send interactive cards to Feishu (Lark) with buttons, forms, polls, and rich UI elements. Use when replying to Feishu messages and there is ANY uncertainty - send an interactive card instea",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/feishu-interactive-card.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/feishu-interactive-card"
+      "name": "feishu-interactive-card",
+      "lastModified": "2026-03-14T19:10:00.121725+08:00",
+      "description": "Feishu Interactive Cards"
     },
     {
       "name": "find-skills",
-      "folder": "find-skills",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/find-skills.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/find-skills"
+      "lastModified": "2026-04-11T17:54:43.240654+08:00"
     },
     {
       "name": "follow-builders",
-      "folder": "follow-builders",
-      "description": "AI builders digest — monitors top AI builders on X and YouTube podcasts, remixes their content into digestible summaries. Use when the user wants AI industry insights, builder updates, or invokes /ai.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/follow-builders.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/follow-builders"
+      "lastModified": "2026-03-30T19:47:11.623035+08:00",
+      "description": "Follow Builders, Not Influencers"
     },
     {
       "name": "gaode-heatmap",
-      "folder": "gaode-heatmap",
-      "description": "高德地图热力图生成与分析。使用场景：(1) 门店/竞品分布可视化，(2) 渠道网络密度分析，(3) 选址评估，(4) 区域市场覆盖分析。自动搜索 POI 数据、生成可交互热力图 HTML、发布为永久 URL。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/gaode-heatmap.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/gaode-heatmap"
+      "lastModified": "2026-04-11T17:15:37.316823+08:00",
+      "description": "搜索关键词：茅台专卖店，城市：贵阳市"
     },
     {
       "name": "gateway-restart",
-      "folder": "gateway-restart",
-      "description": "OpenClaw Gateway 服务重启。使用场景：(1) 修改 openclaw.json 配置后需要生效，(2) Gateway 无响应或浏览器服务报错，(3) 工具提示 Can't reach the OpenClaw gateway control service。使用方式：执行 openclaw gateway restart 命令重启服务。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/gateway-restart.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/gateway-restart"
+      "lastModified": "2026-03-01T18:20:29.200272+08:00",
+      "description": "OpenClaw Gateway 重启"
     },
     {
       "name": "html-generator",
-      "folder": "html-generator",
-      "description": "Generate modern, mobile-responsive HTML pages with AI-generated images for a premium look. Activated when user asks to generate/create/build a webpage, website, or HTML file with images or illustratio",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/html-generator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/html-generator"
+      "lastModified": "2026-04-24T13:54:32.924182+08:00",
+      "description": "HTML Generator（图文增强版）"
     },
     {
       "name": "info-designer-infographic",
-      "folder": "info-designer-infographic",
-      "description": "提供高密度信息设计与视觉生成指导；当用户需要制作信息图、数据可视化、小红书干货图、专业视觉内容或资讯信息图时使用",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/info-designer-infographic.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/info-designer-infographic"
+      "lastModified": "2026-04-29T14:32:17.174581+08:00",
+      "description": "信息设计师高密度大图"
     },
     {
       "name": "interview-tracker",
-      "folder": "interview-tracker",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/interview-tracker.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/interview-tracker"
+      "lastModified": "2026-04-11T17:54:43.240654+08:00"
     },
     {
       "name": "jimeng-digital-human",
-      "folder": "jimeng-digital-human",
-      "description": "即梦数字人视频生成（OmniHuman1.5）。图片+音频生成口播视频，自动持久化到文件服务器。触发条件：用户要求生成数字人视频、口播视频、即梦视频，或提供图片+音频要求合成视频。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/jimeng-digital-human.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/jimeng-digital-human"
+      "lastModified": "2026-03-16T23:21:46.593337+08:00"
     },
     {
       "name": "lark-approval",
-      "folder": "lark-approval",
-      "description": "飞书审批 API：审批实例、审批任务管理。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-approval.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-approval"
+      "lastModified": "2026-04-11T14:28:29.351255+08:00",
+      "description": "approval (v4)"
     },
     {
       "name": "lark-base",
-      "folder": "lark-base",
-      "description": "当需要用 lark-cli 操作飞书多维表格（Base）时调用：适用于建表、字段管理、记录读写、视图配置、历史查询，以及角色/表单/仪表盘管理/工作流；也适用于把旧的 +table / +field / +record 写法改成当前命令写法。涉及字段设计、公式字段、查找引用、跨表计算、行级派生指标、数据分析需求时也必须使用本 skill。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-base.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-base"
+      "lastModified": "2026-04-11T14:28:29.423991+08:00",
+      "description": "base"
     },
     {
       "name": "lark-calendar",
-      "folder": "lark-calendar",
-      "description": "飞书日历（calendar）：提供日历与日程（会议）的全面管理能力。核心场景包括：查看/搜索日程、创建/更新日程、管理参会人、查询忙闲状态及推荐空闲时段、查询/搜索与预定会议室。注意：涉及【预约日程/会议】或【查询/预定会议室】时，必须先读取 references/lark-calendar-schedule-meeting.md 工作流！高频操作请优先使用 Shortcuts：+agenda（快",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-calendar.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-calendar"
+      "lastModified": "2026-04-11T14:28:29.432462+08:00",
+      "description": "calendar (v4)"
     },
     {
       "name": "lark-contact",
-      "folder": "lark-contact",
-      "description": "飞书通讯录：查询组织架构、人员信息和搜索员工。获取当前用户或指定用户的详细信息、通过关键词搜索员工（姓名/邮箱/手机号）。当用户需要查看个人信息、查找同事 open_id 或联系方式、按姓名搜索员工、查询部门结构时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-contact.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-contact"
+      "lastModified": "2026-04-11T14:28:29.436235+08:00",
+      "description": "contact (v1)"
     },
     {
       "name": "lark-doc",
-      "folder": "lark-doc",
-      "description": "飞书云文档：创建和编辑飞书文档。从 Markdown 创建文档、获取文档内容、更新文档（追加/覆盖/替换/插入/删除）、上传和下载文档中的图片和文件、搜索云空间文档。当用户需要创建或编辑飞书文档、读取文档内容、在文档中插入图片、搜索云空间文档时使用；如果用户是想按名称或关键词先定位电子表格、报表等云空间对象，也优先使用本 skill 的 docs +search 做资源发现。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-doc.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-doc"
+      "lastModified": "2026-04-11T14:28:29.439455+08:00",
+      "description": "docs (v1)"
     },
     {
       "name": "lark-drive",
-      "folder": "lark-drive",
-      "description": "飞书云空间：管理云空间中的文件和文件夹。上传和下载文件、创建文件夹、复制/移动/删除文件、查看文件元数据、管理文档评论、管理文档权限、订阅用户评论变更事件；也负责把本地 Word/Markdown/Excel/CSV 导入为飞书在线云文档（docx、sheet、bitable）。当用户需要上传或下载文件、整理云空间目录、查看文件详情、管理评论、管理文档权限、订阅用户评论变更事件，或要把本地文件导入",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-drive.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-drive"
+      "lastModified": "2026-04-11T14:28:29.447751+08:00",
+      "description": "drive (v1)"
     },
     {
       "name": "lark-event",
-      "folder": "lark-event",
-      "description": "飞书事件订阅：通过 WebSocket 长连接实时监听飞书事件（消息、通讯录变更、日历变更等），输出 NDJSON 到 stdout，支持 compact Agent 友好格式、正则路由、文件输出。当用户需要实时监听飞书事件、构建事件驱动管道时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-event.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-event"
+      "lastModified": "2026-04-11T14:28:29.447751+08:00",
+      "description": "event (v1)"
     },
     {
       "name": "lark-im",
-      "folder": "lark-im",
-      "description": "飞书即时通讯：收发消息和管理群聊。发送和回复消息、搜索聊天记录、管理群聊成员、上传下载图片和文件、管理表情回复。当用户需要发消息、查看或搜索聊天记录、下载聊天中的文件、查看群成员时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-im.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-im"
+      "lastModified": "2026-04-11T14:28:29.463720+08:00",
+      "description": "im (v1)"
     },
     {
       "name": "lark-mail",
-      "folder": "lark-mail",
-      "description": "飞书邮箱 — draft, compose, send, reply, forward, read, and search emails; manage drafts, folders, labels, contacts, attachments, and mail rules. Use when user mentions 起草邮件, 写一封邮件, 拟邮件, 草稿, 发通知邮件, 发送邮件, 发",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-mail.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-mail"
+      "lastModified": "2026-04-11T14:28:29.475775+08:00",
+      "description": "mail (v1)"
     },
     {
       "name": "lark-minutes",
-      "folder": "lark-minutes",
-      "description": "飞书妙记：妙记相关基本功能。1.查询妙记列表（按关键词/所有者/参与者/时间范围）；2.获取妙记基础信息（标题、封面、时长 等）；3.下载妙记音视频文件；4.获取妙记相关 AI 产物（总结、待办、章节）。飞书妙记 URL 格式: http(s)://<host>/minutes/<minute-token>",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-minutes.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-minutes"
+      "lastModified": "2026-04-11T14:28:29.475775+08:00",
+      "description": "minutes (v1)"
     },
     {
       "name": "lark-openapi-explorer",
-      "folder": "lark-openapi-explorer",
-      "description": "飞书/Lark 原生 OpenAPI 探索：从官方文档库中挖掘未经 CLI 封装的原生 OpenAPI 接口。当用户的需求无法被现有 lark-* skill 或 lark-cli 已注册命令满足，需要查找并调用原生飞书 OpenAPI 时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-openapi-explorer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-openapi-explorer"
+      "lastModified": "2026-04-11T14:28:29.475775+08:00",
+      "description": "OpenAPI Explorer"
     },
     {
       "name": "lark-shared",
-      "folder": "lark-shared",
-      "description": "飞书/Lark CLI 共享基础：应用配置初始化、认证登录（auth login）、身份切换（--as user/bot）、权限与 scope 管理、Permission denied 错误处理、安全规则。当用户需要第一次配置(`lark-cli config init`)、使用登录授权(`lark-cli auth login`)、遇到权限不足、切换 user/bot 身份、配置 scope、或",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-shared.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-shared"
+      "lastModified": "2026-04-11T14:28:29.480716+08:00",
+      "description": "lark-cli 共享规则"
     },
     {
       "name": "lark-sheets",
-      "folder": "lark-sheets",
-      "description": "飞书电子表格：创建和操作电子表格。创建表格并写入表头和数据、读取和写入单元格、追加行数据、在已知电子表格中查找单元格内容、导出表格文件。当用户需要创建电子表格、批量读写数据、在已知表格中查找内容、导出或下载表格时使用。若用户是想按名称或关键词搜索云空间里的表格文件，请改用 lark-doc 的 docs +search 先定位资源。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-sheets.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-sheets"
+      "lastModified": "2026-04-11T14:28:29.480716+08:00",
+      "description": "sheets (v3)"
     },
     {
       "name": "lark-skill-maker",
-      "folder": "lark-skill-maker",
-      "description": "创建 lark-cli 的自定义 Skill。当用户需要把飞书 API 操作封装成可复用的 Skill（包装原子 API 或编排多步流程）时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-skill-maker.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-skill-maker"
+      "lastModified": "2026-04-11T14:28:29.480716+08:00",
+      "description": "1. 查看已有的 API 资源和 Shortcut"
     },
     {
       "name": "lark-task",
-      "folder": "lark-task",
-      "description": "飞书任务：管理任务和清单。创建待办任务、查看和更新任务状态、拆分子任务、组织任务清单、分配协作成员。当用户需要创建待办事项、查看任务列表、跟踪任务进度、管理项目清单或给他人分配任务时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-task.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-task"
+      "lastModified": "2026-04-11T14:28:29.496768+08:00",
+      "description": "task (v2)"
     },
     {
       "name": "lark-vc",
-      "folder": "lark-vc",
-      "description": "飞书视频会议：查询会议记录、获取会议纪要产物（总结、待办、章节、逐字稿）。1. 查询已经结束的会议数量或详情时使用本技能(如昨天 | 上周 | 今天已经开过的会议等场景)，查询未开始的会议日程使用 lark-calendar 技能。2. 支持通过关键词、时间范围、组织者、参与者、会议室等筛选条件搜索会议记录。3. 获取或整理会议纪要时使用本技能。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-vc.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-vc"
+      "lastModified": "2026-04-11T14:28:29.499615+08:00",
+      "description": "vc (v1)"
     },
     {
       "name": "lark-whiteboard",
-      "folder": "lark-whiteboard",
-      "description": ">",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-whiteboard.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-whiteboard"
+      "lastModified": "2026-04-11T14:28:29.523012+08:00",
+      "description": "whiteboard (v1)"
     },
     {
       "name": "lark-whiteboard-cli",
-      "folder": "lark-whiteboard-cli",
-      "description": ">",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-whiteboard-cli.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-whiteboard-cli"
+      "lastModified": "2026-04-11T14:28:29.520487+08:00"
     },
     {
       "name": "lark-wiki",
-      "folder": "lark-wiki",
-      "description": "飞书知识库：管理知识空间和文档节点。创建和查询知识空间、管理节点层级结构、在知识库中组织文档和快捷方式。当用户需要在知识库中查找或创建文档、浏览知识空间结构、移动或复制节点时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-wiki.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-wiki"
+      "lastModified": "2026-04-11T14:28:29.523012+08:00",
+      "description": "wiki (v2)"
     },
     {
       "name": "lark-workflow-meeting-summary",
-      "folder": "lark-workflow-meeting-summary",
-      "description": "会议纪要整理工作流：汇总指定时间范围内的会议纪要并生成结构化报告。当用户需要整理会议纪要、生成会议周报、回顾一段时间内的会议内容时使用。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-workflow-meeting-summary.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-workflow-meeting-summary"
+      "lastModified": "2026-04-11T14:28:29.523012+08:00",
+      "description": "会议纪要汇总工作流"
     },
     {
       "name": "lark-workflow-standup-report",
-      "folder": "lark-workflow-standup-report",
-      "description": "日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/lark-workflow-standup-report.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/lark-workflow-standup-report"
+      "lastModified": "2026-04-11T14:28:29.523012+08:00",
+      "description": "日程待办摘要工作流"
     },
     {
       "name": "local-cli-tools",
-      "folder": "local-cli-tools",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/local-cli-tools.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/local-cli-tools"
+      "lastModified": "2026-04-20T10:07:05.727925+08:00",
+      "description": "本地CLI工具管理技能"
     },
     {
-      "name": "mao-zedong-perspective",
-      "folder": "maoxuan-skill",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/maoxuan-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/maoxuan-skill"
+      "name": "maoxuan-skill",
+      "lastModified": "2026-04-11T22:04:24.643681+08:00",
+      "description": "毛泽东 · 思维操作系统"
     },
     {
       "name": "mineru-extract",
-      "folder": "mineru-extract",
-      "description": "Use the official MinerU (mineru.net) parsing API to convert a URL (HTML pages like WeChat articles, or direct PDF/Office/image links) into clean Markdown + structured outputs. Use when web_fetch/brows",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/mineru-extract.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/mineru-extract"
+      "lastModified": "2026-03-14T23:47:52.403157+08:00",
+      "description": "MinerU Extract (official API)"
     },
     {
       "name": "morning-briefing",
-      "folder": "morning-briefing",
-      "description": "",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/morning-briefing.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/morning-briefing"
+      "lastModified": "2026-03-19T22:55:35.062105+08:00",
+      "description": "定制个人早报推送"
     },
     {
       "name": "news-aggregator-skill",
-      "folder": "news-aggregator-skill",
-      "description": "Comprehensive news aggregator that fetches, filters, and deeply analyzes real-time content from 28 sources including Hacker News, GitHub, Hugging Face Papers, AI Newsletters, WallStreetCN, Weibo, and ",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/news-aggregator-skill.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/news-aggregator-skill"
+      "lastModified": "2026-04-24T14:13:22.155088+08:00",
+      "description": "Single source"
+    },
+    {
+      "name": "pdf-generator",
+      "lastModified": "2026-03-14T19:23:08.821788+08:00",
+      "description": "CORRECT: semantic structure"
     },
     {
       "name": "project-manager",
-      "folder": "project-manager",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/project-manager.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/project-manager"
+      "lastModified": "2026-04-11T17:54:43.242190+08:00",
+      "description": "Project Manager"
     },
     {
-      "name": "pua-debugging",
-      "folder": "big-factory-pua",
-      "description": "Use when any task fails two or more times, when about to give up or say 'I cannot', when deflecting to the user ('you should manually...', 'please check...', 'you may need to...'), blaming the environ",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/big-factory-pua.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/big-factory-pua"
+      "name": "remotion-best-practices",
+      "lastModified": "2026-05-02T12:18:12.889613+08:00"
     },
     {
       "name": "sales-visit-summary",
-      "folder": "sales-visit-summary",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/sales-visit-summary.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/sales-visit-summary"
+      "lastModified": "2026-04-11T17:54:43.242190+08:00",
+      "description": "sales-visit-summary"
     },
     {
       "name": "seedream-image-generation",
-      "folder": "seedream-image-generation",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/seedream-image-generation.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/seedream-image-generation"
+      "lastModified": "2026-04-25T22:52:40.316804+08:00",
+      "description": "Image Creative Studio (图像创意工作室)"
     },
     {
-      "name": "self-improvement",
-      "folder": "self-improving-agent",
-      "description": "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude ('No, that's wrong...', 'Actually...'), ",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/self-improving-agent.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/self-improving-agent"
+      "name": "self-improving-agent",
+      "lastModified": "2026-03-20T14:49:03.491181+08:00",
+      "description": "Copy hook to OpenClaw hooks directory"
     },
     {
       "name": "serper-search",
-      "folder": "serper-search",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/serper-search.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/serper-search"
+      "lastModified": "2026-03-21T15:06:43.086300+08:00",
+      "description": "读取 API key"
     },
     {
       "name": "session-summarizer",
-      "folder": "session-summarizer",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/session-summarizer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/session-summarizer"
+      "lastModified": "2026-05-04T08:35:25.758496+08:00",
+      "description": "Session Summarizer - 会话摘要技能"
     },
     {
       "name": "skill-auditor",
-      "folder": "skill-auditor",
-      "description": "技能审计员，评估skill质量并生成报告。触发条件：用户说\"评估skill\"、\"检查skill\"、\"审计skill\"、\"skill体检\"、\"全面评估skill\"，或定时任务触发。评估维度：规范性等级（1-5星）、规范性评价、功能可用性、累计调用次数。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-auditor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-auditor"
+      "lastModified": "2026-04-11T17:15:37.311114+08:00",
+      "description": "检测文件中的乱码字符"
     },
     {
       "name": "skill-creator",
-      "folder": "skill-creator",
-      "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-creator.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-creator"
+      "lastModified": "2026-04-11T17:15:37.311114+08:00",
+      "description": "PDF Processing"
     },
     {
       "name": "skill-polisher",
-      "folder": "skill-polisher",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-polisher.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-polisher"
+      "lastModified": "2026-04-20T22:31:11.869547+08:00",
+      "description": "重命名旧备份（只留2份）"
     },
     {
       "name": "skill-radar",
-      "folder": "skill-radar",
-      "description": "每日自动监控市场热门 Skill，智能推荐值得安装的新技能。从 skills.sh、GitHub、ClawHub、扣子 Coze 抓取热门榜单，自动过滤已安装、重复、高风险技能，识别近期爆火趋势，生成精选日报。**焦点关注模式**：根据新增待办事项定向搜索相关技能。触发条件：(1) 用户提到\"skill 雷达\"、\"技能推荐\"、\"有什么新 skill\"，(2) 定时任务（每天 10:00、14:00",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/skill-radar.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/skill-radar"
+      "lastModified": "2026-04-11T17:15:37.311114+08:00"
     },
     {
       "name": "stock-analysis",
-      "folder": "stock-analysis",
-      "description": "",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/stock-analysis.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/stock-analysis"
+      "lastModified": "2026-03-10T01:13:46+08:00",
+      "description": "openclaw>=0.1.0  # 可选依赖，未安装时可使用备用数据源"
     },
     {
       "name": "swap",
-      "folder": "swap",
-      "description": "技能交换功能。允许在不同龙虾之间交换技能文件。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/swap.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/swap"
+      "lastModified": "2026-03-17T19:49:32.458250+08:00",
+      "description": "导出技能"
     },
     {
       "name": "task-monitor",
-      "folder": "task-monitor",
-      "description": "Real-time web dashboard for OpenClaw sessions and background tasks. Mobile-responsive with auto-refresh.",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/task-monitor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/task-monitor"
+      "lastModified": "2026-03-01T18:52:38.926259+08:00",
+      "description": "Task Monitor v0.1"
     },
     {
       "name": "text-to-image-prompt-optimizer",
-      "folder": "text-to-image-prompt-optimizer",
-      "description": ">",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/text-to-image-prompt-optimizer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/text-to-image-prompt-optimizer"
+      "lastModified": "2026-04-24T20:20:45.550344+08:00",
+      "description": "AI Image Prompt Optimizer"
     },
     {
       "name": "todolist-manager",
-      "folder": "todolist-manager",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/todolist-manager.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/todolist-manager"
+      "lastModified": "2026-04-19T00:38:02.009619+08:00",
+      "description": "Todolist Manager"
     },
     {
       "name": "user-research-synthesis",
-      "folder": "user-research-synthesis",
-      "description": "Synthesize qualitative and quantitative user research into structured insights and opportunity areas. Use when analyzing interview notes, survey responses, support tickets, or behavioral data to ident",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/user-research-synthesis.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/user-research-synthesis"
+      "lastModified": "2026-03-06T10:39:32+08:00"
     },
     {
       "name": "vercel-composition-patterns",
-      "folder": "vercel-composition-patterns",
-      "description": "",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/vercel-composition-patterns.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/vercel-composition-patterns"
+      "lastModified": "2026-03-15T16:42:22.550495+08:00",
+      "description": "React Composition Patterns"
     },
     {
       "name": "vercel-react-best-practices",
-      "folder": "vercel-react-best-practices",
-      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patter",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/vercel-react-best-practices.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/vercel-react-best-practices"
+      "lastModified": "2026-03-15T16:42:22.610638+08:00",
+      "description": "Vercel React Best Practices"
     },
     {
       "name": "video-analysis",
-      "folder": "video-analysis",
-      "description": ">",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/video-analysis.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/video-analysis"
+      "lastModified": "2026-04-11T17:54:50.313516+08:00",
+      "description": "B站"
     },
     {
       "name": "vision-analyzer",
-      "folder": "vision-analyzer",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/vision-analyzer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/vision-analyzer"
+      "lastModified": "2026-04-19T23:29:25.586334+08:00",
+      "description": "Vision Analyzer v0.1"
     },
     {
       "name": "volcengine-ark-vision",
-      "folder": "volcengine-ark-vision",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/volcengine-ark-vision.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/volcengine-ark-vision"
+      "lastModified": "2026-03-20T17:53:14.601640+08:00"
     },
     {
       "name": "web-design-guidelines",
-      "folder": "web-design-guidelines",
-      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/web-design-guidelines.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/web-design-guidelines"
+      "lastModified": "2026-03-15T16:42:22.650923+08:00",
+      "description": "Web Interface Guidelines"
     },
     {
       "name": "wechat-analyzer",
-      "folder": "wechat-analyzer",
-      "description": "微信好友自动化分析与档案生成工具。集成WeFlow API，自动下载微信联系人、聊天记录、朋友圈、媒体文件，深度分析客户画像（社交强度、互动模式、消费特征），生成标准化客户档案MD文件。适用于私域运营、客户关系管理、社交资产盘点场景。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-analyzer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-analyzer"
+      "lastModified": "2026-04-06T21:44:42.741562+08:00",
+      "description": "WeChat Analyzer - 微信客户自动化分析工具"
     },
     {
       "name": "wechat-article-extractor",
-      "folder": "wechat-article-extractor",
-      "description": "Extract metadata and content from WeChat Official Account articles. Use when user needs to parse WeChat article URLs (mp.weixin.qq.com), extract article info (title, author, content, publish time, cov",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-article-extractor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-article-extractor"
+      "lastModified": "2026-04-23T22:09:55.221668+08:00",
+      "description": "WeChat Article Extractor"
     },
     {
       "name": "wechat-moments-analyzer",
-      "folder": "wechat-moments-analyzer",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-moments-analyzer.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-moments-analyzer"
+      "lastModified": "2026-04-29T10:51:38.804446+08:00",
+      "description": "朋友圈分析报告引擎"
     },
     {
       "name": "wechat-moments-extractor",
-      "folder": "wechat-moments-extractor",
-      "description": "|",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-moments-extractor.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-moments-extractor"
+      "lastModified": "2026-04-28T10:09:06.383580+08:00",
+      "description": "朋友圈多维度并行提取器"
     },
     {
       "name": "wechat-moments-loader",
-      "folder": "wechat-moments-loader",
-      "description": "自动打开微信朋友圈，滚动加载内容，调用WeFlow导出HTML+媒体和JSON结构化数据到本地。触发词：朋友圈更新、刷新朋友圈、加载朋友圈、朋友圈采集、朋友圈下载。支持绝对时间（20260409T08）和相对时间（5h/30m/2d）入参，按日期+序号保存数据。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-moments-loader.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-moments-loader"
+      "lastModified": "2026-05-04T09:00:57.067825+08:00",
+      "description": "微信朋友圈数据采集器"
+    },
+    {
+      "name": "wechat-moments-preparer",
+      "lastModified": "2026-04-28T14:59:21.626898+08:00",
+      "description": "朋友圈数据准备引擎"
     },
     {
       "name": "wechat-mp-cn",
-      "folder": "wechat-mp-cn",
-      "description": "微信公众号监控 - 文章监控、阅读量追踪、舆情分析（WeChat Official Account）",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-mp-cn.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-mp-cn"
+      "lastModified": "2026-03-14T19:13:11.200480+08:00",
+      "description": "微信公众号监控"
     },
     {
       "name": "wechat-send-message",
-      "folder": "wechat-send-message",
-      "description": "macOS 微信发送消息技能。通过 AppleScript 和 cliclick 自动化发送微信消息，适合批量发送场景。",
-      "category": "未分类",
-      "version": null,
-      "source": "本地",
-      "zipUrl": "https://github.com/zhangxun057/openclaw-skills/raw/master/skills/wechat-send-message.zip",
-      "githubUrl": "https://github.com/zhangxun057/openclaw-skills/tree/master/skills/wechat-send-message"
+      "lastModified": "2026-03-16T23:21:46.597918+08:00"
     }
-  ],
-  "totalCount": 91,
-  "lastUpdated": "2026-04-26 16:31:56",
-  "repo": "https://github.com/zhangxun057/openclaw-skills",
-  "zipCount": 91
+  ]
 }

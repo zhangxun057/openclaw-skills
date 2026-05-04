@@ -1,18 +1,18 @@
 ---
 name: session-summarizer
 description: |
-  会话摘要技能。从 ChatLogs 读取原始对话，提炼结构化摘要。
+  会话摘要技能。将指定 agent 全天的所有会话合并为 1 条结构化摘要。
   用于：(1) 为 todolist-manager 每日复盘提供输入，(2) 为 diary-assistant 日记撰写提供输入。
   
   **核心设计**：
-  - 数据源：C:\Users\44452\.openclaw\chat-logs\{agent}\{date}_{sessionId}.jsonl
-  - 输出：C:\Users\44452\.openclaw\chat-logs\summaries\{agent}_{date}_{sessionId}.md
-  - 上下文防范：subagent 隔离处理 + 分段读取（>200KB 自动分段）
+  - 数据源：C:\Users\44452\.openclaw\chat-logs\{agent}\{date}_{sessionId}.jsonl（多个）
+  - 输出：C:\Users\44452\.openclaw\chat-logs\summaries\{agent}_{date}_merged.md（1 个）
+  - 上下文防范：总大小 >500KB 时使用 subagent
   
   **触发方式**：
   - 定时任务：[cron:{jobId} session-summary] 日期：YYYY-MM-DD, Agent: {agentId}
   - 手动触发：按照 <session-summarizer>技能，总结 {date} {agent} 的会话
-version: 1.1.0
+version: 2.2.0
 author: 乖乖虾
 ---
 
@@ -53,15 +53,19 @@ Agent: {agentId}
 
 ```
 输入：
-  C:\Users\44452\.openclaw\chat-logs\{agent}\{date}_{sessionId}.jsonl
+  C:\Users\44452\.openclaw\chat-logs\{agent}\{date}_*.jsonl（该 agent 全天所有会话）
 
 处理：
-  ├─ 文件大小 < 200KB → 直接分析
-  ├─ 文件大小 200-500KB → 分段分析（200 条/段）
-  └─ 文件大小 > 500KB → subagent 隔离处理
+  1. 扫描并过滤隔离会话
+  2. 合并所有会话内容为一个消息集合
+  3. 按总大小判断处理模式：
+       ├─ 总大小 < 200KB → 直接分析
+       ├─ 总大小 200-500KB → 分段分析（200 条/段）
+       └─ 总大小 > 500KB → subagent 隔离处理
+  4. 生成单条合并摘要
 
 输出：
-  C:\Users\44452\.openclaw\chat-logs\summaries\{agent}_{date}_{sessionId}.md
+  C:\Users\44452\.openclaw\chat-logs\summaries\{agent}_{date}_merged.md
 ```
 
 ---
@@ -71,7 +75,7 @@ Agent: {agentId}
 ```markdown
 # 会话摘要 · {agent} · {date}
 
-**原始文件**：`{date}_{sessionId}.jsonl`
+**原始文件**：{date}_*.jsonl（合并 {N} 个会话）
 **摘要生成时间**：YYYY-MM-DD HH:mm:ss
 **消息总数**：X 条
 **时间跨度**：HH:mm ~ HH:mm
@@ -81,29 +85,46 @@ Agent: {agentId}
 
 ## 第一部分：任务视角（供日报使用）
 
-### 1.1 已完成任务
+**【新增】用户投入量（顶置）**：
+- 用户消息：X 条，X 字，~X token
+- 主要投入：描述用户花最多精力做的事情
+- 时间跨度：HH:MM ~ HH:MM
+
+**【新增】主线概述**：
+一句话说明今天整体在干什么，串联全天。
+
+### 1.1 核心交付（主线）⭐
+- **任务名称**（时间段）
+  - 为什么做：背景/需求
+  - 做了什么：关键行动
+  - 产出什么：具体结果
+  - 版本/状态变化
+
+### 1.2 其他交付
 - **任务名称**（时间段）
   - 关键产出/结果
-  - 完成标志
 
-### 1.2 进行中任务
+### 1.3 进行中任务
 - **任务名称**（时间段）
   - 当前进度
   - 下一步动作
   - 阻塞点（如有）
 
-### 1.3 断线头检测
+### 1.4 断线头
 - **事项名称**（中断位置）
-  - 投入程度（对话轮数）
-  - 中断原因
-  - 后续建议
+  - 投入程度（对话轮数/消息数）
+  - 根因分析
+  - 临时绕过方案（如有）
   - 优先级（高/中/低）
 
-### 1.4 新增待办
+### 1.5 新增待办
 - **事项名称**
   - 产生原因
   - 是否独立可交付
   - 建议优先级
+
+**【新增】关联前序**：
+- 来自记忆的相关背景（如昨天的未完成事项、长期项目进展等）
 
 ---
 
@@ -139,16 +160,26 @@ Agent: {agentId}
 
 ---
 
-## 第三部分：元数据
+## 第三部分：运行问题记录（龙虾进化专用）
 
-- 原始路径：`C:\Users\44452\.openclaw\chat-logs\{agent}\{date}_{sessionId}.jsonl`
-- 摘要路径：`C:\Users\44452\.openclaw\chat-logs\summaries\{agent}_{date}_{sessionId}.md`
-- 消息总数：X 条
-- 处理模式：直接/分段/subagent
-- 分段数：N（仅分段模式）
-- 摘要字数：Z 字
-- 生成时间：YYYY-MM-DD HH:mm:ss
+**说明**：扫描 session 文件，提取工具执行层和模型调用层的真实异常，形成可追溯的问题档案。
+
+**问题列表**：
+（无问题则写「无」）
+
+| # | 时间 | 层级 | 工具/模型 | 问题类型 | 描述 | Session文件 |
+|---|------|------|----------|---------|------|------------|
+| 1 | HH:MM | 🔴工具/🟡模型 | exec/Python | 引号转义失效 | `python -c` 内联代码中 f-string 引号被 PowerShell 截断 | {filename} |
+| 2 | HH:MM | 🔴工具 | exec | 编码失败 | GBK 无法编码 emoji/生僻字，导致 UnicodeEncodeError | {filename} |
+
+**汇总**：
 ```
+运行问题记录：N个（🔴X / 🟡Y / ⚠️Z）
+数据来源：sessions.json → session 文件直接扫描
+涉及 session：X 个
+```
+
+---
 
 ---
 
@@ -240,14 +271,56 @@ const files = JSON.parse(scanResult.stdout);
 
 ---
 
-### Step 3: 判断处理模式
+### Step 3: 合并所有会话 + 统计用户输入
+
+**将所有会话文件内容合并为一个消息数组，按时间排序；同时统计用户输入量**（用于摘要顶置显示）：
 
 ```javascript
-function determineMode(sizeKB) {
-  if (sizeKB < 200) {
+async function mergeAllSessions(files) {
+  let allMessages = [];
+  let userChars = 0, userMsgs = 0, aiMsgs = 0;
+  
+  for (const file of files) {
+    const content = await read({ path: file.path });
+    const messages = content.split('\n')
+      .filter(line => line.trim())
+      .map(line => JSON.parse(line));
+    
+    for (const msg of messages) {
+      if (msg.role === 'user') {
+        userMsgs++;
+        // 去除消息引用/代码块等干扰字符估算纯文本长度
+        const text = (msg.text || '').replace(/\[\[.*?\]\]|\{.*?\}|```[\s\S]*?```/g, 'X');
+        userChars += text.length;
+      } else if (msg.role === 'assistant') {
+        aiMsgs++;
+      }
+    }
+    
+    allMessages = allMessages.concat(messages);
+  }
+  
+  // 按时间排序
+  allMessages.sort((a, b) => new Date(a.time) - new Date(b.time));
+  
+  const userTokens = Math.round(userChars * 1.5); // 中文中文字符约1.5 token/字
+  
+  return { allMessages, userStats: { msgs: userMsgs, chars: userChars, tokens: userTokens, aiMsgs } };
+}
+```
+
+**输出**：`{ allMessages, userStats: { msgs, chars, tokens, aiMsgs } }`
+
+---
+
+### Step 4: 判断处理模式
+
+```javascript
+function determineMode(totalSizeKB) {
+  if (totalSizeKB < 200) {
     return { mode: "direct", segments: 1 };
-  } else if (sizeKB < 500) {
-    const segments = Math.ceil(sizeKB / 100); // 每段约 100KB
+  } else if (totalSizeKB < 500) {
+    const segments = Math.ceil(totalSizeKB / 100);
     return { mode: "segmented", segments };
   } else {
     return { mode: "subagent", segments: 1 };
@@ -262,22 +335,13 @@ function determineMode(sizeKB) {
 
 ---
 
-### Step 4: 执行摘要
+### Step 5: 执行摘要
 
 #### 模式 A：直接处理（<200KB）
 
 ```javascript
-async function summarizeDirect(filePath) {
-  const content = await read({ path: filePath });
-  
-  // 解析 JSONL
-  const messages = content.split('\n')
-    .filter(line => line.trim())
-    .map(line => JSON.parse(line));
-  
-  // 调用模型分析
-  const summary = await analyzeMessages(messages);
-  
+async function summarizeDirect(allMessages, userStats, totalSessions) {
+  const summary = await analyzeMessages(allMessages, userStats, totalSessions);
   return summary;
 }
 ```
@@ -285,57 +349,81 @@ async function summarizeDirect(filePath) {
 #### 模式 B：分段处理（200-500KB）
 
 ```javascript
-async function summarizeSegmented(filePath, segmentCount) {
-  const content = await read({ path: filePath });
-  const messages = content.split('\n')
-    .filter(line => line.trim())
-    .map(line => JSON.parse(line));
-  
-  // 分段：每段 200 条消息
+async function summarizeSegmented(allMessages, userStats, totalSessions) {
   const segmentSize = 200;
-  const segments = chunk(messages, segmentSize);
+  const segments = chunk(allMessages, segmentSize);
   
-  // 逐段分析，累积摘要
   let accumulatedSummary = "";
   
   for (let i = 0; i < segments.length; i++) {
-    const segment = segments[i];
-    const segmentSummary = await analyzeSegment(segment, accumulatedSummary);
-    accumulatedSummary = segmentSummary;
+    const isLast = (i === segments.length - 1);
+    const prompt = buildSegmentPrompt(segments[i], accumulatedSummary, isLast);
+    
+    const result = await callModel(prompt);
+    
+    if (isLast) {
+      // 最后一段：输出结构化摘要
+      return formatStructuredSummary(result, allMessages, userStats, totalSessions, agent, date);
+    } else {
+      // 中间段：累积为纯文本，供下一段使用
+      accumulatedSummary = result;
+    }
   }
-  
-  return accumulatedSummary;
 }
 
-async function analyzeSegment(segment, previousSummary) {
-  const prompt = `
-    已累积摘要（如有）：
-    ${previousSummary || "无"}
-    
-    新消息段（${segment.length}条）：
-    ${segment.map(m => `[${m.time}] ${m.role}: ${m.text.substring(0, 200)}`).join('\n')}
-    
-    任务：
-    1. 分析新消息段的任务视角和反思视角
-    2. 合并到已累积摘要
-    3. 输出新的累积摘要（保持简洁，不超过 5000 字）
-  `;
+function buildSegmentPrompt(segment, previousSummary, isLast) {
+  const base = `已累积摘要（如有）：${previousSummary || "无"}
+
+新消息段（${segment.length}条）：
+${segment.map(m => `[${m.time}] ${m.role}: ${m.text.substring(0, 200)}`).join('\n')}`;
   
-  // 调用模型
-  const result = await callModel(prompt);
-  return result;
+  if (isLast) {
+    return base + `
+
+任务：分析以上所有消息段，输出完整的结构化摘要（包含任务视角和反思视角）。`;
+  } else {
+    return base + `
+
+任务：分析新消息段，输出累积摘要（不超过 3000 字），供下一段继续累积。`;
+  }
+}
+
+function formatStructuredSummary(accumulatedText, allMessages, userStats, totalSessions, agent, date) {
+  const prompt = `将以下累积摘要整理为结构化格式：
+
+${accumulatedText}
+
+消息总数：${allMessages.length} 条
+用户消息：${userStats.msgs} 条，${userStats.chars} 字，~${userStats.tokens} token
+会话数：${totalSessions} 个
+
+请严格按以下格式输出（章节标题不得修改）：
+# 会话摘要 · ${agent} · ${date}
+
+## 第一部分：任务视角（供日报使用）
+
+## 第二部分：反思视角（供日记使用）
+
+## 第三部分：运行问题记录（龙虾进化专用）`;
+  
+  return callModel(prompt);
 }
 ```
 
 #### 模式 C：subagent 隔离处理（>500KB）
 
 ```javascript
-async function summarizeWithSubagent(filePath, sessionId, date, agent) {
+async function summarizeWithSubagent(allMessages, date, agent) {
+  const content = allMessages.map(m => JSON.stringify(m)).join('\n');
+  
   const subagent = await sessions_spawn({
-    task: `分析会话文件 ${filePath}，输出结构化摘要`,
+    task: `分析以下合并会话，输出结构化摘要。摘要格式：
+1. 第一部分：任务视角（已完成/进行中/断线头/新增待办）
+2. 第二部分：反思视角（主要进展/重要决策/方法论/业务洞察）
+3. 第三部分：运行问题记录（龙虾进化专用）`,
     attachments: [{
-      name: `${sessionId}.jsonl`,
-      content: await read({ path: filePath }),
+      name: `merged_${date}.jsonl`,
+      content: content,
       encoding: "utf8"
     }],
     mode: "run",
@@ -345,49 +433,76 @@ async function summarizeWithSubagent(filePath, sessionId, date, agent) {
   
   return subagent.result;
 }
+
+// ---------- 工具函数 ----------
+
+function chunk(arr, size) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += size) {
+    result.push(arr.slice(i, i + size));
+  }
+  return result;
+}
 ```
 
 ---
 
-### Step 5: 分析消息内容
+### Step 6: 分析消息内容
 
 ```javascript
-async function analyzeMessages(messages) {
+async function analyzeMessages(messages, userStats, totalSessions) {
   // 提取关键信息
   const taskClusters = identifyTaskClusters(messages);
   const hangingTasks = detectHangingTasks(taskClusters);
   const decisions = extractDecisions(messages);
   const methodologies = extractMethodologies(messages);
   const insights = extractInsights(messages);
+  const mainThread = identifyMainThread(taskClusters, messages); // 识别主线
+  
+  // 计算时间跨度
+  const startTime = messages[0]?.time ? messages[0].time.substring(11, 16) : 'N/A';
+  const endTime = messages[messages.length - 1]?.time ? messages[messages.length - 1].time.substring(11, 16) : 'N/A';
   
   // 生成摘要
   const summary = `
 # 会话摘要 · ${agent} · ${date}
 
-**原始文件**：\`${filename}\`
+**原始文件**：${date}_*.jsonl（合并 ${totalSessions} 个会话）
 **摘要生成时间**：${new Date().toISOString()}
-**消息总数**：${messages.length} 条
-**时间跨度**：${messages[0].time} ~ ${messages[messages.length-1].time}
 
 ---
 
-## 第一部分：任务视角
+## 第一部分：任务视角（供日报使用）
 
-### 1.1 已完成任务
-${formatCompletedTasks(taskClusters)}
+**【新增】用户投入量（顶置）**：
+- 用户消息：${userStats.msgs} 条，${userStats.chars} 字，~${userStats.tokens} token
+- 主要投入：${mainThread.userFocus || '日常对话'}
+- 时间跨度：${startTime} ~ ${endTime}
 
-### 1.2 进行中任务
+**【新增】主线概述**：
+${mainThread.summary || '无明显主线'}
+
+### 1.1 核心交付（主线）⭐
+${formatCoreDeliverables(taskClusters, mainThread)}
+
+### 1.2 其他交付
+${formatOtherDeliverables(taskClusters, mainThread)}
+
+### 1.3 进行中任务
 ${formatOngoingTasks(taskClusters)}
 
-### 1.3 断线头检测
+### 1.4 断线头
 ${formatHangingTasks(hangingTasks)}
 
-### 1.4 新增待办
+### 1.5 新增待办
 ${formatNewTodos(taskClusters)}
+
+**【新增】关联前序**：
+${mainThread.relatedPrior || '无相关前序记录'}
 
 ---
 
-## 第二部分：反思视角
+## 第二部分：反思视角（供日记使用）
 
 ### 2.1 主要业务进展
 ${formatBusinessProgress(taskClusters)}
@@ -403,13 +518,24 @@ ${formatInsights(insights)}
 
 ---
 
-## 第三部分：元数据
+## 第三部分：运行问题记录（龙虾进化专用）
 
-- 原始路径：\`${filePath}\`
-- 消息总数：${messages.length} 条
-- 处理模式：${mode}
-- 摘要字数：约${estimateWords(summary)}字
-- 生成时间：${new Date().toISOString()}
+**说明**：扫描 session 文件，提取工具执行层和模型调用层的真实异常，形成可追溯的问题档案。
+
+**问题列表**：
+（无问题则写「无」）
+
+| # | 时间 | 层级 | 工具/模型 | 问题类型 | 描述 | Session文件 |
+|---|------|------|----------|---------|------|------------|
+| 1 | HH:MM | 🔴工具/🟡模型 | exec/Python | 引号转义失效 | `python -c` 内联代码中 f-string 引号被 PowerShell 截断 | {filename} |
+| 2 | HH:MM | 🔴工具 | exec | 编码失败 | GBK 无法编码 emoji/生僻字，导致 UnicodeEncodeError | {filename} |
+
+**汇总**：
+```
+运行问题记录：N个（🔴X / 🟡Y / ⚠️Z）
+数据来源：sessions.json → session 文件直接扫描
+涉及 session：X 个
+```
 `;
   
   return summary;
@@ -418,7 +544,7 @@ ${formatInsights(insights)}
 
 ---
 
-### Step 6: 识别对话簇和断线头
+### Step 7: 识别对话簇和断线头
 
 ```javascript
 // 识别对话簇（多轮对话→同一任务）
@@ -466,61 +592,172 @@ function detectHangingTasks(clusters) {
     priority: calculatePriority(c)
   }));
 }
-```
 
----
+// ---------- 新增：主线识别函数 ----------
 
-### Step 7: 输出摘要文件
-
-```javascript
-async function writeSummary(agent, date, sessionId, summary) {
-  const outputDir = `C:\\Users\\44452\\.openclaw\\chat-logs\\summaries\\`;
+// 识别主线：从对话簇中判断哪条是核心工作线
+function identifyMainThread(clusters, messages) {
+  if (!clusters || clusters.length === 0) return { summary: '无对话记录', userFocus: '无', relatedPrior: '无' };
   
-  // 确保目录存在
-  await exec({ command: `mkdir -p "${outputDir}"` });
+  // 找出用户投入最多的簇（用消息数和字符数判断）
+  const userClusters = clusters.map(c => {
+    const userMsgs = c.messages.filter(m => m.role === 'user');
+    const userChars = userMsgs.reduce((sum, m) => sum + (m.text || '').length, 0);
+    return { ...c, userMsgs: userMsgs.length, userChars };
+  });
   
-  // 文件名：{agent}_{date}_{sessionId}.md
-  const filename = `${agent}_${date}_${sessionId}.md`;
-  const outputPath = `${outputDir}${filename}`;
+  // 按用户投入排序
+  userClusters.sort((a, b) => b.userChars - a.userChars);
   
-  await write({ path: outputPath, content: summary });
+  const top = userClusters[0];
+  
+  // 判断是否有明确主线（多轮推进同一事项 = 主线）
+  const mainCluster = userClusters.find(c => 
+    c.userMsgs >= 3 && c.messageCount >= 6
+  ) || top;
+  
+  // 生成主线一句话
+  const topic = mainCluster.topic || '日常任务';
+  const msgs = mainCluster.messages;
+  const hasDev = msgs.some(m => m.text && (m.text.includes('开') || m.text.includes('开发') || m.text.includes('改') || m.text.includes('实现')));
+  const hasDiscuss = msgs.some(m => m.text && (m.text.includes('讨论') || m.text.includes('分析') || m.text.includes('你觉得')));
+  const hasDecision = msgs.some(m => m.text && (m.text.includes('同意') || m.text.includes('就这么办') || m.text.includes('确认')));
+  
+  let summary = '';
+  if (hasDev && hasDiscuss) {
+    summary = `${topic}：需求讨论 → 技术实现 → 验证交付`;
+  } else if (hasDev) {
+    summary = `${topic}：开发交付`;
+  } else if (hasDiscuss) {
+    summary = `${topic}：分析讨论`;
+  } else if (hasDecision) {
+    summary = `${topic}：决策确认`;
+  } else {
+    summary = `${topic}：${mainCluster.messageCount} 轮对话`;
+  }
+  
+  // 用户主要在干什么
+  const userFocus = msgs.filter(m => m.role === 'user')
+    .map(m => extractBrief(m.text))
+    .filter(Boolean)
+    .slice(0, 3);
   
   return {
-    filename,
-    outputPath,
-    originalPath: `C:\\Users\\44452\\.openclaw\\chat-logs\\${agent}\\${date}_${sessionId}.jsonl`
+    summary,
+    userFocus: userFocus.join('；') || '日常对话',
+    mainClusterId: mainCluster.topic,
+    userMsgs: mainCluster.userMsgs,
+    relatedPrior: inferRelatedPrior(topic, messages)
   };
+}
+
+// 从消息中提取简短描述
+function extractBrief(text) {
+  if (!text) return '';
+  // 取第一句或前50字
+  const first = text.split(/[\n。.]/)[0] || text;
+  return first.substring(0, 50).replace(/\[\[.*?\]\]|```[\s\S]*?```/g, '');
+}
+
+// 根据主题推断关联前序
+function inferRelatedPrior(topic, messages) {
+  const topic_lower = (topic || '').toLowerCase();
+  
+  // 检查是否有明确的"接上文"/"继续"类信号
+  const continuationSignal = messages.some(m => 
+    m.role === 'user' && m.text && (
+      m.text.includes('继续') || 
+      m.text.includes('接着') ||
+      m.text.includes('昨天') ||
+      m.text.includes('上次') ||
+      m.text.includes('早上')
+    )
+  );
+  
+  if (continuationSignal) {
+    // 从用户消息中提取前一天相关描述
+    const userMsgs = messages.filter(m => m.role === 'user').map(m => m.text || '');
+    const relevant = userMsgs.find(t => t.includes('昨天') || t.includes('上次') || t.includes('继续'));
+    if (relevant) return `用户提到："${extractBrief(relevant)}"`;
+  }
+  
+  return '无明确前序关联';
+}
+
+// 格式化为核心交付（主线）
+function formatCoreDeliverables(clusters, mainThread) {
+  if (!clusters || clusters.length === 0) return '无';
+  
+  // 找出主线簇
+  const mainCluster = clusters.find(c => 
+    c.topic === mainThread.mainClusterId || 
+    (c.topic && c.topic.includes(mainThread.mainClusterId))
+  );
+  
+  if (!mainCluster) {
+    // 没有明确主线，返回投入最多的
+    const sorted = [...(clusters || [])].sort((a, b) => b.messageCount - a.messageCount);
+    if (sorted.length === 0) return '无';
+    const top = sorted[0];
+    return `**${top.topic || '主要任务'}**（${top.startTime?.substring(11, 16) || '?'} ~ ${top.endTime?.substring(11, 16) || '?'}）\n  - 关键产出：${top.completionNote || '见下方详情'}`;
+  }
+  
+  const start = mainCluster.startTime?.substring(11, 16) || '';
+  const end = mainCluster.endTime?.substring(11, 16) || '';
+  
+  // 从簇内消息提取：背景、行动、结果
+  const userMsgs = mainCluster.messages.filter(m => m.role === 'user');
+  const firstAsk = userMsgs[0]?.text || '';
+  const lastAssistant = [...mainCluster.messages].reverse().find(m => m.role === 'assistant')?.text || '';
+  
+  // 提取完成信号
+  let completionNote = '';
+  if (mainCluster.hasCompletionSignal) {
+    completionNote = '已完成';
+  } else if (lastAssistant.includes('完成') || lastAssistant.includes('✅') || lastAssistant.includes('成功')) {
+    completionNote = '已完成';
+  } else if (lastAssistant.includes('失败') || lastAssistant.includes('❌')) {
+    completionNote = '部分完成';
+  } else {
+    completionNote = '进行中';
+  }
+  
+  return `**${mainCluster.topic || '主要任务'}**（${start} ~ ${end}）⭐\n  - 背景：${extractBrief(firstAsk)}\n  - 产出：${completionNote}`;
+}
+
+// 格式化为其他交付
+function formatOtherDeliverables(clusters, mainThread) {
+  if (!clusters || clusters.length <= 1) return '无';
+  
+  // 排除主线
+  const others = clusters.filter(c => c.topic !== mainThread.mainClusterId);
+  if (others.length === 0) return '无';
+  
+  return others.map(c => {
+    const start = c.startTime?.substring(11, 16) || '';
+    const end = c.endTime?.substring(11, 16) || '';
+    const note = c.hasCompletionSignal ? '✅' : '⬜';
+    return `- **${c.topic || '其他任务'}**（${start} ~ ${end}）${note}\n  - ${c.completionNote || ''}`;
+  }).join('\n');
 }
 ```
 
 ---
 
-### Step 8: 生成合并视图（可选）
+### Step 8: 输出摘要文件
 
 ```javascript
-async function generateMergedSummary(agent, date, summaries) {
-  const merged = `
-# 合并摘要 · ${agent} · ${date}
-
-**生成时间**：${new Date().toISOString()}
-**原始会话数**：${summaries.length}
-**总摘要字数**：${summaries.reduce((acc, s) => acc + s.wordCount, 0)}字
-
----
-
-## 任务视角汇总
-${summaries.map(s => s.taskSection).join('\n\n')}
-
----
-
-## 反思视角汇总
-${summaries.map(s => s.reflectionSection).join('\n\n')}
-`;
+async function writeSummary(agent, date, summary) {
+  const outputDir = `C:\Users\44452\.openclaw\chat-logs\summaries\`;
   
+  // 确保目录存在
+  await exec({ command: `mkdir -p "${outputDir}"` });
+  
+  // 文件名：{agent}_{date}_merged.md（每天每个 agent 只输出 1 个文件）
   const filename = `${agent}_${date}_merged.md`;
-  const outputPath = `C:\\Users\\44452\\.openclaw\\chat-logs\\summaries\\${filename}`;
+  const outputPath = `${outputDir}${filename}`;
   
-  await write({ path: outputPath, content: merged });
+  await write({ path: outputPath, content: summary });
   
   return { filename, outputPath };
 }
@@ -600,7 +837,7 @@ const summaries = await Promise.all(
 
 // 提取反思视角部分
 const reflectionContent = summaries.map(s => {
-  const match = s.match(/## 反思视角汇总([\s\S]*?)## 元数据/);
+  const match = s.match(/## 反思视角汇总([\s\S]*?)## 第三部分：运行问题记录/);
   return match ? match[1] : "";
 }).join('\n\n');
 
@@ -615,12 +852,12 @@ const reflectionContent = summaries.map(s => {
 
 ```javascript
 function getOriginalPath(summaryFilename) {
-  // 输入：guaiguaixia_2026-04-04_ce03bb73.md
-  const match = summaryFilename.match(/(\w+)_(\d{4}-\d{2}-\d{2})_(\w+)\.md/);
+  // 输入：guaiguaixia_2026-04-04_merged.md
+  const match = summaryFilename.match(/(\w+)_(\d{4}-\d{2}-\d{2})_merged\.md/);
   if (!match) return null;
   
-  const [, agent, date, sessionId] = match;
-  return `C:\\Users\\44452\\.openclaw\\chat-logs\\${agent}\\${date}_${sessionId}.jsonl`;
+  const [, agent, date] = match;
+  return `C:\\Users\\44452\\.openclaw\\chat-logs\\${agent}\\${date}_*.jsonl`;
 }
 ```
 
@@ -636,19 +873,63 @@ function getOriginalPath(summaryFilename) {
 
 ---
 
+## 运行问题记录（龙虾进化专用）
+
+**数据来源**：
+```
+索引文件：C:\Users\44452\.openclaw\agents\{agent}\sessions.json
+session文件：C:\Users\44452\.openclaw\agents\{agent}\sessions\{uuid}.jsonl
+```
+
+**sessions.json 结构**：键为 session key，值为 `{sessionId, updatedAt, sessionFile}`，其中 `sessionFile` 指向实际 session 文件。
+
+**session 文件格式**：每行一个 JSON 对象，type 字段区分消息类型：
+- `{"type":"message", "message":{...}}` — 消息，role=user/assistant
+- `{"type":"toolResult", "isError":true, "content":[...]}` — 工具执行失败（重点扫描）
+- `{"type":"toolCall", ...}` — 工具调用
+- `{"type":"custom", "customType":"openclaw.sessions_yield", ...}` — 内部事件
+
+**⚠️ 溢出风险**：原始 session 文件可能达 1MB 以上，直接塞给 LLM 会溢出。必须先运行扫描脚本提取异常记录，再将扫描结果喂给 LLM 生成第三部分。
+
+**扫描脚本**（`scripts/scan_session_errors.ps1`）：
+```powershell
+# 读取 sessions.json，获取目标 agent 的 session 文件列表
+# 对每个 session 文件，按行扫描：
+#   - toolResult isError=true → 提取错误内容
+#   - message 含 error/fail/timeout/exception/traceback 关键词 → 提取片段
+#   - 按 HH:MM 标记时间，提取 Session 文件名
+# 输出：结构化异常列表（每条含：时间、层级、工具/模型、问题类型、描述、文件名）
+```
+
+**扫描信号关键词**（参考，不穷举）：
+- 工具层：`SyntaxError` / `UnicodeDecodeError` / `UnicodeEncodeError` / `PathNotFound` / `TerminatorExpectedAtEndOfString` / `'gbk' codec` / `FileNotFoundError`
+- 模型层：`idle timeout` / `timed out` / `timeout`
+- 网络层：`fetch failed` / `Connection refused` / `ECONNREFUSED`
+
+**输出格式**：
+```
+| # | 时间 | 层级 | 工具/模型 | 问题类型 | 描述 | Session文件 |
+|---|------|------|----------|---------|------|------------|
+| 1 | HH:MM | 🔴工具 | exec | 引号转义失效 | python -c 内联代码中 f-string 引号被 PowerShell 截断 | {filename} |
+```
+
+**汇总行**：
+```
+运行问题记录：N个（🔴X / 🟡Y / ⚠️Z）
+数据来源：sessions.json → session 文件直接扫描
+涉及 session：X 个
+```
+
+如无异常：`运行问题记录：0个（无）`
+
+---
+
 ## 使用日志
 
-每次技能触发时，自动记录到 `~/.openclaw/skill-logs/session-summarizer/log.md`：
+每次触发后执行以下脚本记录调用情况：
 
 ```bash
-mkdir -p ~/.openclaw/skill-logs/session-summarizer
-echo "## [$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')]" >> ~/.openclaw/skill-logs/session-summarizer/log.md
-echo "- **日期**: YYYY-MM-DD" >> ~/.openclaw/skill-logs/session-summarizer/log.md
-echo "- **Agent**: {agentId}" >> ~/.openclaw/skill-logs/session-summarizer/log.md
-echo "- **会话数**: X" >> ~/.openclaw/skill-logs/session-summarizer/log.md
-echo "- **处理模式**: 直接/分段/subagent" >> ~/.openclaw/skill-logs/session-summarizer/log.md
-echo "- **结果**: 成功/失败" >> ~/.openclaw/skill-logs/session-summarizer/log.md
-echo "" >> ~/.openclaw/skill-logs/session-summarizer/log.md
+node ~/.openclaw/skills/_shared/log-usage.mjs "session-summarizer" "<触发原因>" "<结果>"
 ```
 
 ---
@@ -675,5 +956,8 @@ echo "" >> ~/.openclaw/skill-logs/session-summarizer/log.md
 ---
 
 _创建时间：2026-04-05_
-_版本：1.0.0_
+_版本：2.2.0_
 _作者：乖乖虾_
+
+_最后更新：2026-04-22_
+_更新说明：第三部分「运行问题记录」已移除，功能迁移至 agent-retrospective。

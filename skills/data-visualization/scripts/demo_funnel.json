@@ -1,0 +1,1 @@
+{"tool":"generate_funnel_chart","args":{"data":[{"stage":"品牌曝光","count":100000},{"stage":"产品咨询","count":45000},{"stage":"到店体验","count":18000},{"stage":"下单购买","count":8500},{"stage":"复购","count":3200}],"xField":"stage","yField":"count","title":"白酒消费转化漏斗","width":900,"height":500}}

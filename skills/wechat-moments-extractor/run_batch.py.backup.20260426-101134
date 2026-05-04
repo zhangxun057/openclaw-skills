@@ -1,0 +1,188 @@
+"""多维度并行提取主控脚本"""
+import json, sys, os, time, argparse
+sys.stdout.reconfigure(encoding='utf-8')
+
+# 添加当前目录到路径
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from extract_events import extract_events
+from extract_traits import extract_traits
+from extract_post_type import extract_post_type
+from extract_signals import extract_signals
+
+def get_all_configs():
+    """读取主模型 + 备选模型配置"""
+    cfg_path = os.path.expanduser('~/.openclaw/openclaw.json')
+    with open(cfg_path, 'r', encoding='utf-8') as f:
+        cfg = json.load(f)
+    
+    # 主模型
+    ali = cfg['models']['providers']['aliyun-bailian']
+    primary = {
+        'apiKey': ali['apiKey'],
+        'baseUrl': ali['baseUrl'],
+        'model': 'qwen3.6-plus'
+    }
+    
+    # 备选模型链
+    fallbacks = []
+    
+    # 备选1: 阿里云 qwen3.5-plus（同key）
+    fallbacks.append({
+        'apiKey': ali['apiKey'],
+        'baseUrl': ali['baseUrl'],
+        'model': 'qwen3.5-plus'
+    })
+    
+    # 备选2: MiniMax（如果配置了）
+    if 'minimax' in cfg['models']['providers']:
+        mm = cfg['models']['providers']['minimax']
+        fallbacks.append({
+            'apiKey': mm['apiKey'],
+            'baseUrl': mm['baseUrl'],
+            'model': mm.get('defaultModel', 'MiniMax-M2.7')
+        })
+    
+    return primary, fallbacks
+
+def run_extractors_sequential(posts, api_key, base_url, fallback_configs):
+    """串行调用4个提取器，互相隔离"""
+    results = {}
+    failed_fields = []
+    
+    extractors = [
+        ('events', extract_events),
+        ('traits', extract_traits),
+        ('post_type', extract_post_type),
+        ('signals', extract_signals),
+    ]
+    
+    for field_name, extractor_func in extractors:
+        t0 = time.time()
+        try:
+            result = extractor_func(posts, api_key, base_url, fallback_configs)
+            elapsed = time.time() - t0
+            results[field_name] = result
+            print(f"  {field_name}: OK ({elapsed:.1f}s)")
+        except Exception as e:
+            elapsed = time.time() - t0
+            failed_fields.append(field_name)
+            print(f"  {field_name}: FAILED ({elapsed:.1f}s) - {str(e)[:100]}")
+            # 返回空值占位
+            if field_name == 'traits':
+                results[field_name] = [{}] * len(posts)
+            elif field_name in ('events', 'signals'):
+                results[field_name] = [[]] * len(posts)
+            else:
+                results[field_name] = [None] * len(posts)
+    
+    return results, failed_fields
+
+def run_batch(posts, api_key, base_url, fallback_configs):
+    """处理一批数据"""
+    print(f"  串行调用4个提取器...")
+    t0 = time.time()
+    
+    results, failed = run_extractors_sequential(posts, api_key, base_url, fallback_configs)
+    
+    elapsed = time.time() - t0
+    
+    events = results['events']
+    traits = results['traits']
+    post_type = results['post_type']
+    signals = results['signals']
+    
+    # 合并结果
+    batch_results = []
+    for i, post in enumerate(posts):
+        record = {
+            'wxid': post.get('wxid', ''),
+            'nickname': post.get('nickname', ''),
+            'post_type': post_type[i] if i < len(post_type) and post_type[i] else None,
+            'traits': traits[i] if i < len(traits) and traits[i] else {},
+            'events': events[i] if i < len(events) and events[i] else [],
+            'signals': signals[i] if i < len(signals) and signals[i] else []
+        }
+        if failed:
+            record['_failed_fields'] = failed
+        batch_results.append(record)
+    
+    status = "OK" if not failed else f"PARTIAL ({','.join(failed)} failed)"
+    print(f"  4个维度完成，耗时{elapsed:.1f}s [{status}]")
+    
+    return batch_results
+
+def run_full_analysis(posts_file, batch_size=10, output_file=None):
+    """完整分析流程"""
+    with open(posts_file, 'r', encoding='utf-8') as f:
+        posts = json.load(f)
+    
+    primary, fallbacks = get_all_configs()
+    api_key, base_url = primary['apiKey'], primary['baseUrl']
+    
+    # 如果已有输出文件，加载已完成的批次（断点续跑）
+    existing = []
+    if output_file and os.path.exists(output_file):
+        with open(output_file, 'r', encoding='utf-8') as f:
+            existing = json.load(f)
+        print(f"发现已有结果: {len(existing)} 条，从第 {len(existing)+1} 条继续")
+    
+    total_posts = len(posts)
+    start_idx = len(existing)
+    remaining = posts[start_idx:]
+    
+    if not remaining:
+        print("全部完成！无需继续。")
+        return existing
+    
+    num_batches = (len(remaining) + batch_size - 1) // batch_size
+    
+    print(f"总共 {total_posts} 条，已完 {start_idx} 条，剩余 {len(remaining)} 条，分 {num_batches} 批")
+    print("="*50)
+    
+    all_results = existing
+    
+    for batch_idx in range(num_batches):
+        start = batch_idx * batch_size
+        end = min(start + batch_size, len(remaining))
+        batch = remaining[start:end]
+        
+        print(f"\n批 {batch_idx+1}/{num_batches} ({end-start}条) [总第{start_idx + start + 1}-{start_idx + end}条]...")
+        
+        results = run_batch(batch, api_key, base_url, fallbacks)
+        all_results.extend(results)
+        
+        # 保存中间结果（断点）
+        if output_file:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(all_results, f, ensure_ascii=False, indent=2)
+        
+        # 避免API过载
+        if batch_idx < num_batches - 1:
+            time.sleep(1)
+    
+    print("\n" + "="*50)
+    print(f"完成! 共处理 {len(all_results)} 条")
+    
+    # 统计失败情况
+    failed_count = sum(1 for r in all_results if r.get('_failed_fields'))
+    if failed_count:
+        print(f"⚠ 有 {failed_count} 条记录存在部分字段失败")
+    
+    return all_results
+
+def main():
+    parser = argparse.ArgumentParser(description='多维度并行提取朋友圈数据')
+    parser.add_argument('--posts-file', type=str, required=True, help='输入JSON文件路径')
+    parser.add_argument('--batch-size', type=int, default=10, help='每批数量，默认10')
+    parser.add_argument('--output-file', type=str, default=None, help='输出JSON文件路径')
+    
+    args = parser.parse_args()
+    
+    output_file = args.output_file or args.posts_file.replace('.json', '_analyzed.json')
+    
+    run_full_analysis(args.posts_file, args.batch_size, output_file)
+    print(f"结果已保存到: {output_file}")
+
+if __name__ == '__main__':
+    main()

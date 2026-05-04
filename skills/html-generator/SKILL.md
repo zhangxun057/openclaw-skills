@@ -78,48 +78,54 @@ Fresh green fields with ripe sorghum wheat, morning mist, sunlight filtering thr
 
 ## 第三步：调用 Seedream API 生成图片
 
-### API 参数
-
-```
-URL: https://ark.cn-beijing.volces.com/api/v3/images/generations
-Method: POST
-Authorization: Bearer d155ace0-ee4d-42b1-936e-4a16d2623c89
-Content-Type: application/json
-模型: doubao-seedream-5-0-260128
-response_format: url
-watermark: false
-```
-
-### 单张生成
+### API 参数（主路径：Image2）
 
 ```bash
-curl -X POST https://ark.cn-beijing.volces.com/api/v3/images/generations \
+# 使用 image2_api.py 脚本（推荐）
+cd ~/.openclaw/skills/seedream-image-generation/scripts
+python3 image2_api.py generate-upload "<英文 Prompt>" --size 1536x1024 --quality hd
+```
+
+直接调用（curl）：
+```
+URL: https://api.apimart.ai/v1/images/generations
+Method: POST
+Authorization: Bearer sk-C4fVi6uZ78vS0Ip4F0fr8ySnCP5KOwGbCqfWZfiRUfGwnZVm
+Content-Type: application/json
+模型: gpt-image-2
+size: 1536x1024
+response_format: url
+```
+
+### 单张生成（Image2）
+
+```bash
+curl -X POST https://api.apimart.ai/v1/images/generations \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer d155ace0-ee4d-42b1-936e-4a16d2623c89" \
+  -H "Authorization: Bearer sk-C4fVi6uZ78vS0Ip4F0fr8ySnCP5KOwGbCqfWZfiRUfGwnZVm" \
   -d '{
-    "model": "doubao-seedream-5-0-260128",
+    "model": "gpt-image-2",
     "prompt": "英文提示词",
-    "sequential_image_generation": "disabled",
     "response_format": "url",
-    "size": "2048x2048",
-    "watermark": false
+    "size": "1536x1024",
+    "quality": "standard",
+    "n": 1
   }'
 ```
 
-### 多张并行生成（sequential_image_generation: auto）
+### 多张并行生成（Image2）
 
 ```bash
-curl -X POST https://ark.cn-beijing.volces.com/api/v3/images/generations \
+curl -X POST https://api.apimart.ai/v1/images/generations \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer d155ace0-ee4d-42b1-936e-4a16d2623c89" \
+  -H "Authorization: Bearer sk-C4fVi6uZ78vS0Ip4F0fr8ySnCP5KOwGbCqfWZfiRUfGwnZVm" \
   -d '{
-    "model": "doubao-seedream-5-0-260128",
+    "model": "gpt-image-2",
     "prompt": "英文提示词",
-    "sequential_image_generation": "auto",
-    "sequential_image_generation_options": {"max_images": 4},
     "response_format": "url",
-    "size": "2048x2048",
-    "watermark": false
+    "size": "1536x1024",
+    "quality": "standard",
+    "n": 4
   }'
 ```
 

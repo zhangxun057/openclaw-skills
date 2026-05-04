@@ -1,0 +1,524 @@
+---
+name: wechat-moments-analyzer
+description: |
+  朋友圈分析引擎。从本地数据（JSON优先，HTML为辅）提取帖子，增量去重，
+  分批LLM深度分析后输出原子化log、行动建议和报告。
+  触发词：朋友圈分析、朋友圈报告、分析朋友圈、moments analysis、朋友圈定时分析。
+version: 7.1.0 (禁止占位符 + 微信号画像 + event规范)
+---
+
+# 朋友圈分析引擎
+
+从 wechat-moments-loader 导出的数据中提取帖子，增量去重，LLM 深度分析后输出原子化 log 和报告。
+
+## 数据目录结构
+
+**项目根目录：** `~/.openclaw/projects/moments-analysis/`
+```
+moments-analysis/
+├── raw/                    ← loader 产出（原始数据）
+│   ├── 20260415_133214.json    ← 结构化帖子（分析主数据源）
+│   ├── 20260415_133214.html    ← HTML 备份
+│   └── 20260415_133214/        ← 媒体文件
+├── logs/                   ← 分析日志（原子化八股文，JSONL，只增不改）
+│   └── YYYY-MM-DD.jsonl    ← 每天一个文件
+├── profiles/               ← 用户时间线（每用户一个 JSONL）
+│   ├── wxid_xxx.jsonl         ← 按用户聚合的高密度时间线
+│   └── whitelist.json         ← 白名单（人工维护的目标用户 wxid 列表）
+├── reports/                ← 分析报告
+│   └── report_YYYY-MM-DD.md
+├── state/                  ← 分析过程临时文件
+│   └── new_posts.json
+└── checkpoint.json         ← 已处理帖子 ID 去重
+```
+
+---
+
+## 工具规范（强制执行）
+
+**Windows 中文路径兼容性要求：**
+
+- 所有文件读取操作**必须使用 Python 脚本**，禁止使用 PowerShell 的 `Get-Content`、`Get-ChildItem`、`Get-Item` 等命令处理含中文的路径或文件
+- JSON 文件读取必须指定 `encoding='utf-8'`
+- 禁止在 PowerShell 中内联执行 Python 代码（`python -c "..."`），`$` 符号会被 PowerShell 解析导致语法错误
+- 执行 Python 脚本时，使用完整路径：`python C:\完整\路径\to\script.py`
+- 优先使用本技能自带的 `scripts/prepare_data.py`，不要自己写数据处理脚本
+
+---
+
+## 媒体分析（图片/视频）
+
+### 图片分析：vision-analyzer
+
+读取 `~/.openclaw/skills/vision-analyzer/SKILL.md` 了解调用方式。
+
+**核心方法：** 使用阿里云百炼 qwen-vl-plus 模型，通过 requests 直接调用 DashScope API。
+
+```python
+import requests, base64
+
+def analyze_image(image_path: str, prompt: str = "分析图片内容") -> str:
+    with open(image_path, 'rb') as f:
+        img_base64 = base64.b64encode(f.read()).decode('utf-8')
+    
+    url = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation'
+    headers = {
+        'Authorization': 'Bearer sk-b2f26e1e60214bddb51a92cabc38d79d',
+        'Content-Type': 'application/json'
+    }
+    payload = {
+        'model': 'qwen-vl-plus',
+        'input': {
+            'messages': [{
+                'role': 'user',
+                'content': [
+                    {'image': f'data:image/jpeg;base64,{img_base64}'},
+                    {'text': prompt}
+                ]
+            }]
+        }
+    }
+    response = requests.post(url, headers=headers, json=payload, timeout=30)
+    return response.json()['output']['choices'][0]['message']['content'][0]['text']
+```
+
+**图片分析提示词：** "分析这张朋友圈图片，识别场景、品牌、文字、人物特征、消费档次等关键信息。"
+
+### 视频分析：video-analysis
+
+读取 `~/.openclaw/skills/video-analysis/SKILL.md` 了解调用方式。
+
+**核心方法：** 使用小米 MiMo-V2-Omni 模型，通过 scripts/analyze_video.py 调用。
+
+```bash
+python ~/.openclaw/skills/video-analysis/scripts/analyze_video.py ./video.mp4 -p "分析视频内容，提炼关键信息"
+```
+
+**视频分析提示词：** "分析这条朋友圈视频，识别场景、品牌、人物活动、消费档次等关键信息。"
+
+---
+
+## 业务上下文
+
+**产品服务（从 MEMORY.md 读取，默认）：**
+- 定制酒服务
+- 创始合伙人/创业投资机会
+
+分析行动建议时，将用户画像特征、事件与产品服务匹配，生成具体建议。
+
+---
+
+## 分析架构
+
+**核心原则：Python 脚本统一完成数据切割、API 调用、结果写入。**
+
+### 执行流程
+
+1. 读取原始数据，按 10 条/批切割
+2. 逐批调用 LLM API 分析
+3. 解析 JSON 结果，写入 `logs/YYYY-MM-DD.jsonl`
+4. 更新 `checkpoint.json`
+5. 全部完成后执行 Phase 2（用户时间线）和 Phase 3（报告）
+
+### 分析脚本
+
+**文件：** `~/.openclaw/projects/moments-analysis/scripts/analyze_all_posts.py`
+
+脚本已预置完整分析能力：
+- 读取原始数据，按 batch_size 切割
+- 调用 MiniMax M2.5 API（系统提示词 + 帖子数据）
+- 解析 JSON 数组返回结果
+- 追加写入 log 文件
+- 更新 checkpoint
+- 质量校验（数量匹配、字段完整）
+
+```bash
+# 全量分析
+python C:\Users\44452\.openclaw\projects\moments-analysis\scripts\analyze_all_posts.py
+
+# 仅测试前10条
+python C:\Users\44452\.openclaw\projects\moments-analysis\scripts\analyze_all_posts.py --test
+
+# 重置 checkpoint 后运行
+python C:\Users\44452\.openclaw\projects\moments-analysis\scripts\analyze_all_posts.py --reset
+
+# 只跑指定批次
+python C:\Users\44452\.openclaw\projects\moments-analysis\scripts\analyze_all_posts.py --batch 3
+```
+
+### 兜底机制
+
+- API 调用失败 → 自动重试，最多 3 次
+- 连续 3 次失败 → 跳过该批，记录错误
+- 脚本中断后重新运行 → 自动从 checkpoint 恢复
+
+### 批次参数
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| batch_size | 10 条 | 每批帖子数 |
+| max_retries | 3 次 | API 重试次数 |
+| temperature | 0.1 | 保证输出稳定 |
+
+---
+
+## 执行流程
+
+### Phase 0: 准备
+
+运行数据准备脚本（自动完成 JSON 读取、checkpoint 增量去重、新帖子提取）：
+
+```bash
+python C:\Users\44452\.openclaw\skills\wechat-moments-analyzer\scripts\prepare_data.py
+```
+
+- 输出 `OK: N new posts...` → 运行 `analyze_all.py` 切割批次，进入 Phase 1
+- 输出 `NO_DATA` → 执行兜底：
+  1. 检查 WeFlow：`python C:\Users\44452\.openclaw\skills\wechat-moments-loader\scripts\weflow_manager.py --action status`
+  2. 未运行则启动：`python C:\Users\44452\.openclaw\skills\wechat-moments-loader\scripts\weflow_manager.py --action start`（轮询等待最多 60 秒）
+  3. 运行 `python C:\Users\44452\.openclaw\skills\wechat-moments-loader\scripts\loader.py --start 1d --api-only`
+  4. 成功后重新运行 prepare_data.py
+- 输出 `NO_RAW_DIR` → 输出"无数据"报告，结束执行
+- 输出 `READ_ERROR` → 输出"数据异常"报告，结束执行
+
+读取白名单：`profiles/whitelist.json`（JSON 数组，内容为 wxid 列表）。
+
+运行批次切割：
+```bash
+python C:\Users\44452\.openclaw\skills\wechat-moments-analyzer\scripts\analyze_all.py
+```
+
+### Phase 1: 分析
+
+运行分析脚本：
+```bash
+python C:\Users\44452\.openclaw\projects\moments-analysis\scripts\analyze_all_posts.py
+```
+
+脚本自动完成：数据切割 → LLM 分析 → 写入 log → 更新 checkpoint。
+
+**手动分批（备选）：** 小批量分析或调试时使用以下提示词。
+分析结果追加写入 `logs/YYYY-MM-DD.jsonl`，更新 `checkpoint.json`。
+```bash
+python C:\Users\44452\.openclaw\skills\wechat-moments-analyzer\scripts\analyze_batch.py --batch 1
+```
+
+```
+对以下帖子进行信息提取，输出 JSON 对象。
+
+【输出格式】
+{
+  "wxid": "发帖人wxid",
+  "nickname": "发帖人昵称",
+  "post_type": "内容分类",
+  "traits": {"维度名": "特征值"},
+  "events": ["可记录事件"],
+  "signals": ["销售信号"],
+  "rels": ["互动用户wxid"]
+}
+
+如果是无信息量的噪声帖，输出 null。
+
+【内容分类参考】
+从内容表达性质判断，不限于以下分类：
+- 动态分享：发布自己的活动、行程、工作进展、生活动态
+- 观点输出：发表看法、感悟、行业观点、人生思考
+- 内容转发：转文章/海报/新闻/视频（附或不附个人评论）
+- 展示分享：展示消费场景、产品、成果、生活片段
+- 广告推广：产品推广、品牌宣传、活动招商
+
+不限于以上分类，按实际内容自由判断。
+
+**WeFlow类型判定辅助：**
+- type=3 → 链接分享帖（转发公众号文章/音乐/视频），post_type 必须填"内容转发"
+- type=2 → 图片帖
+- type=1 → 纯文字帖
+- type=15 → 视频号分享
+
+【画像特征提取方向】
+以下维度供参考，仅提取当前内容可获取的信息。不强制填满，有线索才提取。
+
+- 基础信息：年龄、所在城市、婚姻状况
+- 教育与工作：学历、毕业院校、在职单位、职务、行业
+- 收入与资产：年收入量级、房产、股票资产
+- 消费与负债：消费水平、消费偏好、负债暗示
+- 家庭与关系：家庭结构、社交圈层、人脉资源
+- 个人特质：性格、表达风格、兴趣爱好、价值观倾向
+- 业务关注：根据当前业务场景额外关注的维度（当前为白酒消费：饮酒状态、香型偏好、品牌倾向、消费场景、价格带暗示）
+
+特征格式示例：{"在职单位": "贵州白酒交易所", "香型偏好": "酱香", "消费水平": "高"}
+
+**禁止事项**：
+- 禁止从微信号/昵称提取画像（微信号内容可送入API辅助判断，但画像来源必须是正文/评论/媒体中的信息）
+- 禁止填入占位符（如"待确认"、"未知"、"推测"、"相关"等高度不确定的信息）
+- 无法确定的信息直接省略，不写traits
+- 在职单位必须是具体公司/机构全称，不能是品类/商品/形容词
+  - ✅ 正确：在职单位=贵州茅台、国台酒业
+  - ❌ 错误：在职单位=内存条销售、养生会所、双币基金相关
+- 职务必须是具体岗位名称，不能是"相关"、"负责人"等模糊词
+  - ✅ 正确：职务=董事长、销售经理
+  - ❌ 错误：职务=品牌相关、项目执行相关
+
+【事件提取】
+记录主角（发帖人）亲身经历或主动发起的客观事件。
+格式：动词开头，只讲一件事，抓主要矛盾。
+能回答"谁+做了什么/去了哪"，不附加次要信息。
+有重要日期时在括号标注。
+
+**禁止提炼为 event 的情况**：
+- ❌ 社交用语（"晚上见"、"来了"）
+- ❌ 动态描述（"发布求职信息"是行为，非事件）
+- ❌ 纯转发内容（对方发布的活动描述，非本人参与的事件）
+- ✅ 正确的 event："抵达北京西站"（出行）、"商务宴请喝15年茅台"、"参加中国酒业渠道领袖峰会"
+
+核心判断：
+events 只记录发帖人亲身参与或主动发起的行动。
+转发别人的内容、发布广告推广，不涉及发帖人自身行动 → 不提取。
+转发但本人在现场参与 → 记录本人在现场的行为。
+
+重点捕捉以下类型：
+- 行踪去向：到哪里出差、旅游、参加活动（如"赴越南胡志明出差"、"北京平谷赏花"）
+- 饮酒场景：什么场合、喝了什么酒、和谁喝（如"商务宴请喝15年茅台"）
+- 商务活动：签约、拜访、展会、峰会、宴请
+- 人生节点：生日、婚礼、升学、升职、乔迁、退休、生育
+- 观点/内容产出：发表行业观点、发布研究成果
+- 社交活动：聚会、出行、赛事、文化活动、组织活动
+
+正确示例：
+- "出席博鳌乐城高端体检活动"（出席+活动）
+- "赴越南胡志明出差"（赴+地点+目的）
+- "参加第二届新质生产力并购重组会议"（参加+会议）
+- "列席北京西城区人大常委会"（列席+机构）
+- "参加国台酒云南弥勒拉力赛品鉴活动"（参加+活动）
+- "商务宴请喝15年茅台"（场景+喝+什么）
+- "诞下女儿(4/18)"（事件+日期）
+- "在北大博雅NexAI大会发表演讲"（在+活动+行为）
+- "组织附中学子访龙场研学"（组织+对象+行动）
+- "游览山西碛口古镇和西湾村"（游览+地点）
+
+错误示例：
+- "高强度工作"（状态标签，不是事件）
+- "博鳌乐城高端体检"（缺动词，且是广告帖）
+- "和古烧肉一蟹三吃推广"（纯营销，不是主角发生的事）
+- "吴向东珍酒直播烤酒车间"（转发别人的内容）
+- "贵州省人民政府活动"（缺动词，主角和事件没连接）
+- "住福泉酒店，反思行情是借口吗"（后半句是心理活动 → 改为"住福泉维也纳酒店"）
+- "参加工商联会议，宋副区长指导"（后半句是别人的行为 → 改为"参加工商联执委会议"）
+- "探讨PQC抗量子技术，与知名基金交流"（前半句太细 → 改为"与知名基金交流"）
+- "浙江大学紫金港校区AI研讨活动"（缺动词，像标题 → 改为"参加浙大AI研讨活动"）
+
+不限于以上类型，按实际内容提取。无具体事件时填 []，不硬凑。
+
+【销售信号提取方向】
+判断核心：现在或近期，有没有理由去联系对方？
+不是"这个人有没有钱"（那是画像），而是"此刻有没有接触的理由"。
+
+常见信号场景（不限于此）：
+- 人生节点：婚礼、升学、开业、乔迁、升职、生日、周年庆、退休
+- 活动预告：峰会、发布会、庆典、展会、宴请（有具体时间则括号标注）
+- 需求暗示：正在选伴手礼、新店筹备中、想找定制方案
+
+示例："下周五行业峰会" → ["峰会定制酒(4/25)"]
+      "公司十周年" → ["周年庆用酒"]
+      "新店装修中" → ["开业用酒"]
+      "孩子考上大学" → ["升学宴用酒"]
+
+不提取为信号的情况（归入画像traits）：
+- 消费实力展示（开拉菲、酒柜全是茅台）
+- 饮酒偏好表达（只喝酱香）
+- 一般性商务动态（无明确用酒需求暗示）
+
+信号提取原则：只提取强信号。强信号 = 有人生节点或明确需求，能支撑一个具体的销售行动（如婚礼→婚庆用酒、开业→开业用酒）。旅游、出差、日常饮酒等不构成信号。
+
+【规则】
+1. 评论内容与正文合并分析，关系维度只记谁参与（wxid）
+2. 特征用 key-value 对象（如{"在职单位": "白酒交易所"}）；事件/信号用高密度短语，不写完整句子
+3. 严格输出 JSON，不要任何解释
+
+【帖子数据】
+发帖人: {nickname} ({wxid})
+WeFlow类型: {type}
+正文: {contentDesc}
+评论: {comments}
+点赞数: {likes_count}
+媒体数: {media_count}
+```
+
+#### S 批处理（白名单用户，高关注）
+
+对每批帖子执行：
+
+1. **LLM 文本分析**：用上述提示词，正文 + 评论融合作上下文
+2. **强制图片/视频分析**：读取 vision-analyzer 或 video-analysis 技能，分析媒体内容，补充到 LLM 输入中
+3. **必要时互联网搜索**：涉及不熟悉的酒企、地名、行业事件时，进行外部验证
+4. **写入 log** → 追加到 `logs/YYYY-MM-DD.jsonl`
+
+#### B 批处理（普通用户）
+
+对每批帖子执行：
+
+1. **LLM 文本分析**：同上
+2. **判断是否进入图片分析**：
+   图片的价值在于补充文字没说的信息。以下场景值得看：
+   - 饮酒/消费：文字提到酒但没说品牌/档次（如"三个月第一口酒""周末配麦小12"）
+   - 人生节点：生日、婚礼、生育、升学（判断庆祝规模、档次、关系网）
+   - 商务会议/活动：文字模糊但有多张图（判断会议级别、场地档次、参会人身份）
+   - 旅游/出行：有具体地点（判断住宿档次、同行人员、消费水平）
+   - 餐饮/社交：餐厅打卡、聚餐（判断餐厅档次、配酒、社交圈）
+   - 房产/资产暗示：楼盘、装修、看房（判断资产量级、消费能力）
+   - 高互动（赞 + 评 ≥ 3）→ 建议看
+   纯表情/符号、文字与图片无关、无法合理推测内容的 → 跳过
+3. **必要时互联网搜索**：同上
+4. **写入 log** → 追加到 `logs/YYYY-MM-DD.jsonl`
+
+#### 渐进式深度分析规则
+
+| 条件 | 图片/视频分析 | 互联网搜索 |
+|------|-------------|-----------|
+| 发帖人在白名单 | 强制 | 有必要时 |
+| 高互动（赞+评 ≥ 3） | 建议 | 有必要时 |
+| 文字暗示有图片价值（饮酒/人生节点/商务/旅游/餐饮/资产） | 建议 | 跳过 |
+| 纯表情/符号、无法合理推测 | 跳过 | 跳过 |
+| 普通帖子 | 跳过 | 跳过 |
+
+**图片分析限制：** 每轮总次数不超过 20 次，优先分配给白名单用户。
+
+**评论内容处理：** 评论的正文与帖子正文合并作为分析上下文，用于提取事件、特征、信号。关系维度只记录谁参与了互动（wxid），不单独记录评论内容。
+
+### Phase 2: 用户时间线（必做）
+
+用 Python 脚本从 `logs/YYYY-MM-DD.jsonl` 按 wxid 筛选，将同一用户的所有记录追加到 `profiles/wxid_xxx.jsonl`。
+
+纯文件操作，不调 LLM。
+
+### Phase 3: 报告与行动建议
+
+基于 `logs/YYYY-MM-DD.jsonl` 生成报告。概览、画像、事件、关系直接从 log 聚合；行动建议综合 signals + 历史时间线 + 业务上下文生成。
+
+**报告结构：**
+
+```markdown
+# 朋友圈分析报告 — YYYY-MM-DD
+> 数据概览：N条帖子 | N位用户 | N条有价值记录
+
+## 概览
+本次分析了 N 条帖子，覆盖 N 位用户，其中 N 条包含有价值信息，N 条为噪声过滤。
+
+## 画像特征捕捉
+（从 log 的 traits 聚合，按维度分组展示关键发现）
+
+## 事件识别
+（从 log 的 events 提取，按类型分组，酒业相关优先）
+
+## 关系识别
+（从 log 的 rels 提取，识别谁和谁有互动。无互动数据时注明"本轮无有效关系数据"）
+
+## 行动建议
+（基于 signals + 历史时间线 + 业务上下文综合研判）
+
+### 间接行动（加强连接）
+- **对象**：谁
+- **建议**：做什么（评论/聚会/话题连接等）
+- **依据**：画像特征 + 历史时间线
+
+### 直接行动（销售导向）
+- **对象**：谁
+- **建议**：做什么（拜访/发方案/邀约等）
+- **依据**：关联的 signals + 匹配的产品服务
+```
+
+**报告生成原则：**
+- 概览、画像、事件、关系直接从 log 聚合，不额外发挥
+- 行动建议与 signals 分离：signals 是线索（如"企业定制酒"），行动建议是具体动作（如"拜访陈瑜，提交定制酒方案"）
+- 行动建议必须有 log 中的 signals 作为依据，不编造
+
+**更新 checkpoint.json**，记录本次已处理的帖子 ID。
+
+---
+
+## Log 输出格式
+
+每条有价值的帖子产出一条 JSON 对象记录，追加写入 `logs/YYYY-MM-DD.jsonl`：
+
+```json
+{
+  "wxid": "wxid_xxx",
+  "nickname": "张三",
+  "post_type": "展示分享",
+  "traits": {"在职单位": "贵州白酒交易所", "香型偏好": "酱香"},
+  "events": ["商务宴请喝15年茅台"],
+  "signals": ["高端宴请用酒"],
+  "rels": ["wxid_lisi", "wxid_wangwu"]
+}
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `wxid` | string | 发帖人 ID |
+| `nickname` | string | 发帖人昵称/备注名 |
+| `post_type` | string | 内容表达性质（动态分享/观点输出/展示分享等） |
+| `traits` | object | 画像特征，key 是维度名、value 是特征值 |
+| `events` | string[] | 可记录事件摘要，无则为 `[]` |
+| `signals` | string[] | 销售信号（机会线索），无则为 `[]` |
+| `rels` | string[] | 点赞和评论的用户 wxid，无则为 `[]` |
+
+**噪声帖不产生记录。**
+
+### 示例
+
+**展示分享帖：**
+```json
+{"wxid":"wxid_zhangsan","nickname":"张三","post_type":"展示分享","traits":{"消费水平":"高","香型偏好":"酱香"},"events":["商务宴请喝15年茅台"],"signals":["高端宴请用酒"],"rels":["wxid_lisi","wxid_wangwu"]}
+```
+
+**动态分享帖：**
+```json
+{"wxid":"wxid_li","nickname":"李总","post_type":"动态分享","traits":{"在职单位":"贵州白酒交易所"},"events":["公司10周年庆典筹备"],"signals":["周年庆用酒"],"rels":[]}
+```
+
+**观点输出帖（无信号）：**
+```json
+{"wxid":"wxid_zhao","nickname":"赵六","post_type":"观点输出","traits":{"价值观倾向":"关注行业趋势"},"events":[],"signals":[],"rels":[]}
+```
+
+---
+
+## 白名单
+
+**文件：** `profiles/whitelist.json`
+
+**格式：** JSON 数组，内容为需要高关注的 wxid 列表。
+
+```json
+["wxid_xxx", "wxid_yyy"]
+```
+
+人工维护。来源：线下拜访、行动建议采纳、手动添加。
+
+**作用：** 白名单中的用户发帖时，自动触发 S 批处理流程（强制图片/视频分析 + 搜索验证）。
+
+---
+
+## 分析原则
+
+1. **宁缺毋滥：** 不是每条朋友圈都值得记录，无信息量的内容不产生 log 记录
+2. **脚本直调：** 使用 analyze_all_posts.py 脚本直接调 API 完成全量分析
+3. **渐进深入：** 文本 → 图片 → 视频 → 互联网搜索，按关注度分级触发
+4. **白名单优先：** 白名单用户强制全量分析（文本+图片+视频），必要时搜索验证
+5. **评论融入上下文：** 评论内容与正文一起提炼特征/事件/信号，关系网络只记谁参与（点赞/评论）
+6. **信号与行动分离：** log 中 signals 是机会线索，行动建议在 Phase 3 综合 signals + 历史 + 业务上下文后生成
+7. **原子化记录：** 一条 log 记录只包含高密度信息，不存原始内容、不存冗余字段
+8. **编码安全：** 所有文件操作使用 Python + UTF-8 编码，禁止 PowerShell 处理中文路径
+9. **成本控制：** 图片分析每轮绝对不超过 20 次，优先分配给白名单用户
+10. **JSON 校验：** API 返回必须是 JSON 数组，数量与输入帖子数一致
+11. **类型优先：** WeFlow type=3 必须判定为内容转发，不由 LLM 自由判断
+
+---
+
+## Usage Logging
+
+每次触发后执行以下脚本记录调用情况：
+
+```bash
+node ~/.openclaw/skills/_shared/log-usage.mjs "wechat-moments-analyzer" "<触发原因>" "<结果>"
+```

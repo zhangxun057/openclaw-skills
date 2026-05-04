@@ -1,0 +1,1 @@
+{"tool":"generate_pie_chart","args":{"data":[{"type":"酱香型","share":42},{"type":"浓香型","share":31},{"type":"清香型","share":15},{"type":"凤香型","share":6},{"type":"其他","share":6}],"angleField":"share","colorField":"type","title":"2026年白酒香型市场份额（%）","width":800,"height":500}}

@@ -5,7 +5,7 @@ description: |
   用于：(1) 诊断技能问题，(2) 提出修改方案（不超过 3 条），(3) 精确增删改查，(4) 测试验证。
   不用于：从零创建新技能（用 skill-creator）、技能打包分发、技能故障排查。
   触发场景：用户说"优化 xxx 技能"、"改进 xxx"、"xxx 技能有问题"、"迭代 xxx skill"。
-version: 3.0.0 (沟通规范 + 编写规范 + 变更审计)
+version: 3.2.0 (原则后置 + 审计增强)
 ---
 
 # Skill Polisher - 技能优化专家
@@ -14,13 +14,13 @@ version: 3.0.0 (沟通规范 + 编写规范 + 变更审计)
 
 | 原则 | 检查时机 | 说明 |
 |------|---------|------|
-| **奥卡姆剃刀** | Step 3/5 | 必要最小化，每次修改≤3 处/50 行 |
-| **避免过拟合** | Step 2/6 | 泛化为"[企业名称]"仍成立，不硬编码个例 |
-| **目标一致性** | Step 2 | 服务于技能初始目标，不偏离核心用途 |
+| **奥卡姆剃刀** | Step 4（方案审查） | 必要最小化，每次修改≤3 处/50 行 |
+| **避免过拟合** | Step 4（方案审查） | 泛化为"[企业名称]"仍成立，不硬编码个例 |
+| **目标一致性** | Step 4（方案审查） | 服务于技能初始目标，不偏离核心用途 |
 
 ---
 
-## 6 步迭代流程
+## 7 步迭代流程
 
 ### Step 1: 问题诊断
 
@@ -42,22 +42,7 @@ version: 3.0.0 (沟通规范 + 编写规范 + 变更审计)
 
 ---
 
-### Step 2: 原则检查
-
-**目标：** 用三原则分析问题根因
-
-**动作：** 读取 `references/iteration-principles.md`，对照检查
-
-**检查清单：**
-- [ ] 是否违反奥卡姆剃刀？（过度复杂/冗余）
-- [ ] 是否过拟合个例？（硬编码特定数据）
-- [ ] 是否偏离目标？（添加了非核心功能）
-
-**输出：** 问题分析报告
-
----
-
-### Step 3: 备份（讨论前必须完成）⭐
+### Step 2: 备份（讨论前必须完成）⭐
 
 **目标：** 确保可回滚（在任何修改之前）
 
@@ -66,32 +51,39 @@ version: 3.0.0 (沟通规范 + 编写规范 + 变更审计)
 2. 验证备份文件是否存在
 3. 记录备份文件名
 
-**备份命令（PowerShell）：**
+**备份命令（PowerShell）：只保留最新2份**
 ```powershell
+$skillDir = "<skill-path>"
+$backupPattern = "$skillDir\SKILL.md.backup.*"
+# 重命名旧备份（只留2份）
+Get-ChildItem $backupPattern | Sort-Object LastWriteTime -Descending | Select-Object -Skip 1 | Remove-Item -Force
+# 新建备份
 $backupName = "SKILL.md.backup.$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-Copy-Item "<skill-path>\SKILL.md" "<skill-path>\$backupName"
+Copy-Item "$skillDir\SKILL.md" "$skillDir\$backupName"
 ```
 
-**强制检查清单**（必须逐项打勾，否则禁止进入 Step 4）：
+**强制检查清单**（必须逐项打勾，否则禁止进入 Step 3）：
 - [ ] 备份文件已生成（检查文件是否存在）
 - [ ] 备份文件名已记录（格式：`SKILL.md.backup.YYYYMMDD-HHMMSS`）
 - [ ] 备份文件大小 > 0（非空文件）
 
 **输出：** 备份文件名（如 `SKILL.md.backup.20260405-111716`）
 
-**⚠️ 未备份禁止进入 Step 4（提出方案）！**
+**⚠️ 未备份禁止进入 Step 3（提出方案）！**
 
 ---
 
-### Step 4: 提出修改方案（等待确认）⭐
+### Step 3: 提出修改方案⭐
 
-**目标：** 精确修改方案（≤3 条）
+**目标：** 设计修改方案
 
 **动作：**
 1. 输出完整技能文件提纲，定位修改段落在第几章第几节
-2. 设计修改方案，每条明确：位置 + 原内容 + 新内容
-3. 使用下方规定的呈现格式
-4. **等待用户确认**后再执行
+2. 读取目标段落，判断病因类型：缺（原文没提）、错（原文写反）、泛（原文写了但不够具体）
+3. 设计修改方案，每条明确：位置 + 原文 + 新文
+4. 使用下方规定的呈现格式
+
+**输出：** 修改方案（草案）
 
 ---
 
@@ -113,9 +105,24 @@ Copy-Item "<skill-path>\SKILL.md" "<skill-path>\$backupName"
 
 ---
 
+### Step 4: 原则检查（对方案的约束）⭐
+
+**目标：** 用三原则审查修改方案，确保方案质量
+
+**动作：** 读取 `references/iteration-principles.md`，对照检查修改方案
+
+**检查清单：**
+- [ ] **奥卡姆剃刀**：方案是否必要最小化？是否≤3 处/50 行？有无过度复杂/冗余？
+- [ ] **避免过拟合**：方案是否硬编码特定数据？泛化为"[企业名称]"是否仍成立？
+- [ ] **目标一致性**：方案是否偏离技能初始目标？是否添加了非核心功能？
+
+**输出：** 审查通过的修改方案
+
+---
+
 **确认话术模板**（必须使用）：
 ```
-张总，修改方案共 X 条：
+修改方案共 X 条：
 1. ...
 2. ...
 3. ...
@@ -142,8 +149,8 @@ Copy-Item "<skill-path>\SKILL.md" "<skill-path>\$backupName"
 
 **检查清单**：
 - [ ] 用户已明确回复"确认"或"可以"（Step 4 的确认话术）
-- [ ] 备份文件已生成（文件名：`________`，Step 3 已完成）
-- [ ] 修改方案 ≤3 条（奥卡姆剃刀原则）
+- [ ] 备份文件已生成（文件名：`________`，Step 2 已完成）
+- [ ] 修改方案 ≤3 条（奥卡姆剃刀原则，Step 4 已检查）
 
 **伪代码检查**：
 ```javascript
@@ -227,6 +234,10 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
 - [ ] 这段属于"做什么/怎么做/什么条件下做"之一吗？（不是 → 删除）
 - [ ] 这段面向未来执行还是面向过去讨论？（过去 → 删除）
 
+**5. 禁止事项（强制）**
+
+修改方案中禁止使用括号补充说明、禁止讨论式语气、禁止面向用户汇报。每条修改方案只保留执行指令本身。
+
 ---
 
 **版本规范：**
@@ -238,9 +249,9 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
 
 ---
 
-### Step 6: 变更审计（回头看）⭐ 新增
+### Step 6: 变更审计（回头看）⭐
 
-**目标：** 检查修改是否只在约定范围内，防止越界修改
+**目标：** 检查修改是否只在约定范围内，防止越界修改；同时检查语言方向
 
 **为什么要这一步：** AI 修改技能时容易"顺手"优化未讨论的内容，导致技能面目全非。必须对照备份和修改议题做客观检查。
 
@@ -253,6 +264,7 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
    - 约定的修改是否都执行了？有无遗漏？
    - 是否有约定之外的修改（多改/多删）？
    - 修改后的 Skill 是否符合 SKILL.md 编写规范？
+   - **修改后的 Skill 是否包含面向用户汇报的语言**（如"以下内容改为"、"之前的问题是"、"（备注）"等历史/汇报句式）？如有，列出具体位置。
 3. 输出审计报告
 
 **审计结果处理：**
@@ -262,7 +274,7 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
 **实现方式：**
 ```
 sessions_spawn({
-  task: "你是 Skill 变更审计员。请对比以下三份材料，审计 Skill 修改是否符合约定：\n\n=== 备份原文 ===\n{backup_content}\n\n=== 修改后全文 ===\n{modified_content}\n\n=== 用户确认的修改议题 ===\n{change_proposal}\n\n请逐条回答：\n1. 约定修改是否都执行了？\n2. 是否有约定外的内容被修改？（如有，列出具体位置和原文/新文）\n3. 修改后的 Skill 是否仍保持规范？\n\n输出格式：审计通过/不通过 + 具体问题列表",
+  task: "你是 Skill 变更审计员。请对比以下三份材料，审计 Skill 修改是否符合约定：\n\n=== 备份原文 ===\n{backup_content}\n\n=== 修改后全文 ===\n{modified_content}\n\n=== 用户确认的修改议题 ===\n{change_proposal}\n\n请逐条回答：\n1. 约定修改是否都执行了？\n2. 是否有约定外的内容被修改？（如有，列出具体位置和原文/新文）\n3. 修改后的 Skill 是否仍保持规范？\n4. 是否包含面向用户汇报的语言（历史句、解释句、讨论句、括号备注等）？\n\n输出格式：审计通过/不通过 + 具体问题列表",
   mode: "run",
   cleanup: "delete"
 })
@@ -272,7 +284,7 @@ sessions_spawn({
 
 ---
 
-### Step 7: 测试验证（原 Step 6，重编号）
+### Step 7: 测试验证⭐
 
 **目标：** 验证修改有效性
 
@@ -290,12 +302,12 @@ sessions_spawn({
 | 阶段 | 老流程 | 新流程 | 改进点 |
 |------|-------|-------|--------|
 | 诊断 | Step 1 | Step 1 | - |
-| 原则检查 | Step 2 | Step 2 | - |
-| **备份** | Step 4（讨论后） | **Step 3（讨论前）** | ⭐ 提前到讨论前 |
-| 提出方案 | Step 3 | Step 4 | 增加沟通格式规范 |
-| 修改 | Step 5 | Step 5 | ⭐ 增加 SKILL.md 编写规范 |
-| **变更审计** | 无 | **Step 6（新增）** | ⭐ 隔离会话回头看 |
-| 测试 | Step 6 | Step 7 | 重编号 |
+| **备份** | Step 4（讨论后） | **Step 2（讨论前）** | ⭐ 提前到讨论前 |
+| 提出方案 | Step 3 | Step 3 | - |
+| **原则检查** | Step 2（最前面） | **Step 4（方案后）** | ⭐ 放到方案之后，审查方案质量 |
+| 执行修改 | Step 5 | Step 5 | - |
+| 变更审计 | Step 6 | Step 6 | ⭐ 增强语言方向检查 |
+| 测试 | Step 7 | Step 7 | - |
 
 ---
 
@@ -303,11 +315,11 @@ sessions_spawn({
 
 | 资源 | 用途 | 何时使用 |
 |------|------|---------|
-| `scripts/backup_skill.py` | 自动备份 SKILL.md | Step 3（备份） |
+| `scripts/backup_skill.py` | 自动备份 SKILL.md | Step 2（备份） |
 | `scripts/test_skill.py` | 运行技能测试 | Step 7（测试验证） |
-| `references/iteration-principles.md` | 迭代原则详解 | Step 2（原则检查） |
+| `references/iteration-principles.md` | 迭代原则详解 | Step 4（原则检查） |
 | `references/test-case-patterns.md` | 测试案例类型库 | Step 7（测试验证） |
-| `references/diff-format-guide.md` | 修改对照格式指南 | Step 4（提出方案） |
+| `references/diff-format-guide.md` | 修改对照格式指南 | Step 3（提出方案） |
 
 ---
 
@@ -322,28 +334,10 @@ sessions_spawn({
 
 ---
 
-## Usage Logging (Auto-injected)
+## Usage Logging
 
-Every time this skill is triggered, append a usage record to `~/.openclaw/skill-logs/skill-polisher/log.md`.
-
-**Log format:**
-
-```markdown
-## [YYYY-MM-DD HH:mm:ss]
-- **User Request**: <what user asked>
-- **Action**: diagnose | propose | modify | test
-- **Target Skill**: <skill name>
-- **Result**: <outcome>
-```
-
-**Implementation:**
+每次触发后执行以下脚本记录调用情况：
 
 ```bash
-mkdir -p ~/.openclaw/skill-logs/skill-polisher
-echo "## [$(date '+%Y-%m-%d %H:%M:%S')]" >> ~/.openclaw/skill-logs/skill-polisher/log.md
-echo "- **User Request**: <user's request>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
-echo "- **Action**: <action>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
-echo "- **Target Skill**: <skill name>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
-echo "- **Result**: <result>" >> ~/.openclaw/skill-logs/skill-polisher/log.md
-echo "" >> ~/.openclaw/skill-logs/skill-polisher/log.md
+node ~/.openclaw/skills/_shared/log-usage.mjs "skill-polisher" "<触发原因>" "<结果>"
 ```

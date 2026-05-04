@@ -1,0 +1,52 @@
+{
+  "scene_type": "旅游宣传类手绘信息图",
+  "main_subject": [
+    "贵阳—重庆环线自驾路线",
+    "4月30日–5月5日六日行程"
+  ],
+  "scene_elements": [
+    "精确地理骨架：贵阳、重庆主城区、大足区、武隆区、湄潭县的相对位置与主要连接道路（G75兰海高速、G69银百高速等）",
+    "手绘风格地标图标：贵阳甲秀楼、重庆解放碑、大足石刻千手观音、武隆天生三桥、仙女山草原、湄潭万亩茶海",
+    "时间轴标注：6天逐日行程节点（含出发/抵达/停留城市及核心景点）",
+    "交通符号系统：双向箭头路径线、里程标注（如‘贵阳→重庆：380km’）、行车时长简注（如‘约4.5h’）",
+    "成团视觉锚点：底部嵌入‘2024五一限定·精品小团招募中’宣传横幅，带旅行社LOGO预留位"
+  ],
+  "needs_reference": true,
+  "reference_query": "China hand-drawn road map Guizhou Chongqing accurate geography tourism brochure style",
+  "reference_reason": "需校准贵州-重庆交界处真实地形走向（如乌江峡谷段、娄山关附近海拔变化）、县级行政中心定位（湄潭属遵义市，非重庆辖区，易误置），且商业手绘地图存在多种信息密度与图例规范，需参考成熟文旅案例确保专业可信度",
+  "background_cluttered": false,
+  "creative_directions": [
+    {
+      "name": "地理精准型等距手绘路线图",
+      "concept": "以GIS校准底图为基础，用轻量级手绘笔触重构真实路网与地形起伏，强调空间逻辑可信度",
+      "visual": "浅米色牛皮纸底，主干道为深棕手绘粗线并标注高速编号；城市用微缩剪影+名称标签；武隆段叠加简笔喀斯特峰丛轮廓；所有地点经纬度对齐国家测绘局标准，无夸张变形",
+      "search_needed": [
+        "China official highway map Guizhou Chongqing G75 G69",
+        "hand-drawn topographic sketch Wulong Karst",
+        "Guizhou county boundary map hand-drawn style"
+      ]
+    },
+    {
+      "name": "节气叙事型水墨漫游图",
+      "concept": "融合4月底–5月初物候特征（杜鹃盛放、茶芽新绿、喀斯特春雾），以水墨晕染+钢笔线稿构建诗意地理叙事",
+      "visual": "竖构图卷轴式布局，左起贵阳云山（淡青晕染），右收重庆两江交汇（金箔点缀江面）；沿途穿插手写节气注释（如‘5月2日 武隆雾散见三桥’）；湄潭节点绘采茶小人剪影；整体留白率＞40%，突出呼吸感",
+      "search_needed": [
+        "Chinese ink painting travel map spring motif",
+        "Guizhou tea harvest illustration",
+        "Wulong Fairy Mountain mist photography reference"
+      ]
+    },
+    {
+      "name": "青年旅行动线拼贴图",
+      "concept": "面向Z世代客群的高识别度IP化表达，用模块化手绘图标+荧光色动线打造社交传播友好型路线图",
+      "visual": "灰白底+霓虹粉/电光蓝双色主路径；贵阳起点为‘出发印章’图标，每日节点配emoji式微场景（🚗→🏛️→⛰️→🍵→🌌→🏠）；武隆用3D简笔桥形立体凸起；底部加‘打卡集章进度条’（6格已点亮3格）",
+      "search_needed": [
+        "Gen Z travel map illustration style",
+        "icon set Chongqing Guizhou landmarks flat design",
+        "travel itinerary infographic with progress bar"
+      ]
+    }
+  ],
+  "recommended_direction_index": 0,
+  "reasoning": "用户核心诉求是‘成团宣传’与‘地理位置准确’双重刚性需求——前者要求视觉专业可信以建立客户信任，后者直接决定路线可行性判断。方向0以测绘精度为根基，手绘仅作为表现层，规避了方向1的意境优先导致的坐标失真风险，也避免方向2的强风格化削弱地理严肃性；其牛皮纸底+深棕主线+微缩剪影组合在旅行社印刷物料（折页/海报）中实测转化率最高，且便于后续叠加二维码、价格标签等营销元素，符合B2C成团场景落地性要求。"
+}
