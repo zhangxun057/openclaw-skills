@@ -5,7 +5,7 @@ description: |
   用于：(1) 诊断技能问题，(2) 提出修改方案（不超过 3 条），(3) 精确增删改查，(4) 测试验证。
   不用于：从零创建新技能（用 skill-creator）、技能打包分发、技能故障排查。
   触发场景：用户说"优化 xxx 技能"、"改进 xxx"、"xxx 技能有问题"、"迭代 xxx skill"。
-version: 3.2.0 (原则后置 + 审计增强)
+version: 3.4.0 (原则规范化)
 ---
 
 # Skill Polisher - 技能优化专家
@@ -15,7 +15,7 @@ version: 3.2.0 (原则后置 + 审计增强)
 | 原则 | 检查时机 | 说明 |
 |------|---------|------|
 | **奥卡姆剃刀** | Step 4（方案审查） | 必要最小化，每次修改≤3 处/50 行 |
-| **避免过拟合** | Step 4（方案审查） | 泛化为"[企业名称]"仍成立，不硬编码个例 |
+| **避免过拟合** | Step 4（方案审查） | 先找抽象病因和可删除结构，不用特例清单补洞 |
 | **目标一致性** | Step 4（方案审查） | 服务于技能初始目标，不偏离核心用途 |
 
 ---
@@ -33,11 +33,11 @@ version: 3.2.0 (原则后置 + 审计增强)
 
 **输出：** 问题描述 + 发生场景
 
-**示例：**
+**输出示例：**
 ```
-问题：customer-research 搜索到多个同名公司时没有确认话术
-场景：搜索"清格科技"返回北京/上海/深圳 3 家公司
-类型：共性缺陷（缺少多公司确认机制）
+问题：同类输入在多种场景下触发错误输出
+场景：字段职责与已有字段重叠，导致信息被重复或误分流
+类型：结构缺陷（字段边界不清）
 ```
 
 ---
@@ -47,27 +47,33 @@ version: 3.2.0 (原则后置 + 审计增强)
 **目标：** 确保可回滚（在任何修改之前）
 
 **动作：**
-1. 手动备份 SKILL.md 文件（如无自动脚本）
-2. 验证备份文件是否存在
-3. 记录备份文件名
+1. 将整个技能文件夹打包为 ZIP，备份文件放在技能文件夹内
+2. 验证 ZIP 文件是否存在且非空
+3. 记录 ZIP 备份文件名
 
-**备份命令（PowerShell）：只保留最新2份**
+**备份命令（PowerShell）：打包整个技能文件夹**
 ```powershell
 $skillDir = "<skill-path>"
-$backupPattern = "$skillDir\SKILL.md.backup.*"
-# 重命名旧备份（只留2份）
-Get-ChildItem $backupPattern | Sort-Object LastWriteTime -Descending | Select-Object -Skip 1 | Remove-Item -Force
-# 新建备份
-$backupName = "SKILL.md.backup.$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-Copy-Item "$skillDir\SKILL.md" "$skillDir\$backupName"
+$ts = Get-Date -Format "yyyyMMdd-HHmmss"
+$backupName = "SKILL_BACKUP_$ts.zip"
+$tempRoot = Join-Path $env:TEMP "skill-backup-$ts"
+$stage = Join-Path $tempRoot (Split-Path $skillDir -Leaf)
+
+New-Item -ItemType Directory -Force -Path $stage | Out-Null
+Get-ChildItem -LiteralPath $skillDir -Force |
+  Where-Object { $_.Name -notlike "SKILL_BACKUP_*.zip" -and $_.Name -notlike "SKILL.md.backup.*" } |
+  ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $stage -Recurse -Force }
+
+Compress-Archive -LiteralPath $stage -DestinationPath (Join-Path $skillDir $backupName) -Force
+Remove-Item -LiteralPath $tempRoot -Recurse -Force
 ```
 
 **强制检查清单**（必须逐项打勾，否则禁止进入 Step 3）：
-- [ ] 备份文件已生成（检查文件是否存在）
-- [ ] 备份文件名已记录（格式：`SKILL.md.backup.YYYYMMDD-HHMMSS`）
-- [ ] 备份文件大小 > 0（非空文件）
+- [ ] ZIP 备份文件已生成（检查文件是否存在）
+- [ ] ZIP 备份文件名已记录（格式：`SKILL_BACKUP_YYYYMMDD-HHMMSS.zip`）
+- [ ] ZIP 备份文件大小 > 0（非空文件）
 
-**输出：** 备份文件名（如 `SKILL.md.backup.20260405-111716`）
+**输出：** ZIP 备份文件名（如 `SKILL_BACKUP_20260405-111716.zip`）
 
 **⚠️ 未备份禁止进入 Step 3（提出方案）！**
 
@@ -80,8 +86,9 @@ Copy-Item "$skillDir\SKILL.md" "$skillDir\$backupName"
 **动作：**
 1. 输出完整技能文件提纲，定位修改段落在第几章第几节
 2. 读取目标段落，判断病因类型：缺（原文没提）、错（原文写反）、泛（原文写了但不够具体）
-3. 设计修改方案，每条明确：位置 + 原文 + 新文
-4. 使用下方规定的呈现格式
+3. 先判断是否能通过删除字段、合并规则、收窄职责解决；能删不增，能合并不新增
+4. 设计修改方案，每条明确：位置 + 原文 + 新文
+5. 使用下方规定的呈现格式
 
 **输出：** 修改方案（草案）
 
@@ -113,6 +120,7 @@ Copy-Item "$skillDir\SKILL.md" "$skillDir\$backupName"
 
 **检查清单：**
 - [ ] **奥卡姆剃刀**：方案是否必要最小化？是否≤3 处/50 行？有无过度复杂/冗余？
+- [ ] **避免过拟合**：方案是否从抽象病因出发？是否优先删除、合并、收窄，而不是追加特例排除清单？
 - [ ] **避免过拟合**：方案是否硬编码特定数据？泛化为"[企业名称]"是否仍成立？
 - [ ] **目标一致性**：方案是否偏离技能初始目标？是否添加了非核心功能？
 
@@ -149,7 +157,7 @@ Copy-Item "$skillDir\SKILL.md" "$skillDir\$backupName"
 
 **检查清单**：
 - [ ] 用户已明确回复"确认"或"可以"（Step 4 的确认话术）
-- [ ] 备份文件已生成（文件名：`________`，Step 2 已完成）
+- [ ] ZIP 备份文件已生成（文件名：`________`，Step 2 已完成）
 - [ ] 修改方案 ≤3 条（奥卡姆剃刀原则，Step 4 已检查）
 
 **伪代码检查**：
@@ -157,8 +165,8 @@ Copy-Item "$skillDir\SKILL.md" "$skillDir\$backupName"
 if (!userConfirmed) {
     throw Error("❌ 用户未确认，禁止执行修改");
 }
-if (!backupFileExists) {
-    throw Error("❌ 备份文件不存在，禁止执行修改");
+if (!backupZipExists) {
+    throw Error("❌ ZIP 备份文件不存在，禁止执行修改");
 }
 ```
 
@@ -187,7 +195,7 @@ if (!backupFileExists) {
 禁止使用：
 - ❌ 讨论句：`建议...`、`这样改的好处是...`、`因为...所以...`
 - ❌ 解释句：`这段话的目的是...`、`我们这样设计是因为...`
-- ❌ 历史句：`之前的问题是...`、`修改前...`
+- ❌ 历史句：复述已发生的修改、用户反馈或旧版本状态
 
 ---
 
@@ -238,6 +246,8 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
 
 修改方案中禁止使用括号补充说明、禁止讨论式语气、禁止面向用户汇报。每条修改方案只保留执行指令本身。
 
+删除或替换无效结构时，直接删除或替换。禁止写入“已删除 X”“不存储 X”“不再使用 X”“为解决用户反馈 X”等只解释本次改动、未来执行无意义的句子。
+
 ---
 
 **版本规范：**
@@ -253,8 +263,6 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
 
 **目标：** 检查修改是否只在约定范围内，防止越界修改；同时检查语言方向
 
-**为什么要这一步：** AI 修改技能时容易"顺手"优化未讨论的内容，导致技能面目全非。必须对照备份和修改议题做客观检查。
-
 **动作：**
 1. 创建一个隔离子会话（subagent），发送以下三样内容：
    - **A. 备份原文**（修改前的 Skill 全文）
@@ -264,7 +272,7 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
    - 约定的修改是否都执行了？有无遗漏？
    - 是否有约定之外的修改（多改/多删）？
    - 修改后的 Skill 是否符合 SKILL.md 编写规范？
-   - **修改后的 Skill 是否包含面向用户汇报的语言**（如"以下内容改为"、"之前的问题是"、"（备注）"等历史/汇报句式）？如有，列出具体位置。
+   - 修改后的 Skill 是否只包含未来执行规则，且不包含变更说明、历史解释、用户反馈复述或设计意图辩解？
 3. 输出审计报告
 
 **审计结果处理：**
@@ -274,7 +282,7 @@ $summaries = Get-ChildItem "chat-logs/summaries/*_${date}_*.md"
 **实现方式：**
 ```
 sessions_spawn({
-  task: "你是 Skill 变更审计员。请对比以下三份材料，审计 Skill 修改是否符合约定：\n\n=== 备份原文 ===\n{backup_content}\n\n=== 修改后全文 ===\n{modified_content}\n\n=== 用户确认的修改议题 ===\n{change_proposal}\n\n请逐条回答：\n1. 约定修改是否都执行了？\n2. 是否有约定外的内容被修改？（如有，列出具体位置和原文/新文）\n3. 修改后的 Skill 是否仍保持规范？\n4. 是否包含面向用户汇报的语言（历史句、解释句、讨论句、括号备注等）？\n\n输出格式：审计通过/不通过 + 具体问题列表",
+  task: "你是 Skill 变更审计员。请对比以下三份材料，审计 Skill 修改是否符合约定：\n\n=== 备份原文 ===\n{backup_content}\n\n=== 修改后全文 ===\n{modified_content}\n\n=== 用户确认的修改议题 ===\n{change_proposal}\n\n请逐条回答：\n1. 约定修改是否都执行了？\n2. 是否有约定外的内容被修改？（如有，列出具体位置和原文/新文）\n3. 修改后的 Skill 是否仍保持规范？\n4. 是否只包含未来执行规则，且不包含变更说明、历史解释、用户反馈复述或设计意图辩解？\n\n输出格式：审计通过/不通过 + 具体问题列表",
   mode: "run",
   cleanup: "delete"
 })
@@ -297,25 +305,11 @@ sessions_spawn({
 
 ---
 
-## 流程对比（修改前后）
-
-| 阶段 | 老流程 | 新流程 | 改进点 |
-|------|-------|-------|--------|
-| 诊断 | Step 1 | Step 1 | - |
-| **备份** | Step 4（讨论后） | **Step 2（讨论前）** | ⭐ 提前到讨论前 |
-| 提出方案 | Step 3 | Step 3 | - |
-| **原则检查** | Step 2（最前面） | **Step 4（方案后）** | ⭐ 放到方案之后，审查方案质量 |
-| 执行修改 | Step 5 | Step 5 | - |
-| 变更审计 | Step 6 | Step 6 | ⭐ 增强语言方向检查 |
-| 测试 | Step 7 | Step 7 | - |
-
----
-
 ## Bundled Resources
 
 | 资源 | 用途 | 何时使用 |
 |------|------|---------|
-| `scripts/backup_skill.py` | 自动备份 SKILL.md | Step 2（备份） |
+| `scripts/backup_skill.py` | 自动备份整个技能文件夹 | Step 2（备份） |
 | `scripts/test_skill.py` | 运行技能测试 | Step 7（测试验证） |
 | `references/iteration-principles.md` | 迭代原则详解 | Step 4（原则检查） |
 | `references/test-case-patterns.md` | 测试案例类型库 | Step 7（测试验证） |

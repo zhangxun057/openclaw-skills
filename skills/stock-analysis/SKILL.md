@@ -1,14 +1,7 @@
 ---
 name: stock-analysis
 description: 股票个股分析，支持多数据源自动切换，实时获取价格涨跌幅，计算技术指标和支撑位，识别缺口并判断支撑压力，智能预测未来3天走势并给出操作建议
-dependency:
-  python:
-    - requests>=2.28.0
-    - numpy>=1.24.0
-    - pandas>=2.0.0
-    # openclaw>=0.1.0  # 可选依赖，未安装时可使用备用数据源
-  system:
-    # pip install openclaw-china-market-gateway  # 可选安装
+---
 
 # 股票个股分析
 
